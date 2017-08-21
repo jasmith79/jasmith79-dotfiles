@@ -12,8 +12,8 @@ sudo apt-get install fish -y
 sudo apt-get install python3-pip -y
 sudo pip3 install --upgrade pip
 sudo pip3 install setuptools
-sudo add-apt-repository ppa:enlightenment-git/ppa
-sudo add-apt-repository ppa:neovim-ppa/stable
+sudo add-apt-repository ppa:enlightenment-git/ppa -y
+sudo add-apt-repository ppa:neovim-ppa/stable -y
 sudo apt-get update
 curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 sudo apt-get install nodejs -y
