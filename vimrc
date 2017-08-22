@@ -16,8 +16,6 @@ if has('mouse')
 endif
 
 syntax on
-colorscheme solarized
-set background=dark
 
 " tabs are icky, set to 2 spaces
 set tabstop=2
@@ -40,6 +38,7 @@ Plug 'mhinz/vim-grepper'
 Plug 'Shougo/vimfiler.vim', { 'on': 'VimFiler' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'w0rp/ale'
+Plug 'lifepillar/vim-solarized8'
 call plug#end()
 
 " vim-airline
@@ -65,3 +64,7 @@ map ~ :VimFilerCurrentDir -explorer -find<CR>
 " autocomplete
 let g:deoplete#enable_at_startup = 1
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+colorscheme solarized8_dark_flat
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
