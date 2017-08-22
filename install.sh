@@ -59,8 +59,8 @@ mv -t ~/.old_configs ~/.vimrc ~/.bashrc ~/.tmux ~/.tmux.conf ~/.config/nvim
 
 echo "done. Symlinking new configs..."
 mkdir -p ~/.config ~/.config/nvim
-ln -s ./vimrc ~/.config/nvim/init.vim
-ln -s ./tmux.conf ~/.tmux.conf
-ln -s ./bashrc ~/.bashrc
+ln -s ~/jasmith79-dotfiles/vimrc ~/.config/nvim/init.vim
+ln -s ~/jasmith79-dotfiles/tmux.conf ~/.tmux.conf
+ln -s ~/jasmith79-dotfiles/bashrc ~/.bashrc
 
 echo "done. Exiting."
