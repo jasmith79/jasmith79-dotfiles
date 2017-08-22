@@ -28,10 +28,6 @@ git config --global push.default simple
 echo "done. Installing terminology..."
 sudo apt-get install terminology -y
 
-# install tmux
-echo "done. Installing tmux and tpm plugin manager..."
-sudo apt-get install tmux -y
-
 # Install fira code font
 echo "done. Installing FiraCode font..."
 cd ~
@@ -55,12 +51,11 @@ sudo pip3 install neovim
 # Stash existing configs
 echo "done. Moving old configs to ~/.old_configs..."
 mkdir -p ~/.old_configs
-mv -t ~/.old_configs ~/.vimrc ~/.bashrc ~/.tmux ~/.tmux.conf ~/.config/nvim
+mv -t ~/.old_configs ~/.vimrc ~/.bashrc ~/.config/nvim
 
 echo "done. Symlinking new configs..."
 mkdir -p ~/.config ~/.config/nvim
 ln -s ~/jasmith79-dotfiles/vimrc ~/.config/nvim/init.vim
-ln -s ~/jasmith79-dotfiles/tmux.conf ~/.tmux.conf
 ln -s ~/jasmith79-dotfiles/bashrc ~/.bashrc
 
 echo "done. Exiting."
