@@ -55,7 +55,7 @@ sudo pip3 install neovim
 # Stash existing configs
 echo "done. Moving old configs to ~/.old_configs..."
 mkdir -p ~/.old_configs
-mv -t -r ~/.old_configs ~/.vimrc ~/.bashrc ~/.tmux ~/.tmux.conf ~/.config/nvim
+mv -t ~/.old_configs ~/.vimrc ~/.bashrc ~/.tmux ~/.tmux.conf ~/.config/nvim
 
 echo "done. Symlinking new configs..."
 mkdir -p ~/.config ~/.config/nvim
