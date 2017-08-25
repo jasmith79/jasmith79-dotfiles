@@ -125,5 +125,4 @@ if [ -x /usr/bin/mint-fortune ]; then
 fi
 
 export PATH="$HOME/.local/bin:/opt/android-studio/bin:$PATH"
-tyalpha 70
 fish

@@ -3,12 +3,26 @@
 " we'll add a plugin instead of the standard modeline
 set nomodeline
 set encoding=utf8
+filetype plugin indent on
 
 " be sure to use vim instead of vi settings
 set nocompatible
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
+
+" highlights matching [({
+set showmatch
+
+" autoreload when something else changes the file
+set autoread
+
+" make the search ignore case unless caps are present
+set ignorecase
+set smartcase
+
+" don't redraw during macros
+set lazyredraw
 
 " mice and men
 if has('mouse')
@@ -26,6 +40,9 @@ set expandtab
 " mind in the gutter
 set number
 
+set cmdheight=2
+
+inoremap fp <ESC>
 let mapleader="\<SPACE>"
 
 call plug#begin('~/.local/share/nvim/plugged')
@@ -64,6 +81,8 @@ map ~ :VimFilerCurrentDir -explorer -find<CR>
 " autocomplete
 let g:deoplete#enable_at_startup = 1
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+
+" color theme
 colorscheme solarized8_dark_flat
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"

@@ -17,6 +17,8 @@ sudo add-apt-repository ppa:neovim-ppa/stable -y
 sudo apt-get update
 curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 sudo apt-get install nodejs -y
+sudo npm install -g webpack
+sudo npm install -g webpack-dev-server
 
 # configure git
 echo "done. Configuring git..."
@@ -25,10 +27,12 @@ git config --global user.email jasmith79@gmail.com
 git config --global push.default simple
 
 # Install terminology terminal emulator. "Official ubuntu repo is *very* outdated
+# Once installed set the theme to solarized in preferences.
 echo "done. Installing terminology..."
 sudo apt-get install terminology -y
 
 # Install fira code font
+# Once installed will need to set in preferences in terminology. 
 echo "done. Installing FiraCode font..."
 cd ~
 mkdir Fonts
@@ -51,11 +55,13 @@ sudo pip3 install neovim
 # Stash existing configs
 echo "done. Moving old configs to ~/.old_configs..."
 mkdir -p ~/.old_configs
-mv -t ~/.old_configs ~/.vimrc ~/.bashrc ~/.config/nvim
+mv -t ~/.old_configs ~/.vimrc ~/.bashrc ~/.config/nvim ~/.config/fish/config.fish
 
 echo "done. Symlinking new configs..."
 mkdir -p ~/.config ~/.config/nvim
 ln -s ~/jasmith79-dotfiles/vimrc ~/.config/nvim/init.vim
 ln -s ~/jasmith79-dotfiles/bashrc ~/.bashrc
+ln -s ~/jasmith79-dotfiles/config.fish ~/.config/fish/config.fish
+ln -s ~/jasmith79-dotfiles/vimrc ~/.vimrc
 
 echo "done. Exiting."
