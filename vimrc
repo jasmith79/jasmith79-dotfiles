@@ -75,7 +75,7 @@ nnoremap <Leader>fb :Grepper<Space>-buffers<Space>-query<Space>-<Space>
 " file tree
 " space backtick to toggle ftree
 " space ~ to open from current buffer's dir
-map ` :VimFiler -explorer<CR>
+map ` :VimFiler -buffer-name=explorer -simple -wenwidth=35 -toggle -no-quit :VimFilerExplorer<CR>
 map ~ :VimFilerCurrentDir -explorer -find<CR>
 
 " autocomplete
@@ -87,3 +87,4 @@ colorscheme solarized8_dark_flat
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
+hi Normal guibg=NONE ctermbg=NONE
