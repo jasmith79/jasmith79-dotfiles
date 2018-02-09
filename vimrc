@@ -31,6 +31,9 @@ endif
 
 syntax on
 
+" ensures that editing a new buffer doesn't close the current one
+set hidden
+
 " tabs are icky, set to 2 spaces
 set tabstop=2
 set softtabstop=2
