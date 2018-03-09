@@ -31,6 +31,13 @@ endif
 
 syntax on
 
+" use system clipboard. On windows should be unnamed instead of unnamedplus
+set clipboard=unnamedplus
+
+" change the default splitting behavior to something more sensible
+set splitbelow
+set splitright
+
 " ensures that editing a new buffer doesn't close the current one
 set hidden
 
