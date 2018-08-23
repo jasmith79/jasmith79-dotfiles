@@ -50,6 +50,7 @@ else
 	sudo mkdir /usr/share/fonts/truetype/FiraCode
 	sudo cp -r ./FiraCode/distr/ttf/*.ttf  /usr/share/fonts/truetype/FiraCode
 	sudo cp -r source-code-pro /usr/share/fonts/opentype
+	sudo ln -s /usr/share/fonts/truetype/NotoMono-Regular.ttf /usr/share/terminology/fonts/
 	sudo fc-cache -f -v
 fi
 cd ~

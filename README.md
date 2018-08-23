@@ -3,4 +3,5 @@ My dotfiles repo. Has files for neovim, bash, etc. Clone to the user directory a
 
 * Once the script runs open tmux and hit Ctrl b I to install tmux plugins
 * Open neovim and type :PlugInstall to install the vim plugins
+* If on linux change the terminal launcher to use terminology: terminology --font='NotoMono-Regular'
 * RTFO 🤘
