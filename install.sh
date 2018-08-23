@@ -31,15 +31,28 @@ git config --global push.default simple
 echo "done. Installing terminology..."
 sudo apt-get install terminology -y
 
-# Install fira code font
-# Once installed will need to set in preferences in terminology. 
-echo "done. Installing FiraCode font..."
+# Install fonts
+# Once installed will need to set in preferences in terminology.
+echo "done. Installing fonts..."
 cd ~
 mkdir Fonts
 cd Fonts
 git clone https://github.com/tonsky/FiraCode.git
-mkdir ~/.local/share/fonts
-sudo cp -r ./FiraCode/distr/ttf/*.ttf  ~/.local/share/fonts
+sudo git clone --depth 1 --branch release https://github.com/adobe-fonts/source-code-pro.git
+if [ -d "/Library/Fonts" ]; then
+	# Only need this for OS X, pre-installed on ubuntu/mint
+	curl https://noto-website-2.storage.googleapis.com/pkgs/NotoMono-hinted.zip > NotoMono.zip
+	unzip NotoMono.zip
+	sudo cp NotoMono-Regular.ttf /Library/Fonts
+	sudo cp -r ./FiraCode/distr/ttf/*.ttf /Library/Fonts
+	sudo cp -r source-code-pro /Library/Fonts
+else
+	sudo mkdir /usr/share/fonts/truetype/FiraCode
+	sudo cp -r ./FiraCode/distr/ttf/*.ttf  /usr/share/fonts/truetype/FiraCode
+	sudo cp -r source-code-pro /usr/share/fonts/opentype
+	sudo fc-cache -f -v
+fi
+cd ~
 
 # Install neovim
 # NOTE: added to universe repo with 17.04, next LTS shouldn't need the ppa
