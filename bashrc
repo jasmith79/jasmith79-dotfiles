@@ -124,5 +124,13 @@ if [ -x /usr/bin/mint-fortune ]; then
      /usr/bin/mint-fortune
 fi
 
+# Set vi keybinding for default shell
+set -o vi
+
+# Add android studio to the PATH
 export PATH="$HOME/.local/bin:/opt/android-studio/bin:$PATH"
-fish
+
+# Do you have any fish shell? Go fish!
+if command -v fish >/dev/null 2>&1; then
+  fish
+fi
