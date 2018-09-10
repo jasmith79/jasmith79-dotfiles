@@ -59,12 +59,20 @@ let mapleader="\<SPACE>"
 nnoremap j h
 nnoremap h k
 nnoremap k j
+vnoremap j h
+vnoremap h k
+vnoremap k j
 
 " Arrows to no-op
-noremap <Left> <Nop>
-noremap <Up> <Nop>
-noremap <Down> <Nop>
-noremap <Right> <Nop>
+nnoremap <Left> <Nop>
+nnoremap <Up> <Nop>
+nnoremap <Down> <Nop>
+nnoremap <Right> <Nop>
+
+vnoremap <Left> <Nop>
+vnoremap <Up> <Nop>
+vnoremap <Down> <Nop>
+vnoremap <Right> <Nop>
 
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'Shougo/unite.vim'
