@@ -55,6 +55,17 @@ set cmdheight=2
 inoremap fp <ESC>
 let mapleader="\<SPACE>"
 
+" Remap cursor movement for colemak, l is fine as is.
+nnoremap j h
+nnoremap h k
+nnoremap k j
+
+" Arrows to no-op
+noremap <Left> <Nop>
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Right> <Nop>
+
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'Shougo/unite.vim'
 Plug 'airblade/vim-gitgutter'
