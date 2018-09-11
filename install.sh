@@ -87,15 +87,40 @@ git config --global user.name jsmith
 git config --global user.email jasmith79@gmail.com
 git config --global push.default simple
 
+<<<<<<< HEAD
 # Install fira code font
 # Once installed will need to set in preferences in terminology.
 echo "done. Installing FiraCode font..."
+=======
+# Install terminology terminal emulator. "Official ubuntu repo is *very* outdated
+# Once installed set the theme to solarized in preferences.
+echo "done. Installing terminology..."
+sudo apt-get install terminology -y
+
+# Install fonts
+# Once installed will need to set in preferences in terminology.
+echo "done. Installing fonts..."
+>>>>>>> 5bae2454c7a4da21fab7578176ac4e3bdb94b91b
 cd ~
 mkdir Fonts
 cd Fonts
 git clone https://github.com/tonsky/FiraCode.git
-mkdir ~/.local/share/fonts
-sudo cp -r ./FiraCode/distr/ttf/*.ttf  ~/.local/share/fonts
+sudo git clone --depth 1 --branch release https://github.com/adobe-fonts/source-code-pro.git
+if [ -d "/Library/Fonts" ]; then
+	# Only need this for OS X, pre-installed on ubuntu/mint
+	curl https://noto-website-2.storage.googleapis.com/pkgs/NotoMono-hinted.zip > NotoMono.zip
+	unzip NotoMono.zip
+	sudo cp NotoMono-Regular.ttf /Library/Fonts
+	sudo cp -r ./FiraCode/distr/ttf/*.ttf /Library/Fonts
+	sudo cp -r source-code-pro /Library/Fonts
+else
+	sudo mkdir /usr/share/fonts/truetype/FiraCode
+	sudo cp -r ./FiraCode/distr/ttf/*.ttf  /usr/share/fonts/truetype/FiraCode
+	sudo cp -r source-code-pro /usr/share/fonts/opentype
+	sudo ln -s /usr/share/fonts/truetype/NotoMono-Regular.ttf /usr/share/terminology/fonts/
+	sudo fc-cache -f -v
+fi
+cd ~
 
 echo "done. Installing vim-plug..."
 # install vim-plug for neovim and update neovim to use it

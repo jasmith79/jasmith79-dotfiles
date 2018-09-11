@@ -31,6 +31,13 @@ endif
 
 syntax on
 
+" use system clipboard. On windows should be unnamed instead of unnamedplus
+set clipboard=unnamedplus
+
+" change the default splitting behavior to something more sensible
+set splitbelow
+set splitright
+
 " ensures that editing a new buffer doesn't close the current one
 set hidden
 
@@ -47,6 +54,25 @@ set cmdheight=2
 
 inoremap fp <ESC>
 let mapleader="\<SPACE>"
+
+" Remap cursor movement for colemak, l is fine as is.
+nnoremap j h
+nnoremap h k
+nnoremap k j
+vnoremap j h
+vnoremap h k
+vnoremap k j
+
+" Arrows to no-op
+nnoremap <Left> <Nop>
+nnoremap <Up> <Nop>
+nnoremap <Down> <Nop>
+nnoremap <Right> <Nop>
+
+vnoremap <Left> <Nop>
+vnoremap <Up> <Nop>
+vnoremap <Down> <Nop>
+vnoremap <Right> <Nop>
 
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'Shougo/unite.vim'
