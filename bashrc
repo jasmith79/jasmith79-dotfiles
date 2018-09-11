@@ -127,4 +127,9 @@ fi
 # To re-enable emscripten sdk, uncomment the following line and comment out the one after. You should probably look at re-installing at that point.
 #export PATH="$HOME/.local/bin:/opt/android-studio/bin:/usr/local/bin:$PATH"
 export PATH=":/opt/android-studio/bin:/usr/local/bin:$PATH"
+
+#pyenv
+export PATH="/Users/jared/.pyenv:$PATH"
+eval "$(pyenv init -)"
+
 fish
