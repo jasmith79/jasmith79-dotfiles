@@ -134,6 +134,23 @@ then
   sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list'
   sudo apt-get update
   sudo apt install atom -y
+
+  # Extras
+  if ! [ -d /opt/programs/ranger ]; then
+    su - $user -c "git clone https://github.com/ranger/ranger.git /opt/programs/ranger"
+  fi
+
+  if [ command -v ranger >/dev/null 2>&1 ]; then
+    cd /opt/programs/ranger
+    sudo make install
+    su - $user -c "ranger --copy-config=all"
+    rm ~/.config/ranger/rc.conf
+    su - $user -c "ln -s $wd/rc.conf ~/.config/ranger/rc.conf"
+  fi
+
+  sudo apt install cmus -y
+  sudo apt install dropbox -y
+
 else
   echo "Unknown Platform:"
   echo $(uname)
@@ -160,26 +177,16 @@ su - "$user" -c "python3 -m pip install --user setuptools"
 mkdir -p /opt/programs
 chown -R $user /opt/programs
 
-if ! [ -d /opt/programs/ranger ]; then
-  su - $user -c "git clone https://github.com/ranger/ranger.git /opt/programs/ranger"
-fi
-
-if [ command -v ranger >/dev/null 2>&1 ]; then
-  cd /opt/programs/ranger
-  sudo make install
-  su - $user -c "ranger --copy-config=all"
-  rm ~/.config/ranger/rc.conf
-  su - $user -c "ln -s $wd/rc.conf ~/.config/ranger/rc.conf"
-fi
-
-sudo apt install cmus -y
-sudo apt install dropbox -y
-
 # install clojure for clojurescript and clojure
 curl -O https://download.clojure.org/install/linux-install-1.9.0.358.sh
 chmod +x linux-install-1.9.0.358.sh
 sudo bash linux-install-1.9.0.358.sh
-sudo apt install leiningen
+if [ command -v lein >dev/null 2>&1 ]; then
+  curl -O 'https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein'
+  sudo chmod a+x lein
+  sudo mv lein /usr/bin
+  su - $user -c "lein"
+fi
 
 # Install fonts
 echo "done. Installing fonts..."
