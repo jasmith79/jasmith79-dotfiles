@@ -137,15 +137,15 @@ then
 
   # Extras
   if ! [ -d /opt/programs/ranger ]; then
-    su - $user -c "git clone https://github.com/ranger/ranger.git /opt/programs/ranger"
+    su - "$user" -c "git clone https://github.com/ranger/ranger.git /opt/programs/ranger"
   fi
 
   if [ command -v ranger >/dev/null 2>&1 ]; then
     cd /opt/programs/ranger
     sudo make install
-    su - $user -c "ranger --copy-config=all"
+    su - "$user" -c "ranger --copy-config=all"
     rm ~/.config/ranger/rc.conf
-    su - $user -c "ln -s $wd/rc.conf ~/.config/ranger/rc.conf"
+    su - "$user" -c "ln -s $wd/rc.conf ~/.config/ranger/rc.conf"
   fi
 
   sudo apt install cmus -y
@@ -186,7 +186,7 @@ if [ command -v lein >dev/null 2>&1 ]; then
   curl -O 'https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein'
   sudo chmod a+x lein
   sudo mv lein /usr/bin
-  su - $user -c "lein"
+  su - "$user" -c "lein"
 fi
 
 # Install fonts
@@ -236,4 +236,4 @@ su - "$user" -c "ln -s $wd/vimrc ~/.vimrc"
 echo "done. Sourcing copied .bashrc"
 source ~/.bashrc
 echo "done. Starting fish shell."
-fish
+su - "$user" -c "exec fish"
