@@ -52,6 +52,10 @@ if [[ "$os" =~ [Dd]arwin ]]; then
   brew cask install virtualbox
   brew cask install vagrant
   brew cask install vagrant-manager
+
+  # extras
+  brew install cmus
+  brew install ranger
   echo "Done."
 
 elif [[ "$os" =~ [Ll]inux ]]
@@ -152,28 +156,50 @@ npm install -g webpack-dev-server
 su - "$user" -c "python3 -m pip install --upgrade pip"
 su - "$user" -c "python3 -m pip install --user setuptools"
 
+# Extras
+mkdir -p /opt/programs
+chown -R $user /opt/programs
+
+if ! [ -d /opt/programs/ranger ]; then
+  su - $user -c "git clone https://github.com/ranger/ranger.git /opt/programs/ranger"
+fi
+
+if [ command -v ranger >/dev/null 2>&1 ]; then
+  cd /opt/programs/ranger
+  sudo make install
+  su - $user -c "ranger --copy-config=all"
+  rm ~/.config/ranger/rc.conf
+  su - $user -c "ln -s $wd/rc.conf ~/.config/ranger/rc.conf"
+fi
+
+sudo apt install cmus -y
+sudo apt install dropbox -y
+
 # install clojure for clojurescript and clojure
 curl -O https://download.clojure.org/install/linux-install-1.9.0.358.sh
 chmod +x linux-install-1.9.0.358.sh
 sudo bash linux-install-1.9.0.358.sh
+sudo apt install leiningen
 
 # Install fonts
 echo "done. Installing fonts..."
-mkdir ~/Fonts
-git clone https://github.com/tonsky/FiraCode.git
+mkdir -p ~/Fonts/FiraCode
+git clone https://github.com/tonsky/FiraCode.git ~/Fonts/FiraCode
 sudo git clone --depth 1 --branch release https://github.com/adobe-fonts/source-code-pro.git ~/Fonts/source-code-pro.git
 if [ -d "/Library/Fonts" ]; then
 	# Only need this for OS X, pre-installed on ubuntu/mint
+  cd ~/Fonts
 	curl https://noto-website-2.storage.googleapis.com/pkgs/NotoMono-hinted.zip > NotoMono.zip
 	unzip NotoMono.zip
 	sudo cp NotoMono-Regular.ttf /Library/Fonts
-	sudo cp -r ./FiraCode/distr/ttf/*.ttf /Library/Fonts
+	sudo cp -r ~/Fonts/FiraCode/distr/ttf/*.ttf /Library/Fonts
 	sudo cp -r source-code-pro /Library/Fonts
+  cd $wd
 elif [[ ($distro == "Ubuntu" || $distro == "LinuxMint") && $ubuntu_version ]]
 then
 	sudo mkdir -p /usr/share/fonts/truetype/FiraCode
-	sudo cp -r ./FiraCode/distr/ttf/*.ttf  /usr/share/fonts/truetype/FiraCode
-	sudo cp -r source-code-pro /usr/share/fonts/opentype
+	sudo cp -r ~/Fonts/FiraCode/distr/ttf/*.ttf  /usr/share/fonts/truetype/FiraCode
+	sudo cp -r ~/Fonts/source-code-pro /usr/share/fonts/opentype
 	sudo ln -s /usr/share/fonts/truetype/NotoMono-Regular.ttf /usr/share/terminology/fonts/
 	sudo fc-cache -f -v
 fi
