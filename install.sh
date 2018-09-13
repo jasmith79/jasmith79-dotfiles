@@ -48,10 +48,6 @@ if [[ "$os" =~ [Dd]arwin ]]; then
   brew cask install java
   brew install rlwrap
 
-  # Python stuff
-  python3 -m pip --user install --upgrade pip
-  python3 -m pip --user install setuptools
-
   # In vagrante delicto
   brew cask install virtualbox
   brew cask install vagrant
@@ -119,10 +115,6 @@ then
   sudo apt install default-jdk -y
   sudo apt install rlwrap -y
 
-  # Python stuff
-  su - "$user" -c "python3 -m pip install --upgrade pip"
-  su - "$user" -c "python3 -m pip install setuptools"
-
   # Node.js stuff
   curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
   sudo apt install nodejs -y
@@ -156,6 +148,10 @@ npm install -g webpack
 npm install -g webpack-cli
 npm install -g webpack-dev-server
 
+# Python stuff
+su - "$user" -c "python3 -m pip install --upgrade pip"
+su - "$user" -c "python3 -m pip install --user setuptools"
+
 # install clojure for clojurescript and clojure
 curl -O https://download.clojure.org/install/linux-install-1.9.0.358.sh
 chmod +x linux-install-1.9.0.358.sh
@@ -187,7 +183,7 @@ echo "done. Installing vim-plug..."
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
 	  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-su - "$user" -c "python3 -m pip install neovim"
+su - "$user" -c "python3 -m pip install --user neovim"
 
 # Stash existing configs
 echo "done. Moving old configs to ~/.old_configs..."
@@ -199,7 +195,7 @@ echo "done. Symlinking new configs..."
 
 su - "$user" -c "mkdir -p ~/.config ~/.config/nvim"
 su - "$user" -c "mkdir -p ~/.config/fish"
-su - "$user" -c "ln -s $wd/vimrc ~/.config/nvim/init.vim"
+su - "$user" -c "ln -s $wd/init.vim ~/.config/nvim/init.vim"
 su - "$user" -c "ln -s $wd/bashrc ~/.bashrc"
 su - "$user" -c "ln -s $wd/config.fish ~/.config/fish/config.fish"
 su - "$user" -c "ln -s $wd/vimrc ~/.vimrc"
