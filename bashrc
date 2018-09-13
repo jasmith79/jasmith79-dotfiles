@@ -140,5 +140,5 @@ export PATH="$HOME/.local/bin:/opt/android-studio/bin:$PATH"
 
 # Do you have any fish shell? Go fish!
 if command -v fish >/dev/null 2>&1; then
-  fish
+  exec fish
 fi
