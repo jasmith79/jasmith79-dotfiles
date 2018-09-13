@@ -150,6 +150,7 @@ then
 
   sudo apt install cmus -y
   sudo apt install dropbox -y
+  sudo apt install vlc -y
 
 else
   echo "Unknown Platform:"
