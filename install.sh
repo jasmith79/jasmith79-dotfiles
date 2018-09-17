@@ -105,9 +105,8 @@ then
   # NOTE: the PPA doesn't work for e.g. 18.04 meaning you'll get the older version of
   # terminology from the repos
   # TODO: instructions to install dependencies, grab github repo, and build if no PPA
-  if [[ ($distro == "Ubuntu" || $distro == "LinuxMint") && $ubuntu_version ]]; then
+  if [[ ($distro == "Ubuntu" || $distro == "LinuxMint") && $ubuntu_version && "$ubuntu_version" -lt "18" ]]; then
     sudo apt install terminology -y
-    cp terminology.cfg ~/.config/terminology/config/standard/base.cfg
   else
     sudo apt install -y meson check libssl-dev libsystemd-dev libjpeg-dev libglib2.0-dev libgstreamer1.0-dev libluajit-5.1-dev libfreetype6-dev libfontconfig1-dev libfribidi-dev libx11-dev libxext-dev libxrender-dev libgl1-mesa-dev libgif-dev libtiff5-dev libpoppler-dev libpoppler-cpp-dev libspectre-dev libraw-dev librsvg2-dev libudev-dev libmount-dev libdbus-1-dev libpulse-dev libsndfile1-dev libxcursor-dev libxcomposite-dev libxinerama-dev libxrandr-dev libxtst-dev libxss-dev libbullet-dev libgstreamer-plugins-base1.0-dev doxygen
 
@@ -130,6 +129,7 @@ then
     ninja
     sudo ninja install
   fi
+  cp terminology.cfg ~/.config/terminology/config/standard/base.cfg
 
   sudo apt install vim -y
   sudo apt install net-tools -y
@@ -168,7 +168,7 @@ then
     su - "$user" -c "git clone https://github.com/ranger/ranger.git /opt/programs/ranger"
   fi
 
-  if [ command -v ranger >/dev/null 2>&1 ]; then
+  if ! command -v ranger >/dev/null; then
     cd /opt/programs/ranger
     sudo make install
     su - "$user" -c "ranger --copy-config=all"
@@ -212,7 +212,7 @@ cd /opt/programs
 curl -O https://download.clojure.org/install/linux-install-1.9.0.358.sh
 chmod +x linux-install-1.9.0.358.sh
 sudo bash linux-install-1.9.0.358.sh
-if [ command -v lein >/dev/null 2>&1 ]; then
+if ! command -v lein >/dev/null; then
   curl -O 'https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein'
   chmod a+x lein
   mv lein /usr/bin
@@ -221,9 +221,9 @@ fi
 
 # Install fonts
 echo "done. Installing fonts..."
-mkdir -p ~/Fonts/FiraCode
+mkdir -p ~/Fonts/FiraCode ~/Fonts/source-code-pro
 git clone https://github.com/tonsky/FiraCode.git ~/Fonts/FiraCode
-sudo git clone --depth 1 --branch release https://github.com/adobe-fonts/source-code-pro.git ~/Fonts/source-code-pro.git
+sudo git clone --depth 1 --branch release https://github.com/adobe-fonts/source-code-pro.git ~/Fonts/source-code-pro
 if [ -d "/Library/Fonts" ]; then
 	# Only need this for OS X, pre-installed on ubuntu/mint
   cd ~/Fonts
@@ -268,103 +268,103 @@ echo "done. Sourcing copied .bashrc"
 source ~/.bashrc
 
 # TODO: replace these with version checks
-if [ command -v git >/dev/null 2>&1 ]; then
+if command -v git >/dev/null; then
   echo "Git successfully installed."
 else
   echo "ERROR: missing git."
 fi
 
-if [ command -v gcc >/dev/null 2>&1 ]; then
+if command -v gcc >/dev/null; then
   echo "gcc successfully installed."
 else
   echo "ERROR: missing gcc."
 fi
 
-if [ command -v make >/dev/null 2>&1 ]; then
+if command -v make >/dev/null; then
   echo "Make successfully installed."
 else
   echo "ERROR: missing make."
 fi
 
-if [ command -v node >/dev/null 2>&1 ]; then
+if command -v node >/dev/null; then
   echo "Nodejs successfully installed."
 else
   echo "ERROR: missing nodejs."
 fi
 
-if [ command -v webpack >/dev/null 2>&1 ]; then
+if command -v webpack >/dev/null; then
   echo "Webpack successfully installed."
 else
   echo "ERROR: missing webpack."
 fi
 
-if [ command -v yarn >/dev/null 2>&1 ]; then
+if command -v yarn >/dev/null; then
   echo "Yarn successfully installed."
 else
   echo "ERROR: missing yarn."
 fi
 
-if [ command -v atom >/dev/null 2>&1 ]; then
+if command -v atom >/dev/null; then
   echo "Atom successfully installed."
 else
   echo "ERROR: missing atom."
 fi
 
-if [ command -v vagrant >/dev/null 2>&1 ]; then
+if command -v vagrant >/dev/null; then
   echo "vagrant successfully installed."
 else
   echo "ERROR: missing vagrant."
 fi
 
-if [ command -v ansible >/dev/null 2>&1 ]; then
+if command -v ansible >/dev/null; then
   echo "Ansible successfully installed."
 else
   echo "ERROR: missing ansible."
 fi
 
-if [ command -v virtualenv >/dev/null 2>&1 ]; then
+if command -v virtualenv >/dev/null; then
   echo "virtualenv successfully installed."
 else
   echo "ERROR: missing virtualenv."
 fi
 
-if [ command -v python3 >/dev/null 2>&1 ]; then
+if command -v python3 >/dev/null; then
   echo "Python3 successfully installed."
 else
   echo "ERROR: missing python3."
 fi
 
-if [ command -v pip3 >/dev/null 2>&1 ]; then
+if command -v pip3 >/dev/null; then
   echo "pip3 successfully installed."
 else
   echo "ERROR: missing pip3."
 fi
 
-if [ command -v fish >/dev/null 2>&1 ]; then
+if command -v fish >/dev/null; then
   echo "Fish shell successfully installed."
 else
   echo "ERROR: missing fish shell."
 fi
 
-if [ command -v clj >/dev/null 2>&1 ]; then
+if command -v clj >/dev/null; then
   echo "Clojure successfully installed."
 else
   echo "ERROR: missing Clojure."
 fi
 
-if [ command -v lein >/dev/null 2>&1 ]; then
+if command -v lein >/dev/null; then
   echo "Leiningen successfully installed."
 else
   echo "ERROR: missing leiningen."
 fi
 
-if [ command -v nvim >/dev/null 2>&1 ]; then
+if command -v nvim >/dev/null; then
   echo "Neovim successfully installed."
 else
   echo "ERROR: missing neovim."
 fi
 
-if [ command -v terminology >/dev/null 2>&1 ]; then
+if command -v terminology >/dev/null; then
   echo "Terminology successfully installed."
 else
   echo "ERROR: missing terminology."
@@ -401,4 +401,4 @@ else
 fi
 
 echo "Starting fish shell."
-su - "$user" -c "exec fish"
+su - "$user" -c "fish"
