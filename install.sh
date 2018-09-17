@@ -188,9 +188,18 @@ then
     su - "$user" -c "ln -s $wd/rc.conf ~/.config/ranger/rc.conf"
   fi
 
+  if ! [ -d /oppt/programs/firefox ]; then
+    cd /opt/programs
+    curl -O 'https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US'
+    tar xvf `find . -name 'firefox*'`
+    sudo ln -s /opt/programs/firefox/firefox /usr/bin/ffdev
+  fi
+
   sudo apt install cmus -y
   sudo apt install dropbox -y
   sudo apt install vlc -y
+  sudo apt install dmenu -y
+  sudo apt install rofi -y
   cd /opt/programs
 else
   echo "Unknown Platform:"
