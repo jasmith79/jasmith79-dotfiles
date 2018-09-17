@@ -102,6 +102,10 @@ then
   echo "Installing prerequisites..."
   sudo apt install curl gcc g++ git make cmake -y
 
+  mkdir -p /opt/programs
+  chown -R "$user" /opt/programs
+  cd /opt/programs
+
   # NOTE: the PPA doesn't work for e.g. 18.04 meaning you'll get the older version of
   # terminology from the repos
   # TODO: instructions to install dependencies, grab github repo, and build if no PPA
@@ -130,6 +134,7 @@ then
     sudo ninja install
   fi
   cp terminology.cfg ~/.config/terminology/config/standard/base.cfg
+  cd /opt/programs
 
   sudo apt install vim -y
   sudo apt install net-tools -y
@@ -142,6 +147,7 @@ then
   sudo apt install openssh-server -y
   sudo apt install vagrant -y
   sudo apt install htop -y
+  sudo apt install virtualbox -y
 
   # needed for java/clojure/clojurescript
   sudo apt install default-jdk -y
@@ -179,7 +185,7 @@ then
   sudo apt install cmus -y
   sudo apt install dropbox -y
   sudo apt install vlc -y
-
+  cd /opt/programs
 else
   echo "Unknown Platform:"
   echo $(uname)
@@ -201,12 +207,10 @@ npm install -g webpack-dev-server
 # Python stuff
 su - "$user" -c "python3 -m pip install --upgrade pip"
 su - "$user" -c "python3 -m pip install --user setuptools"
+su - "$user" -c "python3 -m pip install --user virtualenv"
+
 # Ansible
 su - "$user" -c "python3 -m pip install --user ansible"
-
-mkdir -p /opt/programs
-chown -R "$user" /opt/programs
-cd /opt/programs
 
 # install clojure for clojurescript and clojure
 curl -O https://download.clojure.org/install/linux-install-1.9.0.358.sh
@@ -316,7 +320,7 @@ else
   echo "ERROR: missing vagrant."
 fi
 
-if command -v ansible >/dev/null; then
+if command -v ansible-playbook >/dev/null; then
   echo "Ansible successfully installed."
 else
   echo "ERROR: missing ansible."
@@ -400,5 +404,4 @@ else
   echo "ERROR: missing terminology base.cfg"
 fi
 
-echo "Starting fish shell."
-su - "$user" -c "fish"
+echo "Finished"
