@@ -56,6 +56,12 @@ if [[ "$os" =~ [Dd]arwin ]]; then
   su - "$user" -c "brew install cmus"
   su - "$user" -c "brew install ranger"
 
+  # Copy ssh config, High Sierra requires ssh-add -K after every reboot without it
+  su - "$user" -c "ln -s $wd/ssh_config ~/.ssh/config"
+
+  # Add keychain as a git credential
+  git config --global credential.helper osxkeychain
+
   echo "Done."
 
 elif [[ "$os" =~ [Ll]inux ]]
