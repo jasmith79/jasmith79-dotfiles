@@ -30,6 +30,7 @@ if [[ "$os" =~ [Dd]arwin ]]; then
   # NOTE: the rest of this assumes that you have the XCode CLI tools installed.
 
   # Install brew
+<<<<<<< HEAD
   if ! command -v brew >/dev/null; then
     sudo -u "$user" /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
@@ -68,9 +69,7 @@ if [[ "$os" =~ [Dd]arwin ]]; then
 
   # Add keychain as a git credential
   git config --global credential.helper osxkeychain
-
   echo "Done."
-
 elif [[ "$os" =~ [Ll]inux ]]
 then
   # For now, we're assuming "Linux" means Ubuntu or Mint
@@ -114,8 +113,7 @@ then
   cd /opt/programs
 
   # NOTE: the PPA doesn't work for e.g. 18.04 meaning you'll get the older version of
-  # terminology from the repos
-  # TODO: instructions to install dependencies, grab github repo, and build if no PPA
+  # terminology from the repos, so we build from source
   if [[ ($distro == "Ubuntu" || $distro == "LinuxMint") && $ubuntu_version && "$ubuntu_version" -lt "18" ]]; then
     sudo apt install terminology -y
   else
@@ -146,8 +144,6 @@ then
   sudo apt install vim -y
   sudo apt install net-tools -y
   sudo apt install neovim -y
-  sudo apt install make -y
-  sudo apt install git -y
   sudo apt install fish -y
   sudo apt install python3-pip -y
   sudo apt install python3-venv -y
