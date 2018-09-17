@@ -169,6 +169,12 @@ then
   sudo apt-get update
   sudo apt install atom -y
 
+  # install google chrome browser
+  wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+  echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
+  sudo apt-get update
+  sudo apt install google-chrome-stable
+
   # Extras
   if ! [ -d /opt/programs/ranger ]; then
     su - "$user" -c "git clone https://github.com/ranger/ranger.git /opt/programs/ranger"
