@@ -30,32 +30,32 @@ if [[ "$os" =~ [Dd]arwin ]]; then
   # NOTE: the rest of this assumes that you have the XCode CLI tools installed.
 
   # Install brew
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  brew tap caskroom/cask
-  brew cask install atom
+  su - "$user" -c "/usr/bin/ruby -e \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)\""
+  su - "$user" -c "brew tap caskroom/cask"
+  su - "$user" -c "brew cask install atom"
 
   # From here on its similar-ish to linux, but yah know, OS X isn't super terminal-friendly
-  echo "Installing prerequisites...as far as we can in OS X anyway..."
-  brew install fish
-  brew install neovim
-  brew install git
-  brew install nodejs  # current LTS generally
-  brew install python3 # also usually current
-
-  sudo apt install openssh-server -y
+  echo "Installing prerequisites..."
+  su - "$user" -c "brew install fish"
+  su - "$user" -c "brew install neovim"
+  su - "$user" -c "brew install git"
+  su - "$user" -c "brew install htop"
+  su - "$user" -c "brew install nodejs"  # current LTS generally
+  su - "$user" -c "brew install python3" # also usually current, also adds pip
 
   # needed for java/clojure/clojurescript
-  brew cask install java
-  brew install rlwrap
+  su - "$user" -c "brew cask install java"
+  su - "$user" -c "brew install rlwrap"
 
   # In vagrante delicto
-  brew cask install virtualbox
-  brew cask install vagrant
-  brew cask install vagrant-manager
+  su - "$user" -c "brew cask install virtualbox"
+  su - "$user" -c "brew cask install vagrant"
+  su - "$user" -c "brew cask install vagrant-manager"
 
   # extras
-  brew install cmus
-  brew install ranger
+  su - "$user" -c "brew install cmus"
+  su - "$user" -c "brew install ranger"
+
   echo "Done."
 
 elif [[ "$os" =~ [Ll]inux ]]
@@ -104,6 +104,7 @@ then
     cp terminology.cfg ~/.config/terminology/config/standard/base.cfg
   fi
 
+  sudo apt install vim -y
   sudo apt install net-tools -y
   sudo apt install neovim -y
   sudo apt install gcc -y
@@ -114,6 +115,7 @@ then
   sudo apt install python3-venv -y
   sudo apt install openssh-server -y
   sudo apt install vagrant -y
+  sudo apt install htop -y
 
   # needed for java/clojure/clojurescript
   sudo apt install default-jdk -y
@@ -173,10 +175,12 @@ npm install -g webpack-dev-server
 # Python stuff
 su - "$user" -c "python3 -m pip install --upgrade pip"
 su - "$user" -c "python3 -m pip install --user setuptools"
+# Ansible
+su - "$user" -c "python3 -m pip install --user ansible"
 
-# Extras
 mkdir -p /opt/programs
-chown -R $user /opt/programs
+chown -R "$user" /opt/programs
+cd /opt/programs
 
 # install clojure for clojurescript and clojure
 curl -O https://download.clojure.org/install/linux-install-1.9.0.358.sh
@@ -235,5 +239,139 @@ su - "$user" -c "ln -s $wd/config.fish ~/.config/fish/config.fish"
 su - "$user" -c "ln -s $wd/vimrc ~/.vimrc"
 echo "done. Sourcing copied .bashrc"
 source ~/.bashrc
-echo "done. Starting fish shell."
+
+# TODO: replace these with version checks
+if [ command -v git >/dev/null 2>&1 ]; then
+  echo "Git successfully installed."
+else
+  echo "ERROR: missing git."
+fi
+
+if [ command -v gcc >/dev/null 2>&1 ]; then
+  echo "gcc successfully installed."
+else
+  echo "ERROR: missing gcc."
+fi
+
+if [ command -v make >/dev/null 2>&1 ]; then
+  echo "Make successfully installed."
+else
+  echo "ERROR: missing make."
+fi
+
+if [ command -v node >/dev/null 2>&1 ]; then
+  echo "Nodejs successfully installed."
+else
+  echo "ERROR: missing nodejs."
+fi
+
+if [ command -v webpack >/dev/null 2>&1 ]; then
+  echo "Webpack successfully installed."
+else
+  echo "ERROR: missing webpack."
+fi
+
+if [ command -v yarn >/dev/null 2>&1 ]; then
+  echo "Yarn successfully installed."
+else
+  echo "ERROR: missing yarn."
+fi
+
+if [ command -v atom >/dev/null 2>&1 ]; then
+  echo "Atom successfully installed."
+else
+  echo "ERROR: missing atom."
+fi
+
+if [ command -v vagrant >/dev/null 2>&1 ]; then
+  echo "vagrant successfully installed."
+else
+  echo "ERROR: missing vagrant."
+fi
+
+if [ command -v ansible >/dev/null 2>&1 ]; then
+  echo "Ansible successfully installed."
+else
+  echo "ERROR: missing ansible."
+fi
+
+if [ command -v virtualenv >/dev/null 2>&1 ]; then
+  echo "virtualenv successfully installed."
+else
+  echo "ERROR: missing virtualenv."
+fi
+
+if [ command -v python3 >/dev/null 2>&1 ]; then
+  echo "Python3 successfully installed."
+else
+  echo "ERROR: missing python3."
+fi
+
+if [ command -v pip3 >/dev/null 2>&1 ]; then
+  echo "pip3 successfully installed."
+else
+  echo "ERROR: missing pip3."
+fi
+
+if [ command -v fish >/dev/null 2>&1 ]; then
+  echo "Fish shell successfully installed."
+else
+  echo "ERROR: missing fish shell."
+fi
+
+if [ command -v clj >/dev/null 2>&1 ]; then
+  echo "Clojure successfully installed."
+else
+  echo "ERROR: missing Clojure."
+fi
+
+if [ command -v lein >/dev/null 2>&1 ]; then
+  echo "Leiningen successfully installed."
+else
+  echo "ERROR: missing leiningen."
+fi
+
+if [ command -v nvim >/dev/null 2>&1 ]; then
+  echo "Neovim successfully installed."
+else
+  echo "ERROR: missing neovim."
+fi
+
+if [ command -v terminology >/dev/null 2>&1 ]; then
+  echo "Terminology successfully installed."
+else
+  echo "ERROR: missing terminology."
+fi
+
+if [ -f ~/.bashrc ]; then
+  echo "~/.bashrc successfully copied"
+else
+  echo "ERROR: missing bashrc"
+fi
+
+if [ -f ~/.vimrc ]; then
+  echo "~/.vimrc successfully copied"
+else
+  echo "ERROR: missing vimrc"
+fi
+
+if [ -f ~/.config/fish/config.fish ]; then
+  echo "~/.config/fish/config.fish successfully copied"
+else
+  echo "ERROR: missing config.fish"
+fi
+
+if [ -f ~/.config/nvim/init.vim ]; then
+  echo "~/.config/nvim/init.vim successfully copied"
+else
+  echo "ERROR: missing init.vim"
+fi
+
+if [ -f ~/.config/terminology/config/standard/base.cfg ]; then
+  echo "~/.config/terminology/config/standard/base.cfg successfully copied"
+else
+  echo "ERROR: missing terminology base.cfg"
+fi
+
+echo "Starting fish shell."
 su - "$user" -c "exec fish"
