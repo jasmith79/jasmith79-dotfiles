@@ -212,10 +212,10 @@ cd /opt/programs
 curl -O https://download.clojure.org/install/linux-install-1.9.0.358.sh
 chmod +x linux-install-1.9.0.358.sh
 sudo bash linux-install-1.9.0.358.sh
-if [ command -v lein >dev/null 2>&1 ]; then
+if [ command -v lein >/dev/null 2>&1 ]; then
   curl -O 'https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein'
-  sudo chmod a+x lein
-  sudo mv lein /usr/bin
+  chmod a+x lein
+  mv lein /usr/bin
   su - "$user" -c "lein"
 fi
 
@@ -256,13 +256,14 @@ mv -t ~/.old_configs ~/.vimrc ~/.bashrc ~/.config/nvim ~/.config/fish/config.fis
 chown -R $user ~
 
 echo "done. Symlinking new configs..."
-
+su - "$user" -c "mkdir -p ~/.config/terminology/config/standard"
 su - "$user" -c "mkdir -p ~/.config ~/.config/nvim"
 su - "$user" -c "mkdir -p ~/.config/fish"
 su - "$user" -c "ln -s $wd/init.vim ~/.config/nvim/init.vim"
 su - "$user" -c "ln -s $wd/bashrc ~/.bashrc"
 su - "$user" -c "ln -s $wd/config.fish ~/.config/fish/config.fish"
 su - "$user" -c "ln -s $wd/vimrc ~/.vimrc"
+su - "$user" -c "ln -s $wd/terminology.cfg ~/.config/terminology/config/standard/base.cfg"
 echo "done. Sourcing copied .bashrc"
 source ~/.bashrc
 
