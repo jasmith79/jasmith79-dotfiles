@@ -30,7 +30,6 @@ if [[ "$os" =~ [Dd]arwin ]]; then
   # NOTE: the rest of this assumes that you have the XCode CLI tools installed.
 
   # Install brew
-<<<<<<< HEAD
   if ! command -v brew >/dev/null; then
     sudo -u "$user" /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
