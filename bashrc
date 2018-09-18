@@ -128,9 +128,10 @@ fi
 #export PATH="$HOME/.local/bin:/opt/android-studio/bin:/usr/local/bin:$PATH"
 export PATH=":/opt/android-studio/bin:/usr/local/bin:$PATH"
 
-#pyenv
-export PATH="/Users/jared/.pyenv:$PATH"
-eval "$(pyenv init -)"
+# pyenv
+# Not sure why this is here?
+# export PATH="/Users/jared/.pyenv:$PATH"
+# eval "$(pyenv init -)"
 
 # Set vi keybinding for default shell
 set -o vi
@@ -140,5 +141,5 @@ export PATH="$HOME/.local/bin:/opt/android-studio/bin:$PATH"
 
 # Do you have any fish shell? Go fish!
 if command -v fish >/dev/null 2>&1; then
-  exec fish
+  fish
 fi

@@ -56,6 +56,12 @@ if [[ "$os" =~ [Dd]arwin ]]; then
   sudo -u "$user" brew install cmus
   sudo -u "$user" brew install ranger
 
+  # Copy ssh config, High Sierra requires ssh-add -K after every reboot without it
+  sudo -u ln -s $wd/ssh_config ~/.ssh/config
+
+  # Add keychain as a git credential
+  git config --global credential.helper osxkeychain
+
   echo "Done."
 
 elif [[ "$os" =~ [Ll]inux ]]
@@ -94,20 +100,45 @@ then
   echo "Done."
 
   echo "Installing prerequisites..."
-  sudo apt install curl -y
+  sudo apt install curl gcc g++ git make cmake -y
+
+  mkdir -p /opt/programs
+  chown -R "$user" /opt/programs
+  cd /opt/programs
 
   # NOTE: the PPA doesn't work for e.g. 18.04 meaning you'll get the older version of
   # terminology from the repos
   # TODO: instructions to install dependencies, grab github repo, and build if no PPA
-  if [[ ($distro == "Ubuntu" || $distro == "LinuxMint") && $ubuntu_version ]]; then
+  if [[ ($distro == "Ubuntu" || $distro == "LinuxMint") && $ubuntu_version && "$ubuntu_version" -lt "18" ]]; then
     sudo apt install terminology -y
-    cp terminology.cfg ~/.config/terminology/config/standard/base.cfg
+  else
+    sudo apt install -y meson check libssl-dev libsystemd-dev libjpeg-dev libglib2.0-dev libgstreamer1.0-dev libluajit-5.1-dev libfreetype6-dev libfontconfig1-dev libfribidi-dev libx11-dev libxext-dev libxrender-dev libgl1-mesa-dev libgif-dev libtiff5-dev libpoppler-dev libpoppler-cpp-dev libspectre-dev libraw-dev librsvg2-dev libudev-dev libmount-dev libdbus-1-dev libpulse-dev libsndfile1-dev libxcursor-dev libxcomposite-dev libxinerama-dev libxrandr-dev libxtst-dev libxss-dev libbullet-dev libgstreamer-plugins-base1.0-dev doxygen
+
+    cd /opt/programs
+    curl -O https://download.enlightenment.org/rel/libs/efl/efl-1.20.7.tar.xz
+    tar xvf efl-1.20.7.tar.xz
+    cd efl-1.20.7/
+    ./configure
+    make
+    sudo make install
+    sudo ln -s /usr/local/share/dbus-1/services/org.enlightenment.Ethumb.service /usr/share/dbus-1/services/org.enlightenment.Ethumb.service
+    sudo ldconfig
+    cd /opt/programs
+
+    curl -O https://download.enlightenment.org/rel/apps/terminology/terminology-1.2.1.tar.xz
+    tar xvf terminology-1.2.1.tar.xz
+    cd terminology-1.2.1
+    meson build
+    cd build
+    ninja
+    sudo ninja install
   fi
+  cp terminology.cfg ~/.config/terminology/config/standard/base.cfg
+  cd /opt/programs
 
   sudo apt install vim -y
   sudo apt install net-tools -y
   sudo apt install neovim -y
-  sudo apt install gcc -y
   sudo apt install make -y
   sudo apt install git -y
   sudo apt install fish -y
@@ -116,6 +147,7 @@ then
   sudo apt install openssh-server -y
   sudo apt install vagrant -y
   sudo apt install htop -y
+  sudo apt install virtualbox -y
 
   # needed for java/clojure/clojurescript
   sudo apt install default-jdk -y
@@ -137,12 +169,18 @@ then
   sudo apt-get update
   sudo apt install atom -y
 
+  # install google chrome browser
+  wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+  echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
+  sudo apt-get update
+  sudo apt install google-chrome-stable
+
   # Extras
   if ! [ -d /opt/programs/ranger ]; then
     sudo -u git clone https://github.com/ranger/ranger.git /opt/programs/ranger
   fi
 
-  if [ command -v ranger >/dev/null 2>&1 ]; then
+  if ! command -v ranger >/dev/null; then
     cd /opt/programs/ranger
     sudo make install
     sudo -u ranger --copy-config=all
@@ -150,10 +188,19 @@ then
     sudo -u ln -s $wd/rc.conf ~/.config/ranger/rc.conf
   fi
 
+  if ! [ -d /oppt/programs/firefox ]; then
+    cd /opt/programs
+    curl -O 'https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US'
+    tar xvf `find . -name 'firefox*'`
+    sudo ln -s /opt/programs/firefox/firefox /usr/bin/ffdev
+  fi
+
   sudo apt install cmus -y
   sudo apt install dropbox -y
   sudo apt install vlc -y
-
+  sudo apt install dmenu -y
+  sudo apt install rofi -y
+  cd /opt/programs
 else
   echo "Unknown Platform:"
   echo $(uname)
@@ -173,24 +220,26 @@ npm install -g webpack-cli
 npm install -g webpack-dev-server
 
 # Python stuff
-sudo -u python3 -m pip install --upgrade pip
-sudo -u python3 -m pip install --user setuptools
+sudo -u python3 -m pip install --upgrade pip --no-warn-script-location
+sudo -u python3 -m pip install --user setuptools --no-warn-script-location
+sudo -u python3 -m pip install --user virtualenv --no-warn-script-location
+
 # Ansible
-sudo -u python3 -m pip install --user ansible
+sudo -u python3 -m pip install --user ansible --no-warn-script-location
 
-mkdir -p /opt/programs
-chown -R "$user" /opt/programs
-cd /opt/programs
+# install clojure for clojurescript and clojure, plus leiningen
+if ! command -v clj >/dev/null; then
+  cd /opt/programs
+  curl -O https://download.clojure.org/install/linux-install-1.9.0.358.sh
+  chmod +x linux-install-1.9.0.358.sh
+  sudo bash linux-install-1.9.0.358.sh
+fi
 
-# install clojure for clojurescript and clojure
-curl -O https://download.clojure.org/install/linux-install-1.9.0.358.sh
-chmod +x linux-install-1.9.0.358.sh
-sudo bash linux-install-1.9.0.358.sh
-if [ command -v lein >dev/null 2>&1 ]; then
+if ! command -v lein >/dev/null; then
+  cd /opt/programs
   curl -O 'https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein'
   sudo chmod a+x lein
   sudo mv lein /usr/bin
-  sudo -u lein
 fi
 
 # Install fonts
@@ -221,10 +270,14 @@ fi
 
 echo "done. Installing vim-plug..."
 # install vim-plug for neovim and update neovim to use it
-curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-	  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+if ! [ -f "~/.local/share/nvim/site/autoload/plug.vim" ]; then
+  curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+  	  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+else
+  echo "Requirement satisfied. Skipping..."
+fi
 
-sudo -u python3 -m pip install --user neovim
+sudo -u python3 -m pip install --user neovim --no-warn-script-location
 
 # Stash existing configs
 echo "done. Moving old configs to ~/.old_configs..."
@@ -233,117 +286,124 @@ mv -t ~/.old_configs ~/.vimrc ~/.bashrc ~/.config/nvim ~/.config/fish/config.fis
 chown -R $user ~
 
 echo "done. Symlinking new configs..."
-
+sudo -u mkdir -p ~/.config/terminology/config/standard
 sudo -u mkdir -p ~/.config ~/.config/nvim
 sudo -u mkdir -p ~/.config/fish
 sudo -u ln -s $wd/init.vim ~/.config/nvim/init.vim
 sudo -u ln -s $wd/bashrc ~/.bashrc
 sudo -u ln -s $wd/config.fish ~/.config/fish/config.fish
 sudo -u ln -s $wd/vimrc ~/.vimrc
+
+if [ -d "~/.config/terminology" ]; then
+  sudo -u ln -s $wd/terminology.cfg ~/.config/terminology/config/standard/base.cfg
+fi
+
 echo "done. Sourcing copied .bashrc"
 source ~/.bashrc
 
 # TODO: replace these with version checks
-if [ command -v git >/dev/null 2>&1 ]; then
+if command -v git >/dev/null; then
   echo "Git successfully installed."
 else
   echo "ERROR: missing git."
 fi
 
-if [ command -v gcc >/dev/null 2>&1 ]; then
+if command -v gcc >/dev/null; then
   echo "gcc successfully installed."
 else
   echo "ERROR: missing gcc."
 fi
 
-if [ command -v make >/dev/null 2>&1 ]; then
+if command -v make >/dev/null; then
   echo "Make successfully installed."
 else
   echo "ERROR: missing make."
 fi
 
-if [ command -v node >/dev/null 2>&1 ]; then
+if command -v node >/dev/null; then
   echo "Nodejs successfully installed."
 else
   echo "ERROR: missing nodejs."
 fi
 
-if [ command -v webpack >/dev/null 2>&1 ]; then
+if command -v webpack >/dev/null; then
   echo "Webpack successfully installed."
 else
   echo "ERROR: missing webpack."
 fi
 
-if [ command -v yarn >/dev/null 2>&1 ]; then
+if command -v yarn >/dev/null; then
   echo "Yarn successfully installed."
 else
   echo "ERROR: missing yarn."
 fi
 
-if [ command -v atom >/dev/null 2>&1 ]; then
+if command -v atom >/dev/null; then
   echo "Atom successfully installed."
 else
   echo "ERROR: missing atom."
 fi
 
-if [ command -v vagrant >/dev/null 2>&1 ]; then
+if command -v vagrant >/dev/null; then
   echo "vagrant successfully installed."
 else
   echo "ERROR: missing vagrant."
 fi
 
-if [ command -v ansible >/dev/null 2>&1 ]; then
+if command -v ansible-playbook >/dev/null; then
   echo "Ansible successfully installed."
 else
   echo "ERROR: missing ansible."
 fi
 
-if [ command -v virtualenv >/dev/null 2>&1 ]; then
+if command -v virtualenv >/dev/null; then
   echo "virtualenv successfully installed."
 else
   echo "ERROR: missing virtualenv."
 fi
 
-if [ command -v python3 >/dev/null 2>&1 ]; then
+if command -v python3 >/dev/null; then
   echo "Python3 successfully installed."
 else
   echo "ERROR: missing python3."
 fi
 
-if [ command -v pip3 >/dev/null 2>&1 ]; then
+if command -v pip3 >/dev/null; then
   echo "pip3 successfully installed."
 else
   echo "ERROR: missing pip3."
 fi
 
-if [ command -v fish >/dev/null 2>&1 ]; then
+if command -v fish >/dev/null; then
   echo "Fish shell successfully installed."
 else
   echo "ERROR: missing fish shell."
 fi
 
-if [ command -v clj >/dev/null 2>&1 ]; then
+if command -v clj >/dev/null; then
   echo "Clojure successfully installed."
 else
   echo "ERROR: missing Clojure."
 fi
 
-if [ command -v lein >/dev/null 2>&1 ]; then
+if command -v lein >/dev/null; then
   echo "Leiningen successfully installed."
 else
   echo "ERROR: missing leiningen."
 fi
 
-if [ command -v nvim >/dev/null 2>&1 ]; then
+if command -v nvim >/dev/null; then
   echo "Neovim successfully installed."
 else
   echo "ERROR: missing neovim."
 fi
 
-if [ command -v terminology >/dev/null 2>&1 ]; then
-  echo "Terminology successfully installed."
-else
-  echo "ERROR: missing terminology."
+if ! [[ $os = "Darwin" ]]; then
+  if command -v terminology >/dev/null; then
+    echo "Terminology successfully installed."
+  else
+    echo "ERROR: missing terminology."
+  fi
 fi
 
 if [ -f ~/.bashrc ]; then
@@ -370,11 +430,12 @@ else
   echo "ERROR: missing init.vim"
 fi
 
-if [ -f ~/.config/terminology/config/standard/base.cfg ]; then
-  echo "~/.config/terminology/config/standard/base.cfg successfully copied"
-else
-  echo "ERROR: missing terminology base.cfg"
+if ! [[ $os = "Darwin" ]]; then
+  if [ -f ~/.config/terminology/config/standard/base.cfg ]; then
+    echo "~/.config/terminology/config/standard/base.cfg successfully copied"
+  else
+    echo "ERROR: missing terminology base.cfg"
+  fi
 fi
 
-echo "Starting fish shell."
-sudo -u exec fish
+echo "Finished"
