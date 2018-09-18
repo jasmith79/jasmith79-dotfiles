@@ -30,9 +30,16 @@ if [[ "$os" =~ [Dd]arwin ]]; then
   # NOTE: the rest of this assumes that you have the XCode CLI tools installed.
 
   # Install brew
-  sudo -u "$user" /usr/bin/ruby -e \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)\"
+  if ! command -v brew >/dev/null; then
+    sudo -u "$user" /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  fi
+
   sudo -u "$user" brew tap caskroom/cask
-  sudo -u "$user" brew cask install atom
+  if ! command -v atom >/dev/null; then
+    sudo -u "$user" brew cask install atom
+  fi
+
+  sudo -u "$user" brew cask install iterm2
 
   # From here on its similar-ish to linux
   echo "Installing prerequisites..."
@@ -57,7 +64,7 @@ if [[ "$os" =~ [Dd]arwin ]]; then
   sudo -u "$user" brew install ranger
 
   # Copy ssh config, High Sierra requires ssh-add -K after every reboot without it
-  sudo -u ln -s $wd/ssh_config ~/.ssh/config
+  sudo -u "$user" ln -s $wd/ssh_config ~/.ssh/config
 
   # Add keychain as a git credential
   git config --global credential.helper osxkeychain
@@ -177,15 +184,15 @@ then
 
   # Extras
   if ! [ -d /opt/programs/ranger ]; then
-    sudo -u git clone https://github.com/ranger/ranger.git /opt/programs/ranger
+    sudo -u "$user" git clone https://github.com/ranger/ranger.git /opt/programs/ranger
   fi
 
   if ! command -v ranger >/dev/null; then
     cd /opt/programs/ranger
     sudo make install
-    sudo -u ranger --copy-config=all
+    sudo -u "$user" ranger --copy-config=all
     rm ~/.config/ranger/rc.conf
-    sudo -u ln -s $wd/rc.conf ~/.config/ranger/rc.conf
+    sudo -u "$user" ln -s $wd/rc.conf ~/.config/ranger/rc.conf
   fi
 
   if ! [ -d /oppt/programs/firefox ]; then
@@ -220,12 +227,12 @@ npm install -g webpack-cli
 npm install -g webpack-dev-server
 
 # Python stuff
-sudo -u python3 -m pip install --upgrade pip --no-warn-script-location
-sudo -u python3 -m pip install --user setuptools --no-warn-script-location
-sudo -u python3 -m pip install --user virtualenv --no-warn-script-location
+sudo -u "$user" python3 -m pip install --upgrade pip --no-warn-script-location
+sudo -u "$user" python3 -m pip install --user setuptools --no-warn-script-location
+sudo -u "$user" python3 -m pip install --user virtualenv --no-warn-script-location
 
 # Ansible
-sudo -u python3 -m pip install --user ansible --no-warn-script-location
+sudo -u "$user" python3 -m pip install --user ansible --no-warn-script-location
 
 # install clojure for clojurescript and clojure, plus leiningen
 if ! command -v clj >/dev/null; then
@@ -248,24 +255,23 @@ if ! [ -d "~/Fonts/FiraCode" ]; then
   mkdir -p ~/Fonts/FiraCode
   git clone https://github.com/tonsky/FiraCode.git ~/Fonts/FiraCode
   sudo git clone --depth 1 --branch release https://github.com/adobe-fonts/source-code-pro.git ~/Fonts/source-code-pro.git
-fi
 
-if [ -d "/Library/Fonts" ]; then
-	# Only need this for OS X, pre-installed on ubuntu/mint
-  cd ~/Fonts
-	curl https://noto-website-2.storage.googleapis.com/pkgs/NotoMono-hinted.zip > NotoMono.zip
-	unzip NotoMono.zip
-	sudo cp NotoMono-Regular.ttf /Library/Fonts
-	sudo cp -r ~/Fonts/FiraCode/distr/ttf/*.ttf /Library/Fonts
-	sudo cp -r source-code-pro /Library/Fonts
-  cd $wd
-elif [[ ($distro == "Ubuntu" || $distro == "LinuxMint") && $ubuntu_version ]]
-then
-	sudo mkdir -p /usr/share/fonts/truetype/FiraCode
-	sudo cp -r ~/Fonts/FiraCode/distr/ttf/*.ttf  /usr/share/fonts/truetype/FiraCode
-	sudo cp -r ~/Fonts/source-code-pro /usr/share/fonts/opentype
-	sudo ln -s /usr/share/fonts/truetype/NotoMono-Regular.ttf /usr/share/terminology/fonts/
-	sudo fc-cache -f -v
+  if [[ -d "/Library/Fonts" &&  ! -f "/Library/Fonts/NotoMono-Regular.ttf" ]]; then
+  	# Only need this for OS X, pre-installed on ubuntu/mint
+    cd ~/Fonts
+  	curl https://noto-website-2.storage.googleapis.com/pkgs/NotoMono-hinted.zip > NotoMono.zip
+  	unzip NotoMono.zip
+  	sudo cp NotoMono-Regular.ttf /Library/Fonts
+  	sudo cp -r ~/Fonts/FiraCode/distr/ttf/*.ttf /Library/Fonts
+  	sudo cp -r source-code-pro /Library/Fonts
+  elif [[ ($distro == "Ubuntu" || $distro == "LinuxMint") && $ubuntu_version ]]
+  then
+  	sudo mkdir -p /usr/share/fonts/truetype/FiraCode
+  	sudo cp -r ~/Fonts/FiraCode/distr/ttf/*.ttf  /usr/share/fonts/truetype/FiraCode
+  	sudo cp -r ~/Fonts/source-code-pro /usr/share/fonts/opentype
+  	sudo ln -s /usr/share/fonts/truetype/NotoMono-Regular.ttf /usr/share/terminology/fonts/
+  	sudo fc-cache -f -v
+  fi
 fi
 
 echo "done. Installing vim-plug..."
@@ -277,25 +283,42 @@ else
   echo "Requirement satisfied. Skipping..."
 fi
 
-sudo -u python3 -m pip install --user neovim --no-warn-script-location
+sudo -u "$user" python3 -m pip install --user neovim --no-warn-script-location
 
 # Stash existing configs
 echo "done. Moving old configs to ~/.old_configs..."
 mkdir -p ~/.old_configs
-mv -t ~/.old_configs ~/.vimrc ~/.bashrc ~/.config/nvim ~/.config/fish/config.fish
+
+# Can't use mv -t, apparently not portable
+if [ -f "~/.vimrc" ]; then
+  mv ~/.vimrc ~/.old_configs
+fi
+
+if [ -f "~/.bashrc" ]; then
+  mv ~/.bashrc ~/.old_configs
+fi
+
+if [ -f "~/.config/nvim" ]; then
+  mv ~/.config/nvim ~/.old_configs
+fi
+
+if [ -f "~/.config/fish/config.fish" ]; then
+  mv ~/.config/fish/config.fish ~/.old_configs
+fi
+
 chown -R $user ~
 
 echo "done. Symlinking new configs..."
-sudo -u mkdir -p ~/.config/terminology/config/standard
-sudo -u mkdir -p ~/.config ~/.config/nvim
-sudo -u mkdir -p ~/.config/fish
-sudo -u ln -s $wd/init.vim ~/.config/nvim/init.vim
-sudo -u ln -s $wd/bashrc ~/.bashrc
-sudo -u ln -s $wd/config.fish ~/.config/fish/config.fish
-sudo -u ln -s $wd/vimrc ~/.vimrc
+sudo -u "$user" mkdir -p ~/.config/terminology/config/standard
+sudo -u "$user" mkdir -p ~/.config ~/.config/nvim
+sudo -u "$user" mkdir -p ~/.config/fish
+sudo -u "$user" ln -s $wd/init.vim ~/.config/nvim/init.vim
+sudo -u "$user" ln -s $wd/bashrc ~/.bashrc
+sudo -u "$user" ln -s $wd/config.fish ~/.config/fish/config.fish
+sudo -u "$user" ln -s $wd/vimrc ~/.vimrc
 
 if [ -d "~/.config/terminology" ]; then
-  sudo -u ln -s $wd/terminology.cfg ~/.config/terminology/config/standard/base.cfg
+  sudo -u "$user" ln -s $wd/terminology.cfg ~/.config/terminology/config/standard/base.cfg
 fi
 
 echo "done. Sourcing copied .bashrc"
