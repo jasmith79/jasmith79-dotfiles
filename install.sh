@@ -30,31 +30,31 @@ if [[ "$os" =~ [Dd]arwin ]]; then
   # NOTE: the rest of this assumes that you have the XCode CLI tools installed.
 
   # Install brew
-  su - "$user" -c "/usr/bin/ruby -e \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)\""
-  su - "$user" -c "brew tap caskroom/cask"
-  su - "$user" -c "brew cask install atom"
+  sudo -u "$user" /usr/bin/ruby -e \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)\"
+  sudo -u "$user" brew tap caskroom/cask
+  sudo -u "$user" brew cask install atom
 
-  # From here on its similar-ish to linux, but yah know, OS X isn't super terminal-friendly
+  # From here on its similar-ish to linux
   echo "Installing prerequisites..."
-  su - "$user" -c "brew install fish"
-  su - "$user" -c "brew install neovim"
-  su - "$user" -c "brew install git"
-  su - "$user" -c "brew install htop"
-  su - "$user" -c "brew install nodejs"  # current LTS generally
-  su - "$user" -c "brew install python3" # also usually current, also adds pip
+  sudo -u "$user" brew install fish
+  sudo -u "$user" brew install neovim
+  sudo -u "$user" brew install git
+  sudo -u "$user" brew install htop
+  sudo -u "$user" brew install nodejs  # current LTS generally
+  sudo -u "$user" brew install python3 # also usually current, also adds pip
 
   # needed for java/clojure/clojurescript
-  su - "$user" -c "brew cask install java"
-  su - "$user" -c "brew install rlwrap"
+  sudo -u "$user" brew cask install java
+  sudo -u "$user" brew install rlwrap
 
   # In vagrante delicto
-  su - "$user" -c "brew cask install virtualbox"
-  su - "$user" -c "brew cask install vagrant"
-  su - "$user" -c "brew cask install vagrant-manager"
+  sudo -u "$user" brew cask install virtualbox
+  sudo -u "$user" brew cask install vagrant
+  sudo -u "$user" brew cask install vagrant-manager
 
   # extras
-  su - "$user" -c "brew install cmus"
-  su - "$user" -c "brew install ranger"
+  sudo -u "$user" brew install cmus
+  sudo -u "$user" brew install ranger
 
   echo "Done."
 
@@ -139,15 +139,15 @@ then
 
   # Extras
   if ! [ -d /opt/programs/ranger ]; then
-    su - "$user" -c "git clone https://github.com/ranger/ranger.git /opt/programs/ranger"
+    sudo -u git clone https://github.com/ranger/ranger.git /opt/programs/ranger
   fi
 
   if [ command -v ranger >/dev/null 2>&1 ]; then
     cd /opt/programs/ranger
     sudo make install
-    su - "$user" -c "ranger --copy-config=all"
+    sudo -u ranger --copy-config=all
     rm ~/.config/ranger/rc.conf
-    su - "$user" -c "ln -s $wd/rc.conf ~/.config/ranger/rc.conf"
+    sudo -u ln -s $wd/rc.conf ~/.config/ranger/rc.conf
   fi
 
   sudo apt install cmus -y
@@ -173,10 +173,10 @@ npm install -g webpack-cli
 npm install -g webpack-dev-server
 
 # Python stuff
-su - "$user" -c "python3 -m pip install --upgrade pip"
-su - "$user" -c "python3 -m pip install --user setuptools"
+sudo -u python3 -m pip install --upgrade pip
+sudo -u python3 -m pip install --user setuptools
 # Ansible
-su - "$user" -c "python3 -m pip install --user ansible"
+sudo -u python3 -m pip install --user ansible
 
 mkdir -p /opt/programs
 chown -R "$user" /opt/programs
@@ -190,14 +190,17 @@ if [ command -v lein >dev/null 2>&1 ]; then
   curl -O 'https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein'
   sudo chmod a+x lein
   sudo mv lein /usr/bin
-  su - "$user" -c "lein"
+  sudo -u lein
 fi
 
 # Install fonts
 echo "done. Installing fonts..."
-mkdir -p ~/Fonts/FiraCode
-git clone https://github.com/tonsky/FiraCode.git ~/Fonts/FiraCode
-sudo git clone --depth 1 --branch release https://github.com/adobe-fonts/source-code-pro.git ~/Fonts/source-code-pro.git
+if ! [ -d "~/Fonts/FiraCode" ]; then
+  mkdir -p ~/Fonts/FiraCode
+  git clone https://github.com/tonsky/FiraCode.git ~/Fonts/FiraCode
+  sudo git clone --depth 1 --branch release https://github.com/adobe-fonts/source-code-pro.git ~/Fonts/source-code-pro.git
+fi
+
 if [ -d "/Library/Fonts" ]; then
 	# Only need this for OS X, pre-installed on ubuntu/mint
   cd ~/Fonts
@@ -221,7 +224,7 @@ echo "done. Installing vim-plug..."
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
 	  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-su - "$user" -c "python3 -m pip install --user neovim"
+sudo -u python3 -m pip install --user neovim
 
 # Stash existing configs
 echo "done. Moving old configs to ~/.old_configs..."
@@ -231,12 +234,12 @@ chown -R $user ~
 
 echo "done. Symlinking new configs..."
 
-su - "$user" -c "mkdir -p ~/.config ~/.config/nvim"
-su - "$user" -c "mkdir -p ~/.config/fish"
-su - "$user" -c "ln -s $wd/init.vim ~/.config/nvim/init.vim"
-su - "$user" -c "ln -s $wd/bashrc ~/.bashrc"
-su - "$user" -c "ln -s $wd/config.fish ~/.config/fish/config.fish"
-su - "$user" -c "ln -s $wd/vimrc ~/.vimrc"
+sudo -u mkdir -p ~/.config ~/.config/nvim
+sudo -u mkdir -p ~/.config/fish
+sudo -u ln -s $wd/init.vim ~/.config/nvim/init.vim
+sudo -u ln -s $wd/bashrc ~/.bashrc
+sudo -u ln -s $wd/config.fish ~/.config/fish/config.fish
+sudo -u ln -s $wd/vimrc ~/.vimrc
 echo "done. Sourcing copied .bashrc"
 source ~/.bashrc
 
@@ -374,4 +377,4 @@ else
 fi
 
 echo "Starting fish shell."
-su - "$user" -c "exec fish"
+sudo -u exec fish
