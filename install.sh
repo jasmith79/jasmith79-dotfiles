@@ -222,12 +222,12 @@ npm install -g webpack-cli
 npm install -g webpack-dev-server
 
 # Python stuff
-sudo -u "$user" python3 -m pip install --upgrade pip --no-warn-script-location
-sudo -u "$user" python3 -m pip install --user setuptools --no-warn-script-location
-sudo -u "$user" python3 -m pip install --user virtualenv --no-warn-script-location
+sudo -u "$user" python3 -m pip install --upgrade pip
+sudo -u "$user" python3 -m pip install --user setuptools
+sudo -u "$user" python3 -m pip install --user virtualenv
 
 # Ansible
-sudo -u "$user" python3 -m pip install --user ansible --no-warn-script-location
+sudo -u "$user" python3 -m pip install --user ansible
 
 # install clojure for clojurescript and clojure, plus leiningen
 if ! command -v clj >/dev/null; then
@@ -278,7 +278,7 @@ else
   echo "Requirement satisfied. Skipping..."
 fi
 
-sudo -u "$user" python3 -m pip install --user neovim --no-warn-script-location
+sudo -u "$user" python3 -m pip install --user neovim
 
 # Stash existing configs
 echo "done. Moving old configs to ~/.old_configs..."
