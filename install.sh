@@ -185,9 +185,6 @@ then
   if ! command -v ranger >/dev/null; then
     cd /opt/programs/ranger
     sudo make install
-    sudo -u "$user" ranger --copy-config=all
-    rm ~/.config/ranger/rc.conf
-    sudo -u "$user" ln -s $wd/rc.conf ~/.config/ranger/rc.conf
   fi
 
   if ! [ -d /oppt/programs/firefox ]; then
@@ -209,6 +206,13 @@ else
   echo "Aborting..."
   exit 1
 fi
+
+# configure ranger
+echo "done, Configuring ranger..."
+sudo -u "$user" ranger --copy-config=all
+rm ~/.config/ranger/rc.conf ~/.config/ranger/rifle.conf
+sudo -u "$user" ln -s $wd/rc.conf ~/.config/ranger/rc.conf
+sudo -u "$user" ln -s $wd/rifle.conf ~/.config/ranger/rifle.conf
 
 # configure git
 echo "done. Configuring git..."

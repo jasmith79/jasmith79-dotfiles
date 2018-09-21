@@ -29,13 +29,8 @@ if command -v tyalpha >/dev/null then
 end
 
 if command -v cmus >/dev/null then
-  function play_list
-    cmus-remote -c "$argv"
-    cmus-remote -n
-  end
   alias pause='cmus-remote -u'
   alias play='cmus-remote -p'
-  alias play-list='play_list'
   alias next='cmus-remote -n'
   alias prev='cmus-remote -r'
 end
