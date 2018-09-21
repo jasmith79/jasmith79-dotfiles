@@ -139,7 +139,34 @@ set -o vi
 # Add android studio to the PATH
 export PATH="$HOME/.local/bin:/opt/android-studio/bin:$PATH"
 
-# Do you have any fish shell? Go fish!
-if command -v fish >/dev/null 2>&1; then
+#### ALIASES ####
+
+if command -v nvim >/dev/null; then
+  alias vim='nvim'
+fi
+
+# If using terminology, create an appropriate alias and set transparency to 80
+if command -v tyalpha >/dev/null; then 
+  function newt () {
+    terminology "$@" &>/dev/null &
+  }
+  alias newt='newt'
+  # The fullscreen option doesn't work in Cinnamon. 150 col x 55 lines is a
+  # reasonably large starting geometry, can max with mouse or keyboard after
+  # opening.
+  alias bigt='terminology -g 150x75 -S v-h'
+  tyalpha 80
+fi
+
+if command -v cmus >/dev/null; then
+  alias pause='cmus-remote -u'
+  alias play='cmus-remote -p'
+  alias play-list='cmus-remote -c'
+  alias next='cmus-remote -n'
+  alias prev='cmus-remote -r'
+fi
+
+# Do you have any fish shell? Go fish
+if command -v fish >/dev/null; then
   fish
 fi
