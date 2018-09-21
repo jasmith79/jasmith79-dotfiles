@@ -24,7 +24,7 @@ if command -v tyalpha >/dev/null then
   alias bigt='terminology -g 150x75 -S v-h'
   tyalpha 80
   function newt
-    terminology $argv >/dev/null &
+    terminology $argv > /dev/null ^&1
   end
 end
 
