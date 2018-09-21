@@ -301,15 +301,20 @@ if [ -f "~/.config/fish/config.fish" ]; then
   mv ~/.config/fish/config.fish ~/.old_configs
 fi
 
+if [ -f "~/.config/fish/functions/fish_user_key_bindings.fish" ]; then
+  mv ~/.config/fish/functions/fish_user_key_bindings.fish ~/.old_configs
+fi
+
 chown -R $user ~
 
 echo "done. Symlinking new configs..."
 sudo -u "$user" mkdir -p ~/.config/terminology/config/standard
 sudo -u "$user" mkdir -p ~/.config ~/.config/nvim
-sudo -u "$user" mkdir -p ~/.config/fish
+sudo -u "$user" mkdir -p ~/.config/fish/functions
 sudo -u "$user" ln -s $wd/init.vim ~/.config/nvim/init.vim
 sudo -u "$user" ln -s $wd/bashrc ~/.bashrc
 sudo -u "$user" ln -s $wd/config.fish ~/.config/fish/config.fish
+sudo -u "$user" ln -s $wd/fish_user_key_bindings.fish ~/.config/fish/functions/fish_user_key_bindings.fish
 sudo -u "$user" ln -s $wd/vimrc ~/.vimrc
 
 if [ -d "~/.config/terminology" ]; then
@@ -440,6 +445,12 @@ if [ -f ~/.config/fish/config.fish ]; then
   echo "~/.config/fish/config.fish successfully copied"
 else
   echo "ERROR: missing config.fish"
+fi
+
+if [ -f ~/.config/fish/functions/fish_user_key_bindings.fish ]; then
+  echo "fish key bindings successfully installed"
+else
+  echo "ERROR: missing fish key bindings"
 fi
 
 if [ -f ~/.config/nvim/init.vim ]; then

@@ -159,9 +159,13 @@ if command -v tyalpha >/dev/null; then
 fi
 
 if command -v cmus >/dev/null; then
+  function play_list () {
+    cmus-remote -c "$1"
+    cmus-remote -n
+  }
   alias pause='cmus-remote -u'
   alias play='cmus-remote -p'
-  alias play-list='cmus-remote -c'
+  alias play-list='play_list'
   alias next='cmus-remote -n'
   alias prev='cmus-remote -r'
 fi
