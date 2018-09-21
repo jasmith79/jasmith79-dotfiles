@@ -35,3 +35,8 @@ if command -v cmus >/dev/null then
   alias next='cmus-remote -n'
   alias prev='cmus-remote -r'
 end
+
+if command -v rofi >/dev/null then
+  alias run='rofi -show run > /dev/null ^&1'
+  alias swit='rofi -show window > /dev/null ^&1'
+end

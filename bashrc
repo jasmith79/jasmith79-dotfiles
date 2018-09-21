@@ -166,6 +166,11 @@ if command -v cmus >/dev/null; then
   alias prev='cmus-remote -r'
 fi
 
+if command -v rofi >/dev/null; then
+  alias run='rofi -show run &> /dev/null &'
+  alias swit='rofi -show window &> /dev/null &'
+fi
+
 # Do you have any fish shell? Go fish
 if command -v fish >/dev/null; then
   fish
