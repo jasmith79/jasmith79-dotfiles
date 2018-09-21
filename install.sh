@@ -197,7 +197,7 @@ then
     sudo ln -s /opt/programs/firefox/firefox /usr/bin/ffdev
   fi
 
-  sudo apt install cmus -y
+  sudo apt install cmus-plugin-ffmpeg -y
   sudo apt install dropbox -y
   sudo apt install vlc -y
   sudo apt install dmenu -y
