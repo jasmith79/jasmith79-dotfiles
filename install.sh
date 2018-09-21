@@ -324,6 +324,10 @@ fi
 echo "done. Sourcing copied .bashrc"
 source ~/.bashrc
 
+echo "Copying play-list command"
+chmod +x $wd/play-list
+sudo ln -s $wd/play-list /usr/bin/play-list
+
 # TODO: replace these with version checks
 if command -v git >/dev/null; then
   echo "Git successfully installed."
