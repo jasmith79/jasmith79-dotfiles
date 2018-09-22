@@ -185,9 +185,6 @@ then
   if ! command -v ranger >/dev/null; then
     cd /opt/programs/ranger
     sudo make install
-    sudo -u "$user" ranger --copy-config=all
-    rm ~/.config/ranger/rc.conf
-    sudo -u "$user" ln -s $wd/rc.conf ~/.config/ranger/rc.conf
   fi
 
   if ! [ -d /oppt/programs/firefox ]; then
@@ -197,7 +194,7 @@ then
     sudo ln -s /opt/programs/firefox/firefox /usr/bin/ffdev
   fi
 
-  sudo apt install cmus -y
+  sudo apt install cmus-plugin-ffmpeg -y
   sudo apt install dropbox -y
   sudo apt install vlc -y
   sudo apt install dmenu -y
@@ -209,6 +206,13 @@ else
   echo "Aborting..."
   exit 1
 fi
+
+# configure ranger
+echo "done, Configuring ranger..."
+sudo -u "$user" ranger --copy-config=all
+rm ~/.config/ranger/rc.conf ~/.config/ranger/rifle.conf
+sudo -u "$user" ln -s $wd/rc.conf ~/.config/ranger/rc.conf
+sudo -u "$user" ln -s $wd/rifle.conf ~/.config/ranger/rifle.conf
 
 # configure git
 echo "done. Configuring git..."
@@ -301,15 +305,20 @@ if [ -f "~/.config/fish/config.fish" ]; then
   mv ~/.config/fish/config.fish ~/.old_configs
 fi
 
+if [ -f "~/.config/fish/functions/fish_user_key_bindings.fish" ]; then
+  mv ~/.config/fish/functions/fish_user_key_bindings.fish ~/.old_configs
+fi
+
 chown -R $user ~
 
 echo "done. Symlinking new configs..."
 sudo -u "$user" mkdir -p ~/.config/terminology/config/standard
 sudo -u "$user" mkdir -p ~/.config ~/.config/nvim
-sudo -u "$user" mkdir -p ~/.config/fish
+sudo -u "$user" mkdir -p ~/.config/fish/functions
 sudo -u "$user" ln -s $wd/init.vim ~/.config/nvim/init.vim
 sudo -u "$user" ln -s $wd/bashrc ~/.bashrc
 sudo -u "$user" ln -s $wd/config.fish ~/.config/fish/config.fish
+sudo -u "$user" ln -s $wd/fish_user_key_bindings.fish ~/.config/fish/functions/fish_user_key_bindings.fish
 sudo -u "$user" ln -s $wd/vimrc ~/.vimrc
 
 if [ -d "~/.config/terminology" ]; then
@@ -318,6 +327,10 @@ fi
 
 echo "done. Sourcing copied .bashrc"
 source ~/.bashrc
+
+echo "Copying play-list command"
+chmod +x $wd/play-list
+sudo ln -s $wd/play-list /usr/bin/play-list
 
 # TODO: replace these with version checks
 if command -v git >/dev/null; then
@@ -440,6 +453,12 @@ if [ -f ~/.config/fish/config.fish ]; then
   echo "~/.config/fish/config.fish successfully copied"
 else
   echo "ERROR: missing config.fish"
+fi
+
+if [ -f ~/.config/fish/functions/fish_user_key_bindings.fish ]; then
+  echo "fish key bindings successfully installed"
+else
+  echo "ERROR: missing fish key bindings"
 fi
 
 if [ -f ~/.config/nvim/init.vim ]; then

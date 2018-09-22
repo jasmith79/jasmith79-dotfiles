@@ -17,7 +17,25 @@ alias vim='nvim'
 fish_vi_key_bindings
 
 # If using terminology, create an appropriate alias and set transparency to 80
-if command -v tyalpha >/dev/null 2>&1
-  alias bigt='terminology -S v-h'
+if command -v tyalpha >/dev/null then 
+  # The fullscreen option doesn't work in Cinnamon. 150 col x 55 lines is a
+  # reasonably large starting geometry, can max with mouse or keyboard after
+  # opening.
+  alias bigt='terminology -g 150x75 -S v-h'
   tyalpha 80
+  function newt
+    terminology $argv > /dev/null ^&1
+  end
+end
+
+if command -v cmus >/dev/null then
+  alias pause='cmus-remote -u'
+  alias play='cmus-remote -p'
+  alias next='cmus-remote -n'
+  alias prev='cmus-remote -r'
+end
+
+if command -v rofi >/dev/null then
+  alias run='rofi -show run > /dev/null ^&1'
+  alias swit='rofi -show window > /dev/null ^&1'
 end
