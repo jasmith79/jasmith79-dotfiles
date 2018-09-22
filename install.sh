@@ -454,6 +454,8 @@ if ! [[ $os = "Darwin" ]]; then
   else
     echo "ERROR: missing terminology base.cfg"
   fi
+  echo "OS X runs all shells as login, be sure to add an appropriate source command to .bash_profile"
+  echo "See my .bashrc for details."
 fi
 
 echo "Finished"

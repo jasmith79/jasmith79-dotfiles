@@ -1,3 +1,10 @@
+# Jared Smith's bashrc.
+# Note that on OSX all shells by default are run as login shells. Be sure to add the following
+# if [ -f ~/.bashrc ]; then
+#   source ~/.bashrc
+# fi
+# To ensure that this file gets sourced.
+
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
