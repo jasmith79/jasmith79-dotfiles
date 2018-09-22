@@ -25,6 +25,9 @@ fi
 
 echo "Script called by user $user in directory $wd."
 
+mkdir -p /opt/programs
+chown -R "$user" /opt/programs
+
 if [[ "$os" =~ [Dd]arwin ]]; then
   echo "On OS X"
   # NOTE: the rest of this assumes that you have the XCode CLI tools installed.
@@ -39,7 +42,12 @@ if [[ "$os" =~ [Dd]arwin ]]; then
     sudo -u "$user" brew cask install atom
   fi
 
+  # iterm2 goodies
   sudo -u "$user" brew cask install iterm2
+  curl -L https://iterm2.com/misc/install_shell_integration.sh | bash
+  curl https://www.iterm2.com/utilities/imgcat > /opt/programs/imgcat
+  chmod +x /opt/programs/imgcat
+  sudo ln -s /opt/programs/imgcat /usr/local/bin/imgcat
 
   # From here on its similar-ish to linux
   echo "Installing prerequisites..."
@@ -107,8 +115,6 @@ then
   echo "Installing prerequisites..."
   sudo apt install curl gcc g++ git make cmake -y
 
-  mkdir -p /opt/programs
-  chown -R "$user" /opt/programs
   cd /opt/programs
 
   # NOTE: the PPA doesn't work for e.g. 18.04 meaning you'll get the older version of
@@ -330,7 +336,7 @@ source ~/.bashrc
 
 echo "Copying play-list command"
 chmod +x $wd/play-list
-sudo ln -s $wd/play-list /usr/bin/play-list
+sudo ln -s $wd/play-list /usr/local/bin/play-list
 
 # TODO: replace these with version checks
 if command -v git >/dev/null; then
