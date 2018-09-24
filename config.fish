@@ -5,7 +5,7 @@ alias vim='nvim'
 # vi bindings on the terminal
 # NOTE: if using fish < 2.3 then you'll need to take the following steps to
 # acheive this:
-# 
+#
 # mkdir ~/.config/fish/functions
 # touch ~/.config/fish/functions/fish_user_key_bindings.fish
 #
@@ -17,7 +17,7 @@ alias vim='nvim'
 fish_vi_key_bindings
 
 # If using terminology, create an appropriate alias and set transparency to 80
-if command -v tyalpha >/dev/null then 
+if command -v tyalpha >/dev/null then
   # The fullscreen option doesn't work in Cinnamon. 150 col x 55 lines is a
   # reasonably large starting geometry, can max with mouse or keyboard after
   # opening.
@@ -39,3 +39,9 @@ if command -v rofi >/dev/null then
   alias run='rofi -show run > /dev/null ^&1'
   alias swit='rofi -show window > /dev/null ^&1'
 end
+
+if command -v vtop >/dev/null then
+  alias vtop='vtop --theme dark'
+end
+
+neofetch

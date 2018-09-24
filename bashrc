@@ -153,7 +153,7 @@ if command -v nvim >/dev/null; then
 fi
 
 # If using terminology, create an appropriate alias and set transparency to 80
-if command -v tyalpha >/dev/null; then 
+if command -v tyalpha >/dev/null; then
   function newt () {
     terminology "$@" &>/dev/null &
   }
@@ -175,6 +175,10 @@ fi
 if command -v rofi >/dev/null; then
   alias run='rofi -show run &> /dev/null &'
   alias swit='rofi -show window &> /dev/null &'
+fi
+
+if command -v vtop >/dev/null; then
+  alias vtop='vtop --theme dark'
 fi
 
 # Do you have any fish shell? Go fish

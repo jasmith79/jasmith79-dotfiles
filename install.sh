@@ -70,6 +70,8 @@ if [[ "$os" =~ [Dd]arwin ]]; then
   # extras
   sudo -u "$user" brew install cmus
   sudo -u "$user" brew install ranger
+  sudo -u "$user" brew install neofetch
+  sudo -u "$user" brew install gotop
 
   # Copy ssh config, High Sierra requires ssh-add -K after every reboot without it
   sudo -u "$user" ln -s $wd/ssh_config ~/.ssh/config
@@ -156,6 +158,8 @@ then
   sudo apt install vagrant -y
   sudo apt install htop -y
   sudo apt install virtualbox -y
+  sudo apt install virtualbox-qt -y
+  sudo apt install whois -y
 
   # needed for java/clojure/clojurescript
   sudo apt install default-jdk -y
@@ -184,6 +188,9 @@ then
   sudo apt install google-chrome-stable
 
   # Extras
+  sudo apt install neofetch -y
+  sudo npm install -g vtop
+
   if ! [ -d /opt/programs/ranger ]; then
     sudo -u "$user" git clone https://github.com/ranger/ranger.git /opt/programs/ranger
   fi
