@@ -44,4 +44,14 @@ if command -v vtop >/dev/null then
   alias vtop='vtop --theme dark'
 end
 
+function randompass
+  set LC_ALL C
+  if count $argv > /dev/null
+    set n $argv
+  else
+    set n 15
+  end
+  tr -dc 'A-Za-z0-9!"#$%&'\''()*+,-./:;<=>?@[\]^_`{|}~' </dev/urandom | head -c $n; echo
+end
+
 neofetch

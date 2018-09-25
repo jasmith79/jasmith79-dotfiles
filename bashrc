@@ -181,6 +181,14 @@ if command -v vtop >/dev/null; then
   alias vtop='vtop --theme dark'
 fi
 
+function randompass () {
+  n=${1-15}
+  export LC_ALL=C
+  tr -dc 'A-Za-z0-9!"#$%&'\''()*+,-./:;<=>?@[\]^_`{|}~' </dev/urandom | head -c $n; echo
+}
+
+alias randompass='randompass'
+
 # Do you have any fish shell? Go fish
 if command -v fish >/dev/null; then
   fish
