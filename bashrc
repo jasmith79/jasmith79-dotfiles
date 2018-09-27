@@ -166,6 +166,7 @@ if command -v tyalpha >/dev/null; then
 fi
 
 if command -v cmus >/dev/null; then
+  alias shuffle='cmus-remote -S'
   alias pause='cmus-remote -u'
   alias play='cmus-remote -p'
   alias next='cmus-remote -n'
@@ -188,6 +189,9 @@ function randompass () {
 }
 
 alias randompass='randompass'
+
+# Needed for cli-visualizer
+export TERM=xterm-256color
 
 # Do you have any fish shell? Go fish
 if command -v fish >/dev/null; then
