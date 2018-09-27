@@ -190,6 +190,9 @@ function randompass () {
 
 alias randompass='randompass'
 
+# Needed for cli-visualizer
+export TERM=xterm-256color
+
 # Do you have any fish shell? Go fish
 if command -v fish >/dev/null; then
   fish

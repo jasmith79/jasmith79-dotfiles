@@ -73,6 +73,11 @@ if [[ "$os" =~ [Dd]arwin ]]; then
   sudo -u "$user" brew install neofetch
   sudo -u "$user" brew install gotop
 
+  # Needed for cli-visualizer
+  sudo -u "$user" brew install fftw
+  sudo -u "$user" brew tap homebrew/dupes
+  sudo -u "$user" brew install ncurses
+
   # Copy ssh config, High Sierra requires ssh-add -K after every reboot without it
   sudo -u "$user" ln -s $wd/ssh_config ~/.ssh/config
 
@@ -160,6 +165,10 @@ then
   sudo apt install virtualbox -y
   sudo apt install virtualbox-qt -y
   sudo apt install whois -y
+  sudo apt install neofetch -y
+
+  # Needed for cli-visualizer
+  sudo apt install libfftw3-dev libncursesw5-dev libpulse-dev -y
 
   # needed for java/clojure/clojurescript
   sudo apt install default-jdk -y
@@ -188,7 +197,6 @@ then
   sudo apt install google-chrome-stable
 
   # Extras
-  sudo apt install neofetch -y
   sudo npm install -g vtop
 
   if ! [ -d /opt/programs/ranger ]; then
@@ -200,13 +208,21 @@ then
     sudo make install
   fi
 
-  if ! [ -d /oppt/programs/firefox ]; then
+  if ! [ -d /opt/programs/firefox ]; then
     cd /opt/programs
     curl -O 'https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US'
     tar xvf `find . -name 'firefox*'`
     sudo ln -s /opt/programs/firefox/firefox /usr/bin/ffdev
   fi
 
+  if ! [ -d /opt/programs/cli-visualizer ]; then
+    cd /opt/programs
+    git clone https://github.com/dpayne/cli-visualizer.git
+    cd cli-visualizer
+    ./install.sh
+  fi
+
+  sudo apt install alsa-base -y
   sudo apt install cmus-plugin-ffmpeg -y
   sudo apt install dropbox -y
   sudo apt install vlc -y
@@ -322,17 +338,23 @@ if [ -f "~/.config/fish/functions/fish_user_key_bindings.fish" ]; then
   mv ~/.config/fish/functions/fish_user_key_bindings.fish ~/.old_configs
 fi
 
+if [ -f ~/.config/cmus/rc ]; then
+  mv ~/.config/cmus/rc ~/.old_configs
+fi
+
 chown -R $user ~
 
 echo "done. Symlinking new configs..."
 sudo -u "$user" mkdir -p ~/.config/terminology/config/standard
 sudo -u "$user" mkdir -p ~/.config ~/.config/nvim
 sudo -u "$user" mkdir -p ~/.config/fish/functions
+sudo -u "$user" mkdir -p ~/.config/cmus
 sudo -u "$user" ln -s $wd/init.vim ~/.config/nvim/init.vim
 sudo -u "$user" ln -s $wd/bashrc ~/.bashrc
 sudo -u "$user" ln -s $wd/config.fish ~/.config/fish/config.fish
 sudo -u "$user" ln -s $wd/fish_user_key_bindings.fish ~/.config/fish/functions/fish_user_key_bindings.fish
 sudo -u "$user" ln -s $wd/vimrc ~/.vimrc
+sudo -u "$user" ln -s $wd/cmus.conf ~/.config/cmus/rc
 
 if [ -d "~/.config/terminology" ]; then
   sudo -u "$user" ln -s $wd/terminology.cfg ~/.config/terminology/config/standard/base.cfg
