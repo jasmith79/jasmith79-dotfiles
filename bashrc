@@ -166,6 +166,7 @@ if command -v tyalpha >/dev/null; then
 fi
 
 if command -v cmus >/dev/null; then
+  alias shuffle='cmus-remote -S'
   alias pause='cmus-remote -u'
   alias play='cmus-remote -p'
   alias next='cmus-remote -n'
