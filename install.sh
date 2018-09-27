@@ -337,17 +337,23 @@ if [ -f "~/.config/fish/functions/fish_user_key_bindings.fish" ]; then
   mv ~/.config/fish/functions/fish_user_key_bindings.fish ~/.old_configs
 fi
 
+if [ -f ~/.config/cmus/rc ]; then
+  mv ~/.config/cmus/rc ~/.old_configs
+fi
+
 chown -R $user ~
 
 echo "done. Symlinking new configs..."
 sudo -u "$user" mkdir -p ~/.config/terminology/config/standard
 sudo -u "$user" mkdir -p ~/.config ~/.config/nvim
 sudo -u "$user" mkdir -p ~/.config/fish/functions
+sudo -u "$user" mkdir -p ~/.config/cmus
 sudo -u "$user" ln -s $wd/init.vim ~/.config/nvim/init.vim
 sudo -u "$user" ln -s $wd/bashrc ~/.bashrc
 sudo -u "$user" ln -s $wd/config.fish ~/.config/fish/config.fish
 sudo -u "$user" ln -s $wd/fish_user_key_bindings.fish ~/.config/fish/functions/fish_user_key_bindings.fish
 sudo -u "$user" ln -s $wd/vimrc ~/.vimrc
+sudo -u "$user" ln -s $wd/cmus.conf ~/.config/cmus/rc
 
 if [ -d "~/.config/terminology" ]; then
   sudo -u "$user" ln -s $wd/terminology.cfg ~/.config/terminology/config/standard/base.cfg
