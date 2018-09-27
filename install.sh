@@ -222,6 +222,7 @@ then
     ./install.sh
   fi
 
+  sudo apt install alsa-base -y
   sudo apt install cmus-plugin-ffmpeg -y
   sudo apt install dropbox -y
   sudo apt install vlc -y
