@@ -166,6 +166,7 @@ then
   sudo apt install virtualbox-qt -y
   sudo apt install whois -y
   sudo apt install neofetch -y
+  sudo apt install xclip -y
 
   # Needed for cli-visualizer
   sudo apt install libfftw3-dev libncursesw5-dev libpulse-dev -y
@@ -258,6 +259,7 @@ npm install -g webpack-dev-server
 sudo -u "$user" python3 -m pip install --upgrade pip
 sudo -u "$user" python3 -m pip install --user setuptools
 sudo -u "$user" python3 -m pip install --user virtualenv
+sudo -u "$user" python3 -m pip install --user hangups
 
 # Ansible
 sudo -u "$user" python3 -m pip install --user ansible
@@ -317,11 +319,6 @@ sudo -u "$user" python3 -m pip install --user neovim
 echo "done. Moving old configs to ~/.old_configs..."
 mkdir -p ~/.old_configs
 
-# Can't use mv -t, apparently not portable
-if [ -f "~/.vimrc" ]; then
-  mv ~/.vimrc ~/.old_configs
-fi
-
 if [ -f "~/.bashrc" ]; then
   mv ~/.bashrc ~/.old_configs
 fi
@@ -338,7 +335,7 @@ if [ -f "~/.config/fish/functions/fish_user_key_bindings.fish" ]; then
   mv ~/.config/fish/functions/fish_user_key_bindings.fish ~/.old_configs
 fi
 
-if [ -f ~/.config/cmus/rc ]; then
+if [ -f "~/.config/cmus/rc" ]; then
   mv ~/.config/cmus/rc ~/.old_configs
 fi
 
@@ -353,7 +350,6 @@ sudo -u "$user" ln -s $wd/init.vim ~/.config/nvim/init.vim
 sudo -u "$user" ln -s $wd/bashrc ~/.bashrc
 sudo -u "$user" ln -s $wd/config.fish ~/.config/fish/config.fish
 sudo -u "$user" ln -s $wd/fish_user_key_bindings.fish ~/.config/fish/functions/fish_user_key_bindings.fish
-sudo -u "$user" ln -s $wd/vimrc ~/.vimrc
 sudo -u "$user" ln -s $wd/cmus.conf ~/.config/cmus/rc
 
 if [ -d "~/.config/terminology" ]; then
