@@ -9,96 +9,99 @@ VIMDIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null && pwd )"
 mkdir -p ~/.vim/pack/jsmith/start
 mkdir -p ~/.old_configs
 
-if [ -d ~/.vim/pack/jsmith/start/tomtom/tcomment_vim ]; then
-  cd ~/.vim/pack/jsmith/start/tomtom/tcomment_vim
+if [ -d ~/.vim/pack/jsmith/start/tcomment_vim ]; then
+  cd ~/.vim/pack/jsmith/start/tcomment_vim
   git pull
 else
   cd ~/.vim/pack/jsmith/start
   git clone https://github.com/tomtom/tcomment_vim.git
 fi
 
-if [ -d ~/.vim/pack/jsmith/start/vim-airline/vim-airline ]; then
-  cd ~/.vim/pack/jsmith/start/vim-airline/vim-airline
+if [ -d ~/.vim/pack/jsmith/start/vim-airline ]; then
+  cd ~/.vim/pack/jsmith/start/vim-airline
   git pull
 else
   cd ~/.vim/pack/jsmith/start
   git clone https://github.com/vim-airline/vim-airline.git
 fi
 
-if [ -d ~/.vim/pack/jsmith/start/vim-airline/vim-airline-themes ]; then
-  cd ~/.vim/pack/jsmith/start/vim-airline/vim-airline-themes
+if [ -d ~/.vim/pack/jsmith/start/vim-airline-themes ]; then
+  cd ~/.vim/pack/jsmith/start/vim-airline-themes
   git pull
 else
   cd ~/.vim/pack/jsmith/start
   git clone https://github.com/vim-airline/vim-airline-themes.git
 fi
 
-if [ -d ~/.vim/pack/jsmith/start/tpope/vim-eunuch ]; then
-  cd ~/.vim/pack/jsmith/start/tpope/vim-eunuch
+if [ -d ~/.vim/pack/jsmith/start/vim-eunuch ]; then
+  cd ~/.vim/pack/jsmith/start/vim-eunuch
   git pull
 else
   cd ~/.vim/pack/jsmith/start
-  git clone https://github.com/tpope/vim-eunuch.git
+  git clone https://github.com/vim-eunuch.git
 fi
 
-if [ -d ~/.vim/pack/jsmith/start/tpope/vim-fireplace ]; then
-  cd ~/.vim/pack/jsmith/start/tpope/vim-fireplace
+if [ -d ~/.vim/pack/jsmith/start/vim-fireplace ]; then
+  cd ~/.vim/pack/jsmith/start/vim-fireplace
   git pull
 else
   cd ~/.vim/pack/jsmith/start
   git clone https://github.com/tpope/vim-fireplace.git
 fi
 
-if [ -d ~/.vim/pack/jsmith/start/tpope/vim-fugitive ]; then
-  cd ~/.vim/pack/jsmith/start/tpope/vim-fugitive
+if [ -d ~/.vim/pack/jsmith/start/vim-fugitive ]; then
+  cd ~/.vim/pack/jsmith/start/vim-fugitive
   git pull
 else
   cd ~/.vim/pack/jsmith/start
   git clone https://github.com/tpope/vim-fugitive.git
 fi
 
-if [ -d ~/.vim/pack/jsmith/start/tpope/vim-repeat ]; then
-  cd ~/.vim/pack/jsmith/start/tpope/vim-repeat
+if [ -d ~/.vim/pack/jsmith/start/vim-repeat ]; then
+  cd ~/.vim/pack/jsmith/start/vim-repeat
   git pull
 else
   cd ~/.vim/pack/jsmith/start
   git clone https://github.com/tpope/vim-repeat.git
 fi
 
-if [ -d ~/.vim/pack/jsmith/start/tpope/vim-surround ]; then
-  cd ~/.vim/pack/jsmith/start/tpope/vim-surround
+if [ -d ~/.vim/pack/jsmith/start/vim-surround ]; then
+  cd ~/.vim/pack/jsmith/start/vim-surround
   git pull
 else
   cd ~/.vim/pack/jsmith/start
   git clone https://github.com/tpope/vim-surround.git
 fi
 
-if [ -d ~/.vim/pack/jsmith/start/airblade/vim-gitgutter ]; then
-  cd ~/.vim/pack/jsmith/start/airblade/vim-gitgutter
+if [ -d ~/.vim/pack/jsmith/start/vim-gitgutter ]; then
+  cd ~/.vim/pack/jsmith/start/vim-gitgutter
   git pull
 else
   cd ~/.vim/pack/jsmith/start
   git clone https://github.com/airblade/vim-gitgutter.git
 fi
 
-if [ -d ~/.vim/pack/jsmith/start/terryma/vim-multiple-cursors ]; then
-  cd ~/.vim/pack/jsmith/start/terryma/vim-multiple-cursors
+if [ -d ~/.vim/pack/jsmith/start/vim-multiple-cursors ]; then
+  cd ~/.vim/pack/jsmith/start/vim-multiple-cursors
   git pull
 else
   cd ~/.vim/pack/jsmith/start
   git clone https://github.com/terryma/vim-multiple-cursors.git
 fi
 
-if [ -d ~/.vim/pack/jsmith/start/Shougo/denite.nvim ]; then
-  cd ~/.vim/pack/jsmith/start/Shougo/denite.nvim
+if [ -d ~/.vim/pack/jsmith/start/denite.nvim ]; then
+  cd ~/.vim/pack/jsmith/start/denite.nvim
   git pull
 else
   cd ~/.vim/pack/jsmith/start
-  git clone https://github.com/Shougo/denite.vim
+  git clone https://github.com/Shougo/denite.nvim.git
 fi
 
+# If it's an actual file, save it
 if [ -f "~/.vimrc" ]; then
-  mv ~/.vimrc ~/.old_configs
+  cp ~/.vimrc ~/.old_configs/.vimrc
 fi
+rm -f ~/.vimrc
 
 ln -s $VIMDIR/vimrc ~/.vimrc
+
