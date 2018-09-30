@@ -1,4 +1,4 @@
-" jasmith79's .vimrc for neovim
+" jasmith79's .vimrc
 
 " we'll add a plugin instead of the standard modeline
 set nomodeline
@@ -74,3 +74,11 @@ vnoremap <Up> <Nop>
 vnoremap <Down> <Nop>
 vnoremap <Right> <Nop>
 
+" vim-airline
+let g:airline#extensions#tabline#enabled=1
+set laststatus=2
+
+" You're the One Neo...
+if has("nvim")
+  let &runtimepath.=','
+endif
