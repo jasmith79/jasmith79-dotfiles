@@ -97,6 +97,14 @@ else
   git clone https://github.com/Shougo/denite.nvim.git
 fi
 
+if [ -d ~/.vim/pack/jsmith/start/deoplete.nvim ]; then
+  cd ~/.vim/pack/jsmith/start/deoplete.nvim
+  git pull
+else
+  cd ~/.vim/pack/jsmith/start
+  git clone https://github.com/Shougo/deoplete.nvim.git
+fi
+
 # If it's an actual file, save it
 if [ -f "~/.vimrc" ]; then
   cp ~/.vimrc ~/.old_configs/.vimrc

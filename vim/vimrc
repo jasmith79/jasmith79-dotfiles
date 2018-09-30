@@ -78,7 +78,5 @@ vnoremap <Right> <Nop>
 let g:airline#extensions#tabline#enabled=1
 set laststatus=2
 
-" You're the One Neo...
-if has("nvim")
-  let &runtimepath.=','
-endif
+" use deoplete.
+let g:deoplete#enable_at_startup = 1
