@@ -1,8 +1,10 @@
 #!/bin/bash
 
 if command -v cmus >/dev/null; then
-  cmus-remote -c "$1"
+  cmus-remote -s
+  cmus-remote -c -q "$1"
   cmus-remote -n
+  cmus-remote -p
 else
   echo "cmus not installed. Use e.g. sudo apt install cmus"
 fi
