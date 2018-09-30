@@ -190,6 +190,9 @@ function randompass () {
 
 alias randompass='randompass'
 
+# Needed to periodically fix sound flubs in Vbox VMs.
+alias resetsound='pulseaudio -k && sudo alsa force-reload'
+
 # Needed for cli-visualizer
 export TERM=xterm-256color
 
