@@ -7,6 +7,8 @@ done
 VIMDIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null && pwd )"
 
 mkdir -p ~/.vim/pack/jsmith/start
+mkdir -p ~/.vim/colors
+mkdir -p ~/.vim/schemes
 mkdir -p ~/.old_configs
 
 if [ -d ~/.vim/pack/jsmith/start/tcomment_vim ]; then
@@ -103,6 +105,34 @@ if [ -d ~/.vim/pack/jsmith/start/deoplete.nvim ]; then
 else
   cd ~/.vim/pack/jsmith/start
   git clone https://github.com/Shougo/deoplete.nvim.git
+fi
+
+if [ -d ~/.vim/colors/solarized ]; then
+  cd ~/.vim/colors/solarized
+  git pull
+else
+  cd ~/.vim/schemes
+  git clone https://github.com/altercation/vim-colors-solarized.git
+  ln -s ~/.vim/schemes/vim-colors-solarized/colors/solarized.vim ~/.vim/colors/solarized.vim
+fi
+
+if [ -d ~/.vim/colors/vim-solarized8 ]; then
+  cd ~/.vim/colors/vim-solarized8
+  git pull
+else
+  cd ~/.vim/schemes
+  git clone https://github.com/lifepillar/vim-solarized8.git
+  ln -s ~/.vim/schemes/vim-solarized8/colors/solarized8.vim ~/.vim/colors/solarized8.vim
+  ln -s ~/.vim/schemes/vim-solarized8/colors/solarized8_flat.vim ~/.vim/colors/solarized8_flat.vim
+  ln -s ~/.vim/schemes/vim-solarized8/colors/solarized8_dark_flat.vim ~/.vim/colors/solarized8_dark_flat.vim
+fi
+
+if [ -d ~/.vim/schemes/flattened ]; then
+  cd ~/.vim/schemes/flattened
+  git pull
+else
+  git clone https://github.com/romainl/flattened.git
+  ln -s ~/.vim/schemes/flattened/colors/flattened_dark.vim ~/.vim/colors/flattened_dark.vim
 fi
 
 # If it's an actual file, save it

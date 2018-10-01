@@ -80,3 +80,6 @@ set laststatus=2
 
 " use deoplete.
 let g:deoplete#enable_at_startup = 1
+
+set background=dark
+colorscheme solarized8_dark_flat
