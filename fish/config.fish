@@ -57,6 +57,10 @@ end
 
 alias resetsound='pulseaudio -k; and sudo alsa force-reload'
 
+function vimd
+  vim -c 'colorscheme flattened_dark' $argv
+end
+
 set fish_greeting 'It\'s dangerous to go alone. Take this with you.'
 
 neofetch

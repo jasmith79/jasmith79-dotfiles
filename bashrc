@@ -190,6 +190,12 @@ function randompass () {
 
 alias randompass='randompass'
 
+function vimd () {
+  vim -c 'colorscheme flattened_dark' $@
+}
+
+alias vimd='vimd'
+
 # Needed to periodically fix sound flubs in Vbox VMs.
 alias resetsound='pulseaudio -k && sudo alsa force-reload'
 
