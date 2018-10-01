@@ -1,3 +1,17 @@
+
+# Determine current user
+user=$(logname)
+who=$(whoami)
+if [[ $user = "" ]]; then
+	user="$SUDO_USER"
+fi
+
+if [[ $user = "" ]]; then
+	user="$who"
+fi
+
+mkdir -p /opt/programs
+
 SOURCE="${BASH_SOURCE[0]}"
 while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
   TERMDIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null && pwd )"
@@ -42,3 +56,6 @@ fi
 rm -f ~/.config/terminology/config/standard/base.cfg
 
 ln -s $TERMDIR/terminology.cfg ~/.config/terminology/config/standard/base.cfg
+
+chown -R "$user" /opt/programs
+chown -R "$user" ~

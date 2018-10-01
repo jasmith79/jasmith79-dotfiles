@@ -200,14 +200,6 @@ then
   # Extras
   sudo npm install -g vtop
 
-  if ! [ -d /opt/programs/ranger ]; then
-    sudo -u "$user" git clone https://github.com/ranger/ranger.git /opt/programs/ranger
-  fi
-
-  if ! command -v ranger >/dev/null; then
-    cd /opt/programs/ranger
-    sudo make install
-  fi
 
   if ! [ -d /opt/programs/firefox ]; then
     cd /opt/programs
@@ -229,6 +221,7 @@ then
   sudo apt install vlc -y
   sudo apt install dmenu -y
   sudo apt install rofi -y
+  sudo apt install nitrogen -y
   cd /opt/programs
 else
   echo "Unknown Platform:"
@@ -237,12 +230,6 @@ else
   exit 1
 fi
 
-# configure ranger
-echo "done, Configuring ranger..."
-sudo -u "$user" ranger --copy-config=all
-rm ~/.config/ranger/rc.conf ~/.config/ranger/rifle.conf
-sudo -u "$user" ln -s $wd/rc.conf ~/.config/ranger/rc.conf
-sudo -u "$user" ln -s $wd/rifle.conf ~/.config/ranger/rifle.conf
 
 # configure git
 echo "done. Configuring git..."
@@ -263,6 +250,10 @@ sudo -u "$user" python3 -m pip install --user hangups
 
 # Ansible
 sudo -u "$user" python3 -m pip install --user ansible
+
+source ranger/ranger.sh
+source vim/vim.sh
+source nvim/nvim.sh
 
 # install clojure for clojurescript and clojure, plus leiningen
 if ! command -v clj >/dev/null; then
@@ -304,14 +295,14 @@ if ! [ -d "~/Fonts/FiraCode" ]; then
   fi
 fi
 
-echo "done. Installing vim-plug..."
-# install vim-plug for neovim and update neovim to use it
-if ! [ -f "~/.local/share/nvim/site/autoload/plug.vim" ]; then
-  curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-  	  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-else
-  echo "Requirement satisfied. Skipping..."
-fi
+# echo "done. Installing vim-plug..."
+# # install vim-plug for neovim and update neovim to use it
+# if ! [ -f "~/.local/share/nvim/site/autoload/plug.vim" ]; then
+#   curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+#   	  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+# else
+#   echo "Requirement satisfied. Skipping..."
+# fi
 
 sudo -u "$user" python3 -m pip install --user neovim
 
@@ -321,10 +312,6 @@ mkdir -p ~/.old_configs
 
 if [ -f "~/.bashrc" ]; then
   mv ~/.bashrc ~/.old_configs
-fi
-
-if [ -f "~/.config/nvim" ]; then
-  mv ~/.config/nvim ~/.old_configs
 fi
 
 if [ -f "~/.config/fish/config.fish" ]; then
@@ -342,19 +329,12 @@ fi
 chown -R $user ~
 
 echo "done. Symlinking new configs..."
-sudo -u "$user" mkdir -p ~/.config/terminology/config/standard
-sudo -u "$user" mkdir -p ~/.config ~/.config/nvim
 sudo -u "$user" mkdir -p ~/.config/fish/functions
 sudo -u "$user" mkdir -p ~/.config/cmus
-sudo -u "$user" ln -s $wd/init.vim ~/.config/nvim/init.vim
 sudo -u "$user" ln -s $wd/bashrc ~/.bashrc
 sudo -u "$user" ln -s $wd/config.fish ~/.config/fish/config.fish
 sudo -u "$user" ln -s $wd/fish_user_key_bindings.fish ~/.config/fish/functions/fish_user_key_bindings.fish
 sudo -u "$user" ln -s $wd/cmus.conf ~/.config/cmus/rc
-
-if [ -d "~/.config/terminology" ]; then
-  sudo -u "$user" ln -s $wd/terminology.cfg ~/.config/terminology/config/standard/base.cfg
-fi
 
 echo "done. Sourcing copied .bashrc"
 source ~/.bashrc
