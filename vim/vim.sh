@@ -107,6 +107,13 @@ else
   git clone https://github.com/Shougo/deoplete.nvim.git
 fi
 
+if [ -d ~/.vim/pack/jsmith/start/vim-polyglot ]; then
+  cd ~/.vim/pack/jsmith/start/vim-polyglot
+  git pull
+else
+  git clone https://github.com/sheerun/vim-polyglot.git ~/.vim/pack/jsmith/start/vim-polyglot
+fi
+
 if [ -d ~/.vim/colors/solarized ]; then
   cd ~/.vim/colors/solarized
   git pull
