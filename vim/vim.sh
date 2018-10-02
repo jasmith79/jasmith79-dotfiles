@@ -40,7 +40,7 @@ if [ -d ~/.vim/pack/jsmith/start/vim-eunuch ]; then
   git pull
 else
   cd ~/.vim/pack/jsmith/start
-  git clone https://github.com/vim-eunuch.git
+  git clone https://github.com/tpope/vim-eunuch.git
 fi
 
 if [ -d ~/.vim/pack/jsmith/start/vim-fireplace ]; then
@@ -114,8 +114,8 @@ else
   git clone https://github.com/sheerun/vim-polyglot.git ~/.vim/pack/jsmith/start/vim-polyglot
 fi
 
-if [ -d ~/.vim/colors/solarized ]; then
-  cd ~/.vim/colors/solarized
+if [ -d ~/.vim/schemes/solarized ]; then
+  cd ~/.vim/schemes/solarized
   git pull
 else
   cd ~/.vim/schemes
@@ -123,8 +123,8 @@ else
   ln -s ~/.vim/schemes/vim-colors-solarized/colors/solarized.vim ~/.vim/colors/solarized.vim
 fi
 
-if [ -d ~/.vim/colors/vim-solarized8 ]; then
-  cd ~/.vim/colors/vim-solarized8
+if [ -d ~/.vim/schemes/vim-solarized8 ]; then
+  cd ~/.vim/schemes/vim-solarized8
   git pull
 else
   cd ~/.vim/schemes
