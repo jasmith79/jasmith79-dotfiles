@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 # Determine working directory
 wd=$(pwd)
@@ -267,5 +267,7 @@ sudo -u "$user" ln -s $wd/bashrc ~/.bashrc
 
 echo "done. Sourcing copied .bashrc"
 source ~/.bashrc
+
+sudo usermod -G vboxsf "$user" 
 
 echo "Finished"
