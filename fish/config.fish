@@ -55,7 +55,7 @@ function randompass
   tr -dc 'A-Za-z0-9!"#$%&'\''()*+,-./:;<=>?@[\]^_`{|}~' </dev/urandom | head -c $n; echo
 end
 
-alias resetsound='pulseaudio -k; and sudo alsa force-reload'
+alias resetsound='pulseaudio -k'
 
 function vimd
   vim -c 'colorscheme flattened_dark' $argv

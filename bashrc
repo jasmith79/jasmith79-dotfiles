@@ -197,7 +197,7 @@ function vimd () {
 alias vimd='vimd'
 
 # Needed to periodically fix sound flubs in Vbox VMs.
-alias resetsound='pulseaudio -k && sudo alsa force-reload'
+alias resetsound='pulseaudio -k" 
 
 # Needed for cli-visualizer
 export TERM=xterm-256color
