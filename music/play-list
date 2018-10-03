@@ -7,7 +7,8 @@ if command -v cmus >/dev/null; then
   cmus-remote -q -c
   cmus-remote -P "$1"
   cmus-remote --next
-  cmus-remote --play
+  sleep 0.1
+  cmus-remote -p
 else
   echo "cmus not installed. Use e.g. sudo apt install cmus"
 fi
