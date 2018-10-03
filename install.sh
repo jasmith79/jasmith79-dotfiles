@@ -255,162 +255,17 @@ mkdir -p ~/.old_configs
 if [ -f "~/.bashrc" ]; then
   mv ~/.bashrc ~/.old_configs
 fi
+rm -f ~/.bashrc
 
-chown -R $user ~
+sudo chown -R "$user" ~
+sudo chgrp -R "$user" ~
+sudo chown -R "$user" /opt/programs
+sudo chgrp -R "$user" /opt/programs
 
 echo "done. Symlinking new configs..."
 sudo -u "$user" ln -s $wd/bashrc ~/.bashrc
 
 echo "done. Sourcing copied .bashrc"
 source ~/.bashrc
-
-echo "Copying play-list command"
-chmod +x $wd/play-list
-sudo ln -s $wd/play-list /usr/local/bin/play-list
-
-# TODO: replace these with version checks
-if command -v git >/dev/null; then
-  echo "Git successfully installed."
-else
-  echo "ERROR: missing git."
-fi
-
-if command -v gcc >/dev/null; then
-  echo "gcc successfully installed."
-else
-  echo "ERROR: missing gcc."
-fi
-
-if command -v make >/dev/null; then
-  echo "Make successfully installed."
-else
-  echo "ERROR: missing make."
-fi
-
-if command -v node >/dev/null; then
-  echo "Nodejs successfully installed."
-else
-  echo "ERROR: missing nodejs."
-fi
-
-if command -v webpack >/dev/null; then
-  echo "Webpack successfully installed."
-else
-  echo "ERROR: missing webpack."
-fi
-
-if command -v yarn >/dev/null; then
-  echo "Yarn successfully installed."
-else
-  echo "ERROR: missing yarn."
-fi
-
-if command -v atom >/dev/null; then
-  echo "Atom successfully installed."
-else
-  echo "ERROR: missing atom."
-fi
-
-if command -v vagrant >/dev/null; then
-  echo "vagrant successfully installed."
-else
-  echo "ERROR: missing vagrant."
-fi
-
-if command -v ansible-playbook >/dev/null; then
-  echo "Ansible successfully installed."
-else
-  echo "ERROR: missing ansible."
-fi
-
-if command -v virtualenv >/dev/null; then
-  echo "virtualenv successfully installed."
-else
-  echo "ERROR: missing virtualenv."
-fi
-
-if command -v python3 >/dev/null; then
-  echo "Python3 successfully installed."
-else
-  echo "ERROR: missing python3."
-fi
-
-if command -v pip3 >/dev/null; then
-  echo "pip3 successfully installed."
-else
-  echo "ERROR: missing pip3."
-fi
-
-if command -v fish >/dev/null; then
-  echo "Fish shell successfully installed."
-else
-  echo "ERROR: missing fish shell."
-fi
-
-if command -v clj >/dev/null; then
-  echo "Clojure successfully installed."
-else
-  echo "ERROR: missing Clojure."
-fi
-
-if command -v lein >/dev/null; then
-  echo "Leiningen successfully installed."
-else
-  echo "ERROR: missing leiningen."
-fi
-
-if command -v nvim >/dev/null; then
-  echo "Neovim successfully installed."
-else
-  echo "ERROR: missing neovim."
-fi
-
-if ! [[ $os = "Darwin" ]]; then
-  if command -v terminology >/dev/null; then
-    echo "Terminology successfully installed."
-  else
-    echo "ERROR: missing terminology."
-  fi
-fi
-
-if [ -f ~/.bashrc ]; then
-  echo "~/.bashrc successfully copied"
-else
-  echo "ERROR: missing bashrc"
-fi
-
-if [ -f ~/.vimrc ]; then
-  echo "~/.vimrc successfully copied"
-else
-  echo "ERROR: missing vimrc"
-fi
-
-if [ -f ~/.config/fish/config.fish ]; then
-  echo "~/.config/fish/config.fish successfully copied"
-else
-  echo "ERROR: missing config.fish"
-fi
-
-if [ -f ~/.config/fish/functions/fish_user_key_bindings.fish ]; then
-  echo "fish key bindings successfully installed"
-else
-  echo "ERROR: missing fish key bindings"
-fi
-
-if [ -f ~/.config/nvim/init.vim ]; then
-  echo "~/.config/nvim/init.vim successfully copied"
-else
-  echo "ERROR: missing init.vim"
-fi
-
-if ! [[ $os = "Darwin" ]]; then
-  if [ -f ~/.config/terminology/config/standard/base.cfg ]; then
-    echo "~/.config/terminology/config/standard/base.cfg successfully copied"
-  else
-    echo "ERROR: missing terminology base.cfg"
-  fi
-  echo "OS X runs all shells as login, be sure to add an appropriate source command to .bash_profile"
-  echo "See my .bashrc for details."
-fi
 
 echo "Finished"

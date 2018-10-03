@@ -1,5 +1,6 @@
+#!/bin/bash
+# Installs cmus, cli-visualizer, play-list script, and related configs.
 
-# Determine current user
 user=$(logname)
 who=$(whoami)
 if [[ $user = "" ]]; then
@@ -64,3 +65,9 @@ rm -f ~/.config/cmus/rc ~/.config/vis/config ~/.config/vis/colors/bluey
 ln -s $MUSDIR/config.cmus ~/.config/cmus/rc
 ln -s $MUSDIR/vis.conf ~/.config/vis/config
 ln -s $MUSDIR/bluey ~/.config/vis/colors/bluey
+
+echo "Copying play-list command"
+sudo rm -f /usr/local/bin/play-list
+chmod +x $MUSDIR/play-list
+sudo ln -s $MUSDIR/play-list /usr/local/bin/play-list
+

@@ -1,3 +1,5 @@
+#!/bin/bash
+# Installs ranger file manager and configs.
 
 # Determine current user
 user=$(logname)

@@ -1,3 +1,5 @@
+#!/bin/bash
+# Installs terminology terminal emulator and dependencies from source.
 
 # Determine current user
 user=$(logname)
