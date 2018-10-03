@@ -268,6 +268,6 @@ sudo -u "$user" ln -s $wd/bashrc ~/.bashrc
 echo "done. Sourcing copied .bashrc"
 source ~/.bashrc
 
-sudo usermod -G vboxsf "$user" 
+sudo usermod -aG vboxsf "$user" 
 
 echo "Finished"
