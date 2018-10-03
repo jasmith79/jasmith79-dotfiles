@@ -6,10 +6,29 @@ while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symli
 done
 VIMDIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null && pwd )"
 
+# Determine current user
+user=$(logname)
+who=$(whoami)
+if [[ $user = "" ]]; then
+  user="$SUDO_USER"
+fi
+
+if [[ $user = "" ]]; then
+  user="$who"
+fi
+
 mkdir -p ~/.vim/pack/jsmith/start
 mkdir -p ~/.vim/colors
 mkdir -p ~/.vim/schemes
 mkdir -p ~/.old_configs
+
+if ! command -v vim > /dev/null; then
+  if command -v apt > /dev/null; then
+    sudo apt install vim -y
+  else
+    echo "Unrecognized platform, cannot install vim"
+  fi
+fi
 
 if [ -d ~/.vim/pack/jsmith/start/tcomment_vim ]; then
   cd ~/.vim/pack/jsmith/start/tcomment_vim

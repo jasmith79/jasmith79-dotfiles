@@ -16,11 +16,11 @@ echo "Operating System: $os"
 user=$(logname)
 who=$(whoami)
 if [[ $user = "" ]]; then
-	user="$SUDO_USER"
+  user="$SUDO_USER"
 fi
 
 if [[ $user = "" ]]; then
-	user="$who"
+  user="$who"
 fi
 
 echo "Script called by user $user in directory $wd."
@@ -51,11 +51,10 @@ if [[ "$os" =~ [Dd]arwin ]]; then
 
   # From here on its similar-ish to linux
   echo "Installing prerequisites..."
-  sudo -u "$user" brew install fish
-  sudo -u "$user" brew install neovim
   sudo -u "$user" brew install git
   sudo -u "$user" brew install htop
   sudo -u "$user" brew install nodejs  # current LTS generally
+  sudo -u "$user" brew install yarn
   sudo -u "$user" brew install python3 # also usually current, also adds pip
 
   # needed for java/clojure/clojurescript
@@ -68,15 +67,7 @@ if [[ "$os" =~ [Dd]arwin ]]; then
   sudo -u "$user" brew cask install vagrant-manager
 
   # extras
-  sudo -u "$user" brew install cmus
-  sudo -u "$user" brew install ranger
   sudo -u "$user" brew install neofetch
-  sudo -u "$user" brew install gotop
-
-  # Needed for cli-visualizer
-  sudo -u "$user" brew install fftw
-  sudo -u "$user" brew tap homebrew/dupes
-  sudo -u "$user" brew install ncurses
 
   # Copy ssh config, High Sierra requires ssh-add -K after every reboot without it
   sudo -u "$user" ln -s $wd/ssh_config ~/.ssh/config
@@ -110,7 +101,6 @@ then
 
   if [[ ($distro == "Ubuntu" || $distro == "LinuxMint") && $ubuntu_version && "$ubuntu_version" -lt "18" ]]; then
     echo "Older Ubuntu base detected. Adding ppas..."
-    sudo add-apt-repository ppa:enlightenment-git/ppa -y
     sudo add-apt-repository ppa:neovim-ppa/stable -y
     echo "Done."
   fi
@@ -120,43 +110,10 @@ then
   echo "Done."
 
   echo "Installing prerequisites..."
-  sudo apt install curl gcc g++ git make cmake -y
+  sudo apt install curl gcc g++ git make cmake net-tools -y
 
   cd /opt/programs
 
-  # NOTE: the PPA doesn't work for e.g. 18.04 meaning you'll get the older version of
-  # terminology from the repos, so we build from source
-  if [[ ($distro == "Ubuntu" || $distro == "LinuxMint") && $ubuntu_version && "$ubuntu_version" -lt "18" ]]; then
-    sudo apt install terminology -y
-  else
-    sudo apt install -y meson check libssl-dev libsystemd-dev libjpeg-dev libglib2.0-dev libgstreamer1.0-dev libluajit-5.1-dev libfreetype6-dev libfontconfig1-dev libfribidi-dev libx11-dev libxext-dev libxrender-dev libgl1-mesa-dev libgif-dev libtiff5-dev libpoppler-dev libpoppler-cpp-dev libspectre-dev libraw-dev librsvg2-dev libudev-dev libmount-dev libdbus-1-dev libpulse-dev libsndfile1-dev libxcursor-dev libxcomposite-dev libxinerama-dev libxrandr-dev libxtst-dev libxss-dev libbullet-dev libgstreamer-plugins-base1.0-dev doxygen
-
-    cd /opt/programs
-    curl -O https://download.enlightenment.org/rel/libs/efl/efl-1.20.7.tar.xz
-    tar xvf efl-1.20.7.tar.xz
-    cd efl-1.20.7/
-    ./configure
-    make
-    sudo make install
-    sudo ln -s /usr/local/share/dbus-1/services/org.enlightenment.Ethumb.service /usr/share/dbus-1/services/org.enlightenment.Ethumb.service
-    sudo ldconfig
-    cd /opt/programs
-
-    curl -O https://download.enlightenment.org/rel/apps/terminology/terminology-1.2.1.tar.xz
-    tar xvf terminology-1.2.1.tar.xz
-    cd terminology-1.2.1
-    meson build
-    cd build
-    ninja
-    sudo ninja install
-  fi
-  cp terminology.cfg ~/.config/terminology/config/standard/base.cfg
-  cd /opt/programs
-
-  sudo apt install vim -y
-  sudo apt install net-tools -y
-  sudo apt install neovim -y
-  sudo apt install fish -y
   sudo apt install python3-pip -y
   sudo apt install python3-venv -y
   sudo apt install openssh-server -y
@@ -200,7 +157,6 @@ then
   # Extras
   sudo npm install -g vtop
 
-
   if ! [ -d /opt/programs/firefox ]; then
     cd /opt/programs
     curl -O 'https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US'
@@ -208,20 +164,15 @@ then
     sudo ln -s /opt/programs/firefox/firefox /usr/bin/ffdev
   fi
 
-  if ! [ -d /opt/programs/cli-visualizer ]; then
-    cd /opt/programs
-    git clone https://github.com/dpayne/cli-visualizer.git
-    cd cli-visualizer
-    ./install.sh
-  fi
-
-  sudo apt install alsa-base -y
-  sudo apt install cmus-plugin-ffmpeg -y
   sudo apt install dropbox -y
   sudo apt install vlc -y
   sudo apt install dmenu -y
   sudo apt install rofi -y
   sudo apt install nitrogen -y
+
+  source $wd/terminology/terminology.sh
+  source $wd/neogtk/neogtk.sh
+  
   cd /opt/programs
 else
   echo "Unknown Platform:"
@@ -251,9 +202,11 @@ sudo -u "$user" python3 -m pip install --user hangups
 # Ansible
 sudo -u "$user" python3 -m pip install --user ansible
 
-source ranger/ranger.sh
-source vim/vim.sh
-source nvim/nvim.sh
+source $wd/ranger/ranger.sh
+source $wd/vim/vim.sh
+source $wd/nvim/nvim.sh
+source $wd/music/music.sh
+source $wd/fish/fish.sh
 
 # install clojure for clojurescript and clojure, plus leiningen
 if ! command -v clj >/dev/null; then
@@ -295,17 +248,6 @@ if ! [ -d "~/Fonts/FiraCode" ]; then
   fi
 fi
 
-# echo "done. Installing vim-plug..."
-# # install vim-plug for neovim and update neovim to use it
-# if ! [ -f "~/.local/share/nvim/site/autoload/plug.vim" ]; then
-#   curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-#   	  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-# else
-#   echo "Requirement satisfied. Skipping..."
-# fi
-
-sudo -u "$user" python3 -m pip install --user neovim
-
 # Stash existing configs
 echo "done. Moving old configs to ~/.old_configs..."
 mkdir -p ~/.old_configs
@@ -314,27 +256,10 @@ if [ -f "~/.bashrc" ]; then
   mv ~/.bashrc ~/.old_configs
 fi
 
-if [ -f "~/.config/fish/config.fish" ]; then
-  mv ~/.config/fish/config.fish ~/.old_configs
-fi
-
-if [ -f "~/.config/fish/functions/fish_user_key_bindings.fish" ]; then
-  mv ~/.config/fish/functions/fish_user_key_bindings.fish ~/.old_configs
-fi
-
-if [ -f "~/.config/cmus/rc" ]; then
-  mv ~/.config/cmus/rc ~/.old_configs
-fi
-
 chown -R $user ~
 
 echo "done. Symlinking new configs..."
-sudo -u "$user" mkdir -p ~/.config/fish/functions
-sudo -u "$user" mkdir -p ~/.config/cmus
 sudo -u "$user" ln -s $wd/bashrc ~/.bashrc
-sudo -u "$user" ln -s $wd/config.fish ~/.config/fish/config.fish
-sudo -u "$user" ln -s $wd/fish_user_key_bindings.fish ~/.config/fish/functions/fish_user_key_bindings.fish
-sudo -u "$user" ln -s $wd/cmus.conf ~/.config/cmus/rc
 
 echo "done. Sourcing copied .bashrc"
 source ~/.bashrc
