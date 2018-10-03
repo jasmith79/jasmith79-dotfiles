@@ -135,8 +135,15 @@ else
   git clone https://github.com/sheerun/vim-polyglot.git ~/.vim/pack/jsmith/start/vim-polyglot
 fi
 
-if [ -d ~/.vim/schemes/solarized ]; then
-  cd ~/.vim/schemes/solarized
+if [ -d ~/.vim/pack/jsmith/start/vim-parinfer ]; then
+  cd ~/.vim/pack/jsmith/start/vim-parinfer
+  git pull
+else
+  git clone https://github.com/bhurlow/vim-parinfer.git ~/.vim/pack/jsmith/start/vim-parinfer
+fi
+
+if [ -d ~/.vim/schemes/vim-colors-solarized ]; then
+  cd ~/.vim/schemes/vim-colors-solarized
   git pull
 else
   cd ~/.vim/schemes
