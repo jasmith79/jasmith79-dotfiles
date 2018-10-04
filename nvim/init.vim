@@ -37,3 +37,6 @@ source ~/.vimrc
 " let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"t
 
 hi Normal guibg=NONE ctermbg=NONE
+if has("gui_vimr")
+  colorscheme flattened_dark
+endif
