@@ -189,7 +189,7 @@ fi
 function randompass () {
   n=${1-15}
   export LC_ALL=C
-  tr -dc 'A-Za-z0-9!"#$%&'\''()*+,-./:;<=>?@[\]^_`{|}~' </dev/urandom | head -c $n; echo
+  tr -dc 'A-Za-z0-9!"#$%&'\''()*+,-./:;<=>?@[\]^_{|}~' </dev/urandom | head -c $n; echo
 }
 
 alias randompass='randompass'
@@ -202,6 +202,8 @@ alias vimd='vimd'
 
 # Needed to periodically fix sound flubs in Vbox VMs.
 alias resetsound='pulseaudio -k'
+
+alias ipv4='ifconfig | grep "[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}"'
 
 # Needed for cli-visualizer
 export TERM=xterm-256color
