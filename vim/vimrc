@@ -74,6 +74,9 @@ vnoremap <Up> <Nop>
 vnoremap <Down> <Nop>
 vnoremap <Right> <Nop>
 
+set textwidth=120
+set colorcolumn=100
+
 " vim-airline
 let g:airline#extensions#tabline#enabled=1
 set laststatus=2
