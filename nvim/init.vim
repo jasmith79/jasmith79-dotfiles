@@ -35,6 +35,20 @@ source ~/.vimrc
 " colorscheme solarized8_dark_flat
 
 hi Normal guibg=NONE ctermbg=NONE
+
+" Vimr specifics
 if has("gui_vimr")
   colorscheme flattened_dark
+endif
+
+" Neovim GTK specifics
+if exists('g:GtkGuiLoaded')
+  " Looks better than the other solarized variants in GUI
+  colorscheme flattened_dark
+
+  " Set font, FiraCode looks crappy for some reason (all variants)
+  call rpcnotify(1, 'Gui', 'Font', 'Noto Mono 10')
+
+  " Enable native clipboard
+  let g:GuiInternalClipboard = 1
 endif
