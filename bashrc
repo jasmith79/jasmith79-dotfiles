@@ -204,6 +204,10 @@ alias ipv4='ifconfig | grep "[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,
 # Needed for cli-visualizer
 export TERM=xterm-256color
 
+if command -v nitrogen > /dev/null; then
+  nitrogen --restore
+fi
+
 # Do you have any fish shell? Go fish
 if command -v fish >/dev/null; then
   fish
