@@ -33,8 +33,6 @@ source ~/.vimrc
 
 " color theme
 " colorscheme solarized8_dark_flat
-" let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-" let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"t
 
 hi Normal guibg=NONE ctermbg=NONE
 if has("gui_vimr")
