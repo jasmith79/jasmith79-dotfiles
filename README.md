@@ -22,3 +22,4 @@ My dotfiles repo. Has files for neovim, bash, etc. Clone to the user directory a
 * Set up ssh keys
 * Verify install with testcheck.sh
 * Add music to cmus
+* Add nitrogen --restore to start up applications in de/wm if using e.g. cinnamon
