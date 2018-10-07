@@ -51,3 +51,7 @@ else
   echo "No build file for neovim-gtk, aborting."
   exit 1
 fi
+
+# Build process is supposed to take care of this, but whateves. Enables use of NG* commands.
+rm -f /usr/share/nvim/runtime/plugin/nvim_gui_shim.vim
+sudo ln -s /opt/programs/neovim-gtk/runtime/plugin/nvim_gui_shim.vim /usr/share/nvim/runtime/plugin/nvim_gui_shim.vim

@@ -152,6 +152,9 @@ fi
 
 #### ALIASES ####
 
+# Parallelism is like pudding, and there's never a bad time for pudding.
+alias make='make -j'
+
 if command -v nvim >/dev/null; then
   alias vim='nvim'
 fi
@@ -206,9 +209,33 @@ alias resetsound='pulseaudio -k'
 alias ipv4='ifconfig | grep "[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}"'
 
 # Needed for cli-visualizer
-export TERM=xterm-256color
+if [[ "$TERM" == "xterm" ]]; then
+  export TERM=xterm-256color
+fi
 
-# Do you have any fish shell? Go fish
-if command -v fish >/dev/null; then
-  fish
+if command -v nvim > /dev/null; then
+  export EDITOR="nvim"
+  export MANPAGER="nvim -c 'set ft=man' -"
+elif command -v vim > /dev/null
+then
+  export EDITOR="vim"
+else
+  export EDITOR="vi"
+fi
+
+# Set fish as my shell if available
+FISH_PATH=$(command -v fish) 
+if ! [ -z "$FISH_PATH" ] && ! [[ "$SHELL" =~ "fish" ]]; then
+  IS_VALID_SHELL=$(cat /etc/shells | grep "fish")
+  if [ -z "$IS_VALID_SHELL" ]; then
+    echo "$FISH_PATH" | sudo tee -a /etc/shells
+  fi
+  chsh -s "$FISH_PATH" 
+  echo "Shell has been changed to fish. In order prevent this command from running multiple times, please log out and
+  back in or restart the machine."
+fi
+
+# Set terminal to terminology if available
+if command -v terminology > /dev/null; then
+  export TERMINAL="terminology"
 fi
