@@ -25,16 +25,13 @@ fi
 SHDIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null && pwd )"
 a="/$0"; a=${a%/*}; a=${a#/}; a=${a:-.}; SHDIR=$(cd "$a"; pwd)
 
-echo "$user"
-echo "$SHDIR"
-
 mkdir -p ~/.old_configs
 if [ -f ~/.bashrc ]; then
-  cp ~/.bashrc ~/.old_configs/.bashrc
+  mv ~/.bashrc ~/.old_configs
 fi
 
 if [ -f ~/.bash_profile ]; then
-  cp ~/.bashrc ~/.old_configs/.bash_profile
+  mv ~/.bash_profile ~/.old_configs
 fi
 
 rm -f ~/.bashrc

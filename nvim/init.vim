@@ -38,13 +38,13 @@ hi Normal guibg=NONE ctermbg=NONE
 
 " Vimr specifics
 if has("gui_vimr")
-  colorscheme flattened_dark
+  colorscheme dracula
 endif
 
 " Neovim GTK specifics
 if exists('g:GtkGuiLoaded')
   " Looks better than the other solarized variants in GUI
-  colorscheme flattened_dark
+  colorscheme dracula
 
   " Set font, FiraCode looks crappy for some reason (all variants)
   call rpcnotify(1, 'Gui', 'Font', 'Noto Mono 10')

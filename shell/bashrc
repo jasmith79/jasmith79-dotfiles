@@ -148,6 +148,9 @@ export PATH="$HOME/.local/bin:/opt/android-studio/bin:$PATH"
 
 #### ALIASES ####
 
+# Parallelism is like pudding, and there's never a bad time for pudding.
+alias make='make -j'
+
 if command -v nvim >/dev/null; then
   alias vim='nvim'
 fi
@@ -202,7 +205,9 @@ alias resetsound='pulseaudio -k'
 alias ipv4='ifconfig | grep "[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}"'
 
 # Needed for cli-visualizer
-export TERM=xterm-256color
+if [[ "$TERM" == "xterm" ]]; then
+  export TERM=xterm-256color
+fi
 
 if command -v nvim > /dev/null; then
   export EDITOR="nvim"
