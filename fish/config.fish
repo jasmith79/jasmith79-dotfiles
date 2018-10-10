@@ -3,7 +3,7 @@
 . ~/.aliases
 
 # Always use neovim
-if command -v nvim > /dev/null 
+if command -v nvim > /dev/null
   alias vim='nvim'
 end
 
@@ -46,7 +46,9 @@ function randompass
 end
 
 function vimd
-  vim -c 'colorscheme dracula' -c 'set background=dark' $argv
+  vim -c 'colorscheme dracula' -c 'set background=dark' $argv:q
+  :q
+  
 end
 
 set fish_greeting 'It\'s dangerous to go alone. Take this with you.'

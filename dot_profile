@@ -19,12 +19,12 @@ if [ -n "$BASH_VERSION" ]; then
 fi
 
 # set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
+if [ -d "$HOME/bin" ]; then
     PATH="$HOME/bin:$PATH"
 fi
 
 # set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/.local/bin" ] ; then
+if [ -d "$HOME/.local/bin" ]; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
@@ -36,6 +36,11 @@ fi
 # Add android studio to path
 if [ -d /opt/programs/android-studio ]; then
   export PATH="$PATH:/opt/programs/android-studio/bin"
+fi
+
+# Use the gnu version of cli utils on Mac if installed
+if [ -d /usr/local/opt/coreutils/libexec/gnubin ]; then
+  export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 fi
 
 # Needed for cli-visualizer, all my terminal emulators should support
@@ -56,15 +61,3 @@ fi
 
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
-STARTX=$(command -v startx)
-
-if [ -z "$DISPLAY" ] && ! [ -z "$STARTX" ]; then
-  exec startx
-fi
-
-if command -v nitrogen > /dev/null; then
-  nitrogen --restore
-fi
-
-alias foo='ls -la'

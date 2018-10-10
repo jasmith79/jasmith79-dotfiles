@@ -147,14 +147,14 @@ function vimd () {
 
 alias vimd='vimd'
 
-Set fish as my shell if available
-FISH_PATH=$(command -v fish) 
+# Set fish as my shell if available
+FISH_PATH=$(command -v fish)
 if ! [ -z "$FISH_PATH" ] && ! [[ "$SHELL" =~ "fish" ]]; then
   IS_VALID_SHELL=$(cat /etc/shells | grep "fish")
   if [ -z "$IS_VALID_SHELL" ]; then
     echo "$FISH_PATH" | sudo tee -a /etc/shells
   fi
-  chsh -s "$FISH_PATH" 
+  chsh -s "$FISH_PATH"
   echo "Shell has been changed to fish. In order prevent this command from running multiple times, please log out and
   back in or restart the machine."
 fi
