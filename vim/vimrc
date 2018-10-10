@@ -62,6 +62,9 @@ set textwidth=120
 " guidline at 100
 set colorcolumn=100
 
+set autoindent
+set smartindent
+
 " COLORS
 
 set background=dark
