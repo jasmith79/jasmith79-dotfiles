@@ -10,9 +10,6 @@
 # for examples
 os=$(uname)
 
-# OSX won't load this on login, cuz not real *nix
-. ~/.profile
-
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
@@ -169,6 +166,6 @@ if ! [[ "$os" == "Darwin" ]]; then
 fi
 
 # If fish is available, start it
-if command -v fish > /dev/null; then
-  fish
-fi
+# if command -v fish > /dev/null; then
+#  fish
+# fi
