@@ -164,8 +164,3 @@ if ! [[ "$os" == "Darwin" ]]; then
     back in or restart the machine."
   fi
 fi
-
-# If fish is available, start it
-# if command -v fish > /dev/null; then
-#  fish
-# fi

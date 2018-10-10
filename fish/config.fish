@@ -46,9 +46,7 @@ function randompass
 end
 
 function vimd
-  vim -c 'colorscheme dracula' -c 'set background=dark' $argv:q
-  :q
-  
+  vim -c 'colorscheme dracula' -c 'set background=dark' $argv
 end
 
 set fish_greeting 'It\'s dangerous to go alone. Take this with you.'
