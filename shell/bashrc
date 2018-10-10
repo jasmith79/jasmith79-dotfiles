@@ -8,6 +8,10 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
+os=$(uname)
+
+# OSX won't load this on login, cuz not real *nix
+. ~/.profile
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -120,17 +124,20 @@ if command -v nvim >/dev/null; then
 fi
 
 # If using terminology, create an appropriate alias and set transparency to 80
-basename="/"$(ps -f -p $(cat /proc/$(echo $$)/stat | cut -d \  -f 4) | tail -1 | sed 's/^.* //')
-if [[ "$basename" =~ "terminology" ]]; then
-  function newt () {
-    terminology "$@" &>/dev/null &
-  }
-  alias newt='newt'
-  # The fullscreen option doesn't work in Cinnamon. 150 col x 55 lines is a
-  # reasonably large starting geometry, can max with mouse or keyboard after
-  # opening.
-  alias bigt='terminology -g 150x75 -S v-h'
-  tyalpha 80
+# NOTE: the basename check isn't portable, won't work on FreeBSD or OSX
+if [[ "$os" == "Linux" ]]; then
+  basename="/"$(ps -f -p $(cat /proc/$(echo $$)/stat | cut -d \  -f 4) | tail -1 | sed 's/^.* //')
+  if [[ "$basename" =~ "terminology" ]]; then
+    function newt () {
+      terminology "$@" &>/dev/null &
+    }
+    alias newt='newt'
+    # The fullscreen option doesn't work in Cinnamon. 150 col x 55 lines is a
+    # reasonably large starting geometry, can max with mouse or keyboard after
+    # opening.
+    alias bigt='terminology -g 150x75 -S v-h'
+    tyalpha 80
+  fi
 fi
 
 function randompass () {
@@ -147,14 +154,21 @@ function vimd () {
 
 alias vimd='vimd'
 
-# Set fish as my shell if available
-FISH_PATH=$(command -v fish)
-if ! [ -z "$FISH_PATH" ] && ! [[ "$SHELL" =~ "fish" ]]; then
-  IS_VALID_SHELL=$(cat /etc/shells | grep "fish")
-  if [ -z "$IS_VALID_SHELL" ]; then
-    echo "$FISH_PATH" | sudo tee -a /etc/shells
+# Set fish as my shell if available unless on OSX
+if ! [[ "$os" == "Darwin" ]]; then
+  FISH_PATH=$(command -v fish)
+  if ! [ -z "$FISH_PATH" ] && ! [[ "$SHELL" =~ "fish" ]]; then
+    IS_VALID_SHELL=$(cat /etc/shells | grep "fish")
+    if [ -z "$IS_VALID_SHELL" ]; then
+      echo "$FISH_PATH" | sudo tee -a /etc/shells
+    fi
+    chsh -s "$FISH_PATH"
+    echo "Shell has been changed to fish. In order prevent this command from running multiple times, please log out and
+    back in or restart the machine."
   fi
-  chsh -s "$FISH_PATH"
-  echo "Shell has been changed to fish. In order prevent this command from running multiple times, please log out and
-  back in or restart the machine."
+fi
+
+# If fish is available, start it
+if command -v fish > /dev/null; then
+  fish
 fi
