@@ -142,6 +142,13 @@ else
   git clone https://github.com/bhurlow/vim-parinfer.git ~/.vim/pack/jsmith/start/vim-parinfer
 fi
 
+if [ -d ~/.vim/pack/jsmith/start/auto-pairs ]; then
+  cd ~/.vim/pack/jsmith/start/auto-pairs
+  git pull
+else
+  git clone https://github.com/jiangmiao/auto-pairs
+fi
+
 if [ -d ~/.vim/schemes/vim-colors-solarized ]; then
   cd ~/.vim/schemes/vim-colors-solarized
   git pull
@@ -168,6 +175,21 @@ if [ -d ~/.vim/schemes/flattened ]; then
 else
   git clone https://github.com/romainl/flattened.git
   ln -s ~/.vim/schemes/flattened/colors/flattened_dark.vim ~/.vim/colors/flattened_dark.vim
+fi
+
+if [ -d ~/.vim/pack/jsmith/start/dracula ]; then
+  cd ~/.vim/pack/jsmith/start/dracula
+  git pull
+else
+  git clone https://github.com/dracula/vim ~/.vim/pack/jsmith/start/dracula
+fi
+
+if [ -d ~/.vim/schemes/vim-atom-dark ]; then
+  cd ~/.vim/schemes/vim-atom-dark
+  git pull
+else
+  git clone https://github.com/gosukiwi/vim-atom-dark.git
+  ln -s ~/.vim/schemes/vim-atom-dark/colors/atom-dark-256.vim ~/.vim/colors/atom-dark-256.vim
 fi
 
 # If it's an actual file, save it

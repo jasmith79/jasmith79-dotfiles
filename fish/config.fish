@@ -1,6 +1,11 @@
+#!/usr/bin/fish
+# import aliases
+. ~/.aliases
 
 # Always use neovim
-alias vim='nvim'
+if command -v nvim > /dev/null 
+  alias vim='nvim'
+end
 
 # vi bindings on the terminal
 # NOTE: if using fish < 2.3 then you'll need to take the following steps to
@@ -17,33 +22,18 @@ alias vim='nvim'
 fish_vi_key_bindings
 
 # If using terminology, create an appropriate alias and set transparency to 80
-if command -v tyalpha >/dev/null then
-  # The fullscreen option doesn't work in Cinnamon. 150 col x 55 lines is a
-  # reasonably large starting geometry, can max with mouse or keyboard after
-  # opening.
-  alias bigt='terminology -g 150x75 -S v-h'
-  tyalpha 80
-  function newt
-    terminology $argv > /dev/null ^&1
-  end
-end
+# term_emu="/"(ps -f -p (cat /proc/(echo %self)/stat | cut -d \  -f 4) | tail -1 | sed 's/^.* //'
+# if $term_emu =~ "terminology"
+#   # The fullscreen option doesn't work in Cinnamon. 150 col x 55 lines is a
+#   # reasonably large starting geometry, can max with mouse or keyboard after
+#   # opening.
+#   alias bigt='terminology -g 150x75 -S v-h'
+#   tyalpha 80
+#   function newt
+#     terminology $argv > /dev/null ^&1
+#   end
+# end
 
-if command -v cmus >/dev/null then
-  alias shuffle='cmus-remote -S'
-  alias pause='cmus-remote -u'
-  alias play='cmus-remote -p'
-  alias next='cmus-remote -n'
-  alias prev='cmus-remote -r'
-end
-
-if command -v rofi >/dev/null then
-  alias run='rofi -show run > /dev/null ^&1'
-  alias swit='rofi -show window > /dev/null ^&1'
-end
-
-if command -v vtop >/dev/null then
-  alias vtop='vtop --theme dark'
-end
 
 function randompass
   set LC_ALL C
@@ -52,15 +42,12 @@ function randompass
   else
     set n 15
   end
-  tr -dc 'A-Za-z0-9!"#$%&'\''()*+,-./:;<=>?@[\]^_`{|}~' </dev/urandom | head -c $n; echo
+  tr -dc 'A-Za-z0-9!"#$%&'\''()*+,-./:;<=>?@[\]^_{|}~' </dev/urandom | head -c $n; echo
 end
 
-alias resetsound='pulseaudio -k'
-
 function vimd
-  vim -c 'colorscheme flattened_dark' $argv
+  vim -c 'colorscheme dracula' -c 'set background=dark' $argv
 end
 
 set fish_greeting 'It\'s dangerous to go alone. Take this with you.'
 
-neofetch

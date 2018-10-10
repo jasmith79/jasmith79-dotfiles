@@ -28,7 +28,34 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
-export PATH="$HOME/.cargo/bin:$PATH"
+# Add local rust install to PATH
+if [ -d $HOME/.cargo ]; then
+  export PATH="$HOME/.cargo/bin:$PATH"
+fi
+
+# Add android studio to path
+if [ -d /opt/programs/android-studio ]; then
+  export PATH="$PATH:/opt/programs/android-studio/bin"
+fi
+
+# Needed for cli-visualizer, all my terminal emulators should support
+# at least 256 if not 24bit.
+if [[ "$TERM" == "xterm" ]]; then
+  export TERM=xterm-256color
+fi
+
+if command -v nvim > /dev/null; then
+  export EDITOR="nvim"
+  export MANPAGER="nvim -c 'set ft=man' -"
+elif command -v vim > /dev/null
+then
+  export EDITOR="vim"
+else
+  export EDITOR="vi"
+fi
+
+# colored GCC warnings and errors
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 STARTX=$(command -v startx)
 
@@ -39,3 +66,5 @@ fi
 if command -v nitrogen > /dev/null; then
   nitrogen --restore
 fi
+
+alias foo='ls -la'
