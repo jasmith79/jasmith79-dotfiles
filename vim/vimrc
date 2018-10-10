@@ -108,8 +108,14 @@ endfunction
 " prevents then binding from working properly. Solution is to disable that
 " part of the plugin, then add its function call to my own mapping.
 let g:AutoPairsMapBS = 0
-inoremap <silent> <BS> <C-R>=AutoPairsDelete()<CR><C-W>
-inoremap <silent> <Del> <C-R>=AutoPairsDelete()<CR><C-W>
+" if empty(glob('~/.vim/pack/jsmith/start/auto-pairs'))
+if exists('g:AutoPairs')
+  inoremap <silent> <BS> <C-R>=AutoPairsDelete()<CR><C-W>
+  inoremap <silent> <Del> <C-R>=AutoPairsDelete()<CR><C-W>
+else
+  inoremap <BS> <C-W>
+  inoremap <Del> <C-W>
+endif
 
 " 'fp' is an uncommon digraph, so back to normal 
 inoremap fp <ESC>

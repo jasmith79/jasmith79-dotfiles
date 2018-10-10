@@ -34,7 +34,13 @@ if [ -f ~/.bash_profile ]; then
   mv ~/.bash_profile ~/.old_configs
 fi
 
+if [ -f ~/.aliases ]; then
+  mv ~/.aliases ~/.old_configs
+fi
+
+rm -f ~/.aliases
 rm -f ~/.bashrc
 rm -f ~/.bash_profile
 ln -s $SHDIR/bashrc ~/.bashrc
 ln -s $SHDIR/bash_profile ~/.bash_profile
+ln -s $SHDIR/aliases ~/.aliases
