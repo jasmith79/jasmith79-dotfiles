@@ -184,6 +184,8 @@ then
   sudo apt install nitrogen -y
   sudo apt install lolcat -y
 
+  ln -s $wd/rofi/config ~/.config/rofi/config
+
   # source $wd/terminology/terminology.sh
   # source $wd/neogtk/neogtk.sh
   
@@ -216,6 +218,7 @@ sudo -u "$user" python3 -m pip install --user unimatrix
 # Ansible
 sudo -u "$user" python3 -m pip install --user ansible
 
+source $wd/shell/inst_shell.sh
 source $wd/ranger/ranger.sh
 source $wd/vim/vim.sh
 source $wd/nvim/nvim.sh
@@ -262,24 +265,14 @@ if ! [ -d "~/Fonts/FiraCode" ]; then
   fi
 fi
 
-# Stash existing configs
-echo "done. Moving old configs to ~/.old_configs..."
-mkdir -p ~/.old_configs
-
-if [ -f "~/.bashrc" ]; then
-  mv ~/.bashrc ~/.old_configs
-fi
-rm -f ~/.bashrc
-
 sudo chown -R "$user" ~
 sudo chgrp -R "$user" ~
 sudo chown -R "$user" /opt/programs
 sudo chgrp -R "$user" /opt/programs
 
-echo "done. Symlinking new configs..."
-sudo -u "$user" ln -s $wd/bashrc ~/.bashrc
-
 # Add user to vboxsf group so if in VM can access shared folders.
 sudo usermod -aG vboxsf "$user" 
 
-echo "Finished"
+ln -s $wd/dot_profile ~/.profile
+
+echo "Finished. Please logout and back in to make sure the environment is properly set up."
