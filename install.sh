@@ -99,18 +99,12 @@ then
     echo "Ubuntu derivative based on $ubuntu_version.x"
   fi
 
-  if [[ ($distro == "Ubuntu" || $distro == "LinuxMint") && $ubuntu_version && "$ubuntu_version" -lt "18" ]]; then
-    echo "Older Ubuntu base detected. Adding ppas..."
-    sudo add-apt-repository ppa:neovim-ppa/stable -y
-    echo "Done."
-  fi
-
   echo "Updating system repository database..."
   sudo apt-get update
   echo "Done."
 
   echo "Installing prerequisites..."
-  sudo apt install curl gcc g++ git make cmake net-tools -y
+  sudo apt install curl gcc g++ git make cmake net-tools zip -y
 
   cd /opt/programs
 
@@ -124,6 +118,25 @@ then
   sudo apt install whois -y
   sudo apt install neofetch -y
   sudo apt install xclip -y
+  sudo apt install tilix -y
+
+  # install my icons
+  if ! [[ -d ~/.icons/korla ]]; then
+    mkdir -p ~/.icons
+    curl -o korla.zip https://dl.opendesktop.org/api/files/download/id/1537892368/s/5fc8906c493e7e2eefe6e4bf0ec9bb3e/t/1539348335/u//korla%200-7%204.zip
+    unzip korla.zip
+    mv korla ~/.icons
+    rm -rf korla.zip korla
+  fi
+
+  # and cinnamon theme
+  if [[ -d ~/.themes/Mint-Y-Yltra-Dark ]]; then
+    mkdir -p ~/.themes
+    curl -O https://cinnamon-spices.linuxmint.com/files/themes/Mint-Y-Yltra-Dark.zip
+    unzip Mint-Y-Yltra-Dark.zip
+    mv Mint-Y-Yltra-Dark.zip ~/.themes
+    rm -rf Mint-Y-Yltra-Dark.zip Mint-Y-Yltra-Dark
+  fi
 
   # Needed for cli-visualizer
   sudo apt install libfftw3-dev libncursesw5-dev libpulse-dev -y
@@ -169,9 +182,10 @@ then
   sudo apt install dmenu -y
   sudo apt install rofi -y
   sudo apt install nitrogen -y
+  sudo apt install lolcat -y
 
-  source $wd/terminology/terminology.sh
-  source $wd/neogtk/neogtk.sh
+  # source $wd/terminology/terminology.sh
+  # source $wd/neogtk/neogtk.sh
   
   cd /opt/programs
 else
@@ -180,7 +194,6 @@ else
   echo "Aborting..."
   exit 1
 fi
-
 
 # configure git
 echo "done. Configuring git..."
@@ -198,6 +211,7 @@ sudo -u "$user" python3 -m pip install --upgrade pip
 sudo -u "$user" python3 -m pip install --user setuptools
 sudo -u "$user" python3 -m pip install --user virtualenv
 sudo -u "$user" python3 -m pip install --user hangups
+sudo -u "$user" python3 -m pip install --user unimatrix
 
 # Ansible
 sudo -u "$user" python3 -m pip install --user ansible
@@ -265,9 +279,7 @@ sudo chgrp -R "$user" /opt/programs
 echo "done. Symlinking new configs..."
 sudo -u "$user" ln -s $wd/bashrc ~/.bashrc
 
-echo "done. Sourcing copied .bashrc"
-source ~/.bashrc
-
+# Add user to vboxsf group so if in VM can access shared folders.
 sudo usermod -aG vboxsf "$user" 
 
 echo "Finished"
