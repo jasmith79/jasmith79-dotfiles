@@ -20,6 +20,11 @@ if ! command -v fish > /dev/null; then
   fi
 fi
 
+# Install omf plugin manager
+if command -v fish > /dev/null; then
+  curl -L https://get.oh-my.fish | fish
+fi
+
 if [ -f ~/.config/fish/config.fish ]; then
   cp ~/.config/fish/config.fish ~/.old_configs
 fi
