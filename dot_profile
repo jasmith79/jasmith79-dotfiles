@@ -49,6 +49,15 @@ if [[ "$TERM" == "xterm" ]]; then
   export TERM=xterm-256color
 fi
 
+# PYTHON
+if [ -d /Users/$USER/Library/Python ]; then
+  PYVERS=$(ls /Users/$USER/Library/Python | grep "^3" | tail -n 1)
+fi
+
+if ! [ -z "$PYVERS" ]; then
+  export PATH="/Users/$USER/Library/Python/$PYVERS/bin:$PATH"
+fi
+
 if command -v nvim > /dev/null; then
   export EDITOR="nvim"
   export MANPAGER="nvim -c 'set ft=man' -"
@@ -61,3 +70,4 @@ fi
 
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
