@@ -27,3 +27,7 @@ alias lla='ls -la'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
+
+# DevOps
+alias destroy='vagrant destroy -f'
+alias playbk='ansible-playbook'
