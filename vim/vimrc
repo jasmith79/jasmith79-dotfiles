@@ -41,6 +41,11 @@ set splitright
 " ensures that editing a new buffer doesn't close the current one
 set hidden
 
+" automatically leave insert mode after 'updatetime' milliseconds of inaction
+au CursorHoldI * stopinsert
+" au InsertEnter * let updaterestore=&updatetime | set updatetime=15000
+" au InsertLeave * let &updatetime=updaterestore
+
 " tabs are icky, set to 2 spaces
 set tabstop=2
 set softtabstop=2
