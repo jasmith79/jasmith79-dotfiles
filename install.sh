@@ -38,10 +38,7 @@ if [[ "$os" =~ [Dd]arwin ]]; then
   fi
 
   sudo -u "$user" brew tap caskroom/cask
-  if ! command -v atom >/dev/null; then
-    sudo -u "$user" brew cask install atom
-  fi
-
+  
   # iterm2 goodies
   sudo -u "$user" brew cask install iterm2
   curl -L https://iterm2.com/misc/install_shell_integration.sh | bash
@@ -154,12 +151,6 @@ then
   curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
   echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
   sudo apt-get update && sudo apt install yarn -y
-
-  # install atom editor
-  curl -L https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add -
-  sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list'
-  sudo apt-get update
-  sudo apt install atom -y
 
   # install google chrome browser
   wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
