@@ -1,0 +1,24 @@
+'.editor':
+  'alt-h': 'window:focus-pane-on-above'
+  'alt-k': 'window:focus-pane-on-below'
+  'alt-j': 'window:focus-pane-on-left'
+  'alt-l': 'window:focus-pane-on-right'
+
+'atom-text-editor.vim-mode-plus':
+  'f p'   : 'vim-mode-plus:reset-normal-mode'
+
+'atom-text-editor.vim-mode-plus.insert-mode':
+  'f p'   : 'vim-mode-plus:activate-normal-mode'
+  'backspace': 'editor:delete-to-beginning-of-word'
+
+'atom-text-editor.vim-mode-plus:not(.insert-mode)':
+  # Motions
+  # -------------------------
+  'j': 'vim-mode-plus:move-left'
+  'left': 'vim-mode-plus:move-left'
+  'backspace': 'core:move-left'
+  'l': 'vim-mode-plus:move-right'
+  'space': 'vim-mode-plus:move-right'
+  'right': 'vim-mode-plus:move-right'
+  'h': 'vim-mode-plus:move-up'
+  'k': 'vim-mode-plus:move-down'

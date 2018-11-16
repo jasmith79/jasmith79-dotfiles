@@ -23,6 +23,6 @@ if ! command -v atom > /dev/null; then
   fi
 fi
 
-apm install --packages-file $ATOMDIR/packages.txt 
-rm ~/.atom/packages/vim-mode-plus/keymaps/vim-mode-plus.cson
-ln -s $ATOMDIR/vim-mode-plus.cson ~/.atom/packages/vim-mode-plus/keymaps/vim-mode-plus.cson
+apm install --packages-file $ATOMDIR/packages.txt
+rm ~/.atom/keymap.cson
+ln -s $ATOMDIR/keymap.cson ~/.atom/keymap.cson
