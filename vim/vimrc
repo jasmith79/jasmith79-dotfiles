@@ -73,6 +73,7 @@ set smartindent
 " COLORS
 
 set background=dark
+packadd! dracula
 colorscheme dracula 
 
 " use 24 bit color if avail
@@ -162,6 +163,6 @@ let g:airline#extensions#tabline#enabled=1
 set laststatus=2
 
 " use deoplete.
-let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_at_startup = 1
 
 
