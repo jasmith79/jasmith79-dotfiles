@@ -33,7 +33,7 @@ if [ -d $HOME/.cargo ]; then
   export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
-# Add android studio to path
+# Add android studio to path on linux
 if [ -d /opt/programs/android-studio ]; then
   export PATH="$PATH:/opt/programs/android-studio/bin"
 fi
