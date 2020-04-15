@@ -31,3 +31,14 @@ alias egrep='egrep --color=auto'
 # DevOps
 alias destroy='vagrant destroy -f'
 alias playbk='ansible-playbook'
+
+# git
+
+alias gcm='git commit -m'
+alias gcam='git commit -am'
+alias gcf='git commit -F'
+alias gcaf='git commit -aF'
+
+# python
+
+alias p3='python3'
