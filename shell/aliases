@@ -29,7 +29,7 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
 # DevOps
-alias destroy='vagrant destroy -f'
+alias vdestroy='vagrant destroy -f'
 alias playbk='ansible-playbook'
 
 # git
@@ -38,6 +38,11 @@ alias gcm='git commit -m'
 alias gcam='git commit -am'
 alias gcf='git commit -F'
 alias gcaf='git commit -aF'
+alias gmm='git merge master'
+alias gmd='git merge dev'
+alias gckb='git checkout -b'
+alias gckm='git checkout master'
+alias gckd='git checkout dev'
 
 # python
 
