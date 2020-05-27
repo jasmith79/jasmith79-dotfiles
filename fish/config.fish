@@ -35,19 +35,9 @@ fish_vi_key_bindings
 # end
 
 
-function randompass
-  set LC_ALL C
-  if count $argv > /dev/null
-    set n $argv
-  else
-    set n 15
-  end
-  tr -dc 'A-Za-z0-9!"#$%&'\''()*+,-./:;<=>?@[\]^_{|}~' </dev/urandom | head -c $n; echo
-end
 
-function vimd
-  vim -c 'colorscheme dracula' -c 'set background=dark' $argv
-end
+
+
 
 set SPACEFISH_USER_SHOW always
 set SPACEFISH_USER_COLOR af5fff
@@ -59,3 +49,20 @@ set SPACEFISH_EXEC_TIME_SHOW false
 
 set fish_greeting 'It\'s dangerous to go alone. Take this with you.'
 
+function gtag
+  git tag -a $argv -m "$argv"
+end
+
+function vimd
+  vim -c 'colorscheme dracula' -c 'set background=dark' $argv
+end
+
+function randompass
+  set LC_ALL C
+  if count $argv > /dev/null
+    set n $argv
+  else
+    set n 15
+  end
+  tr -dc 'A-Za-z0-9!"#$%&'\''()*+,-./:;<=>?@[\]^_{|}~' </dev/urandom | head -c $n; echo
+end
