@@ -57,6 +57,15 @@ function vimd
   vim -c 'colorscheme dracula' -c 'set background=dark' $argv
 end
 
+function sshscan
+  if count $argv > /dev/null
+    set ip $argv
+  else
+    set ip 192.168.1.0
+  end
+  sudo nmap -sS -p 22 $ip/24
+end
+
 function randompass
   set LC_ALL C
   if count $argv > /dev/null
