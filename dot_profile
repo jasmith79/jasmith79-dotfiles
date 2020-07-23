@@ -49,6 +49,8 @@ if [[ "$TERM" == "xterm" ]]; then
   export TERM=xterm-256color
 fi
 
+export PATH="/usr/local/bin:$PATH"
+
 # PYTHON
 if [ -d /Users/$USER/Library/Python ]; then
   PYVERS=$(ls /Users/$USER/Library/Python | grep "^3" | tail -n 1)
