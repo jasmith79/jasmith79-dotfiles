@@ -43,6 +43,10 @@ if [ -d /usr/local/opt/coreutils/libexec/gnubin ]; then
   export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 fi
 
+if [ -d /usr/local/bin ]; then
+  export PATH="/usr/local/bin:$PATH"
+fi
+
 # Needed for cli-visualizer, all my terminal emulators should support
 # at least 256 if not 24bit.
 if [[ "$TERM" == "xterm" ]]; then
