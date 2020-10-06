@@ -104,7 +104,7 @@ then
   echo "Done."
 
   echo "Installing prerequisites..."
-  sudo apt install curl gcc g++ git make cmake net-tools zip -y
+  sudo apt install curl gcc g++ git make cmake zip -y
 
   cd /opt/programs
 
