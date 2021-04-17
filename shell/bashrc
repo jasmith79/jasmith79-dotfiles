@@ -164,3 +164,4 @@ if ! [[ "$os" == "Darwin" ]]; then
     back in or restart the machine."
   fi
 fi
+source "$HOME/.cargo/env"

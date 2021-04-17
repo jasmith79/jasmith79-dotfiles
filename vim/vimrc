@@ -42,7 +42,7 @@ set splitright
 set hidden
 
 " automatically leave insert mode after 'updatetime' milliseconds of inaction
-au CursorHoldI * stopinsert
+" au CursorHoldI * stopinsert
 " au InsertEnter * let updaterestore=&updatetime | set updatetime=15000
 " au InsertLeave * let &updatetime=updaterestore
 
@@ -139,15 +139,15 @@ vnoremap h k
 vnoremap k j
 
 " Arrows to no-op
-nnoremap <Left> <Nop>
-nnoremap <Up> <Nop>
-nnoremap <Down> <Nop>
-nnoremap <Right> <Nop>
+" nnoremap <Left> <Nop>
+" nnoremap <Up> <Nop>
+" nnoremap <Down> <Nop>
+" nnoremap <Right> <Nop>
 
-vnoremap <Left> <Nop>
-vnoremap <Up> <Nop>
-vnoremap <Down> <Nop>
-vnoremap <Right> <Nop>
+" vnoremap <Left> <Nop>
+" vnoremap <Up> <Nop>
+" vnoremap <Down> <Nop>
+" vnoremap <Right> <Nop>
 
 map <Leader>f :call ToggleVExplorer()<CR>
 
