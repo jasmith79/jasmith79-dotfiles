@@ -164,4 +164,10 @@ if ! [[ "$os" == "Darwin" ]]; then
     back in or restart the machine."
   fi
 fi
+<<<<<<< HEAD
 source "$HOME/.cargo/env"
+=======
+
+# added by travis gem
+[ ! -s /Users/jsmith/.travis/travis.sh ] || source /Users/jsmith/.travis/travis.sh
+>>>>>>> 2dc2f3fdb495e11e6df9d865f6038060d189dbfb
