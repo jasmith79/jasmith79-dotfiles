@@ -158,6 +158,15 @@ else
   ln -s ~/.vim/schemes/vim-colors-solarized/colors/solarized.vim ~/.vim/colors/solarized.vim
 fi
 
+if [ -d ~/.vim/schemes/iceberg.vim ]; then
+  cd ~/.vim/schemes/iceberg.vim
+  git pull
+else
+  cd ~/.vim/schemes
+  git clone https://github.com/cocopon/iceberg.vim.git
+  ln -s /Users/jared/.vim/schemes/iceberg.vim/colors/iceberg.vim /Users/jared/.vim/colors/
+fi
+
 if [ -d ~/.vim/schemes/vim-solarized8 ]; then
   cd ~/.vim/schemes/vim-solarized8
   git pull
