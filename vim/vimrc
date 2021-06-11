@@ -74,7 +74,8 @@ set smartindent
 
 set background=dark
 packadd! dracula
-colorscheme dracula 
+" colorscheme dracula 
+colorscheme iceberg
 
 " use 24 bit color if avail
 if $COLORTERM == 'truecolor'
