@@ -49,5 +49,5 @@ alias gckd='git checkout dev'
 # python
 
 alias p3='python3'
-alias pinstall='python3 -m pip install --user'
+alias pipin='python3 -m pip install --user'
 alias pserve='python3 -m http.server'
