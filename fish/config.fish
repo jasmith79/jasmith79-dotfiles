@@ -34,11 +34,6 @@ fish_vi_key_bindings
 #   end
 # end
 
-
-
-
-
-
 set SPACEFISH_USER_SHOW always
 set SPACEFISH_USER_COLOR af5fff
 set SPACEFISH_DIR_COLOR ffaf5f
@@ -49,6 +44,7 @@ set SPACEFISH_EXEC_TIME_SHOW false
 
 set fish_greeting 'It\'s dangerous to go alone. Take this with you.'
 
+# Generates a git tag and commit msg with the supplied version number.
 function gtag
   git tag -a $argv -m "$argv"
 end
@@ -57,6 +53,9 @@ function vimd
   vim -c 'colorscheme dracula' -c 'set background=dark' $argv
 end
 
+# Scans a block of IP addresses for boxes that have ssh available.
+# Useful for finding headless servers you didn't assign a static
+# ip on your local network.
 function sshscan
   if count $argv > /dev/null
     set ip $argv
@@ -66,6 +65,13 @@ function sshscan
   sudo nmap -sS -p 22 $ip/24
 end
 
+# Kills the docker image that matches the argument
+function dkill
+  docker ps | grep $argv | egrep -o "^[a-f0-9]+" | xargs docker rm -f
+end
+
+# Generates a cryptographically secure random password of
+# length n (default is 15 characters)
 function randompass
   set LC_ALL C
   if count $argv > /dev/null

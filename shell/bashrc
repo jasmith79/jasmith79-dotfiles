@@ -122,27 +122,30 @@ fi
 
 # If using terminology, create an appropriate alias and set transparency to 80
 # NOTE: the basename check isn't portable, won't work on FreeBSD or OSX
-if [[ "$os" == "Linux" ]]; then
-  basename="/"$(ps -f -p $(cat /proc/$(echo $$)/stat | cut -d \  -f 4) | tail -1 | sed 's/^.* //')
-  if [[ "$basename" =~ "terminology" ]]; then
-    function newt () {
-      terminology "$@" &>/dev/null &
-    }
-    alias newt='newt'
-    # The fullscreen option doesn't work in Cinnamon. 150 col x 55 lines is a
-    # reasonably large starting geometry, can max with mouse or keyboard after
-    # opening.
-    alias bigt='terminology -g 150x75 -S v-h'
-    tyalpha 80
-  fi
-fi
+# if [[ "$os" == "Linux" ]]; then
+#   basename="/"$(ps -f -p $(cat /proc/$(echo $$)/stat | cut -d \  -f 4) | tail -1 | sed 's/^.* //')
+#   if [[ "$basename" =~ "terminology" ]]; then
+#     function newt () {
+#       terminology "$@" &>/dev/null &
+#     }
+#     alias newt='newt'
+#     # The fullscreen option doesn't work in Cinnamon. 150 col x 55 lines is a
+#     # reasonably large starting geometry, can max with mouse or keyboard after
+#     # opening.
+#     alias bigt='terminology -g 150x75 -S v-h'
+#     tyalpha 80
+#   fi
+# fi
 
+# Generates a cryptographically secure random password of
+# length n (default is 15 characters)
 randompass () {
   n=${1-15}
   export LC_ALL=C
   tr -dc 'A-Za-z0-9!"#$%&'\''()*+,-./:;<=>?@[\]^_{|}~' </dev/urandom | head -c $n; echo
 }
 
+# Kills the docker image that matches the argument
 dkill () {
   docker ps | grep $1 | egrep -o "^[a-f0-9]+" | xargs docker rm -f
 }
@@ -166,7 +169,10 @@ if ! [[ "$os" == "Darwin" ]]; then
     back in or restart the machine."
   fi
 fi
-source "$HOME/.cargo/env"
+
+if [ -d "$HOME/.cargo/env"]; then
+  source "$HOME/.cargo/env"
+fi
 
 # added by travis gem
 [ ! -s /Users/jsmith/.travis/travis.sh ] || source /Users/jsmith/.travis/travis.sh
