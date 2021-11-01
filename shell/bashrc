@@ -137,15 +137,17 @@ if [[ "$os" == "Linux" ]]; then
   fi
 fi
 
-function randompass () {
+randompass () {
   n=${1-15}
   export LC_ALL=C
   tr -dc 'A-Za-z0-9!"#$%&'\''()*+,-./:;<=>?@[\]^_{|}~' </dev/urandom | head -c $n; echo
 }
 
-alias randompass='randompass'
+dkill () {
+  docker ps | grep $1 | egrep -o "^[a-f0-9]+" | xargs docker rm -f
+}
 
-function vimd () {
+vimd () {
   vim -c 'colorscheme dracula' -c 'set background=dark' $@
 }
 
