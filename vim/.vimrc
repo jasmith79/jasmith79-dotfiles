@@ -18,8 +18,13 @@ set showmatch
 set autoread
 
 " make the search ignore case unless caps are present
-set ignorecase
-set smartcase
+" set smartcase
+" set ignorecase
+
+set scrolloff=8
+
+set signcolumn=yes " Extra column for error/linter msg
+set colorcolumn=80 " cursor guide at 80 char
 
 " don't redraw during macros
 set lazyredraw
@@ -30,6 +35,17 @@ if has('mouse')
 endif
 
 syntax on
+set noerrorbells
+set noswapfile
+set nobackup
+set undodir=~/.vim/undodir
+set undofile
+
+" Don't keep search results highlighted after moving on
+set nohlsearch
+
+" Source local .vimrc if present when opening a dir
+set exrc
 
 " use system clipboard. On windows should be unnamed instead of unnamedplus
 set clipboard=unnamedplus
@@ -63,9 +79,6 @@ set cmdheight=3
 
 " soft wrap at 120 chars
 set textwidth=120
-
-" guidline at 100
-set colorcolumn=100
 
 set autoindent
 set smartindent
@@ -128,7 +141,7 @@ else
 endif
 
 " 'fp' is an uncommon digraph, so back to normal 
-inoremap fp <ESC>
+" inoremap fp <ESC>
 let mapleader="\<SPACE>"
 
 " Remap cursor movement for colemak, l is fine as is.
