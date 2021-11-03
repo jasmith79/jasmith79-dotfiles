@@ -66,9 +66,9 @@ function sshscan
 end
 
 # Kills the docker image that matches the argument
-function dkill
-  docker ps | grep $argv | egrep -o "^[a-f0-9]+" | xargs docker rm -f
-end
+# function dkill
+#   docker ps | grep $argv | egrep -o "^[a-f0-9]+" | xargs docker rm -f
+# end
 
 # Generates a cryptographically secure random password of
 # length n (default is 15 characters)
