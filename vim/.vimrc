@@ -85,6 +85,18 @@ set smartindent
 " Make Y work like D, C
 nnoremap Y yg$
 
+" nice undo semantics
+inoremap , ,<c-g>u
+inoremap . .<c-g>u
+inoremap ? ?<c-g>u
+inoremap ! !<c-g>u
+inoremap [ [<c-g>u
+inoremap ] ]<c-g>u
+inoremap { {<c-g>u
+inoremap } }<c-g>u
+inoremap ( (<c-g>u
+inoremap ) )<c-g>u
+
 " MOVEMENT
 " Remap cursor movement for colemak, l is fine as is.
 nnoremap j h
