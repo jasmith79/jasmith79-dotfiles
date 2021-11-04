@@ -172,6 +172,7 @@ endif
 let mapleader="\<SPACE>"
 
 " Arrows to no-op
+" recommend doing until finger nav easy
 " nnoremap <Left> <Nop>
 " nnoremap <Up> <Nop>
 " nnoremap <Down> <Nop>
