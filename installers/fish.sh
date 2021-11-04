@@ -8,7 +8,6 @@ done
 FISHDIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null && pwd )"
 
 mkdir -p ~/.old_configs
-mkdir -p ~/.config/fish/functions
 
 if ! command -v fish > /dev/null; then
   if command -v apt > /dev/null; then
@@ -17,6 +16,7 @@ if ! command -v fish > /dev/null; then
     brew install fish
   else
     echo "Unable to install fish!"
+    exit 1
   fi
 fi
 
