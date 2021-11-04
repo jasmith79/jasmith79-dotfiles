@@ -83,10 +83,40 @@ set textwidth=120
 set autoindent
 set smartindent
 
+" Make Y work like D, C
+nnoremap Y yg$
+
+" MOVEMENT
+" Remap cursor movement for colemak, l is fine as is.
+nnoremap j h
+nnoremap h k
+nnoremap k j
+vnoremap j h
+vnoremap h k
+vnoremap k j
+
+" Move Blocks of highlighted text, autoindenting
+vnoremap H :m '>+1<CR>gv=gv 
+vnoremap J :m '<-2<CR>gv=gv
+
+" Make jumps more natural. n/N next/prev result, zz center cursor, zv open folds
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" Use a mark to recenter cursor when concatenating lines
+nnoremap J mzJ`z
+
+" if jumping vertically by more than 5 lines, insert relative mark
+" for better jumping back
+nnoremap <expr> j (v:count > 5 ? "'m" . v:count : "") . 'k'
+nnoremap <expr> h (v:count > 5 ? "'m" . v:count : "") . 'j'
+
+
+
 " COLORS
 
 set background=dark
-packadd! dracula
+" packadd! dracula
 " colorscheme dracula 
 colorscheme iceberg
 
@@ -144,13 +174,7 @@ endif
 " inoremap fp <ESC>
 let mapleader="\<SPACE>"
 
-" Remap cursor movement for colemak, l is fine as is.
-nnoremap j h
-nnoremap h k
-nnoremap k j
-vnoremap j h
-vnoremap h k
-vnoremap k j
+
 
 " Arrows to no-op
 " nnoremap <Left> <Nop>
