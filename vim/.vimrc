@@ -1,7 +1,6 @@
 " jasmith79's .vimrc
+" Also sourced by init.vim for neovim
 
-" we'll add a plugin instead of the standard modeline
-set nomodeline
 set encoding=utf8
 filetype plugin indent on
 
@@ -111,8 +110,6 @@ nnoremap J mzJ`z
 nnoremap <expr> j (v:count > 5 ? "'m" . v:count : "") . 'k'
 nnoremap <expr> h (v:count > 5 ? "'m" . v:count : "") . 'j'
 
-
-
 " COLORS
 
 set background=dark
@@ -174,8 +171,6 @@ endif
 " inoremap fp <ESC>
 let mapleader="\<SPACE>"
 
-
-
 " Arrows to no-op
 " nnoremap <Left> <Nop>
 " nnoremap <Up> <Nop>
@@ -193,14 +188,3 @@ map <Leader>f :call ToggleVExplorer()<CR>
 " file with :vsplit to the right of the browser.
 let g:netrw_browse_split = 4
 let g:netrw_altv = 1
-
-" PLUGIN STUFFS
-
-" vim-airline
-let g:airline#extensions#tabline#enabled=1
-set laststatus=2
-
-" use deoplete.
-" let g:deoplete#enable_at_startup = 1
-
-
