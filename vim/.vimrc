@@ -62,7 +62,7 @@ set hidden
 " au InsertEnter * let updaterestore=&updatetime | set updatetime=15000
 " au InsertLeave * let &updatetime=updaterestore
 
-" tabs are icky, set to 2 spaces
+" tabs are icky, set to 4 spaces
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
