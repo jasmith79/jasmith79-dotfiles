@@ -82,86 +82,79 @@ set textwidth=120
 set autoindent
 set smartindent
 
-" " Make Y work like D, C
-" nnoremap Y yg$
+" Make Y work like D, C
+nnoremap Y yg$
 
-" " nice undo semantics
-" inoremap , ,<c-g>u
-" inoremap . .<c-g>u
-" inoremap ? ?<c-g>u
-" inoremap ! !<c-g>u
-" inoremap [ [<c-g>u
-" inoremap ] ]<c-g>u
-" inoremap { {<c-g>u
-" inoremap } }<c-g>u
-" inoremap ( (<c-g>u
-" inoremap ) )<c-g>u
+" nice undo semantics
+inoremap , ,<c-g>u
+inoremap . .<c-g>u
+inoremap ? ?<c-g>u
+inoremap ! !<c-g>u
+inoremap [ [<c-g>u
+inoremap ] ]<c-g>u
+inoremap { {<c-g>u
+inoremap } }<c-g>u
+inoremap ( (<c-g>u
+inoremap ) )<c-g>u
 
-" " MOVEMENT
-" " Remap cursor movement for colemak, l is fine as is.
-" nnoremap j h
-" nnoremap h k
-" nnoremap k j
-" vnoremap j h
-" vnoremap h k
-" vnoremap k j
+" MOVEMENT
+" Remap cursor movement for colemak, l is fine as is.
+nnoremap j h
+nnoremap h k
+nnoremap k j
+vnoremap j h
+vnoremap h k
+vnoremap k j
 
-" " Move Blocks of highlighted text, autoindenting
-" vnoremap H :m '>+1<CR>gv=gv 
-" vnoremap J :m '<-2<CR>gv=gv
+" Move Blocks of highlighted text, autoindenting
+vnoremap H :m '>+1<CR>gv=gv 
+vnoremap J :m '<-2<CR>gv=gv
 
-" " Make jumps more natural. n/N next/prev result, zz center cursor, zv open folds
-" nnoremap n nzzzv
-" nnoremap N Nzzzv
+" Make jumps more natural. n/N next/prev result, zz center cursor, zv open folds
+nnoremap n nzzzv
+nnoremap N Nzzzv
 
-" " Use a mark to recenter cursor when concatenating lines
-" nnoremap J mzJ`z
+" Use a mark to recenter cursor when concatenating lines
+nnoremap J mzJ`z
 
-" " if jumping vertically by more than 5 lines, insert relative mark
-" " for better jumping back
-" nnoremap <expr> j (v:count > 5 ? "'m" . v:count : "") . 'k'
-" nnoremap <expr> h (v:count > 5 ? "'m" . v:count : "") . 'j'
+" COLORS
 
-" " COLORS
+set background=dark
+colorscheme iceberg
 
-" set background=dark
-" " packadd! dracula
-" " colorscheme dracula 
-" colorscheme iceberg
+" use 24 bit color if avail
+if $COLORTERM == 'truecolor'
+  if (has("termguicolors"))
+    set termguicolors
+  endif
 
-" " use 24 bit color if avail
-" if $COLORTERM == 'truecolor'
-"   if (has("termguicolors"))
-"     set termguicolors
-"   endif
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
 
-"   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-"   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-" endif
+" FUNCTIONS
 
-" " FUNCTIONS
-
-" " Taken from https://stackoverflow.com/a/5636941/3757232
-" " Toggle Vexplore with Ctrl-E
-" function! ToggleVExplorer()
-"   if exists("t:expl_buf_num")
-"       let expl_win_num = bufwinnr(t:expl_buf_num)
-"       if expl_win_num != -1
-"           let cur_win_nr = winnr()
-"           exec expl_win_num . 'wincmd w'
-"           close
-"           exec cur_win_nr . 'wincmd w'
-"           unlet t:expl_buf_num
-"       else
-"           unlet t:expl_buf_num
-"       endif
-"   else
-"       exec '1wincmd w'
-"       Vexplore
-"       vertical resize 50
-"       let t:expl_buf_num = bufnr("%")
-"   endif
-" endfunction
+" Taken from https://stackoverflow.com/a/5636941/3757232
+" Toggle Vexplore with Ctrl-E
+function! ToggleVExplorer()
+  if exists("t:expl_buf_num")
+      let expl_win_num = bufwinnr(t:expl_buf_num)
+      if expl_win_num != -1
+          let cur_win_nr = winnr()
+          exec expl_win_num . 'wincmd w'
+          close
+          exec cur_win_nr . 'wincmd w'
+          unlet t:expl_buf_num
+      else
+          unlet t:expl_buf_num
+      endif
+  else
+      exec '1wincmd w'
+      Vexplore
+      vertical resize 50
+      let t:expl_buf_num = bufnr("%")
+  endif
+endfunction
 
 " " KEYBINDINGS
 
@@ -179,9 +172,7 @@ set smartindent
 "   inoremap <Del> <C-W>
 " endif
 
-" " 'fp' is an uncommon digraph, so back to normal 
-" " inoremap fp <ESC>
-" let mapleader="\<SPACE>"
+let mapleader="\<SPACE>"
 
 " " Arrows to no-op
 " " recommend doing until finger nav easy
@@ -195,7 +186,7 @@ set smartindent
 " " vnoremap <Down> <Nop>
 " " vnoremap <Right> <Nop>
 
-" map <Leader>f :call ToggleVExplorer()<CR>
+map <Leader>f :call ToggleVExplorer()<CR>
 
 " " Hit enter in the file browser to open the selected
 " " file with :vsplit to the right of the browser.
