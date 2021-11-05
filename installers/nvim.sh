@@ -8,7 +8,7 @@
 # This will grab the path to the dotfiles dir, quoting to
 # guard against spaces in paths, e.g. I set my user name to
 # "Jared Smith" or something.
-DOTFILES_DIR = "$(dirname "$(dirname "$(readlink -f "$0")")"
+DOTFILES_DIR="$(dirname "$(dirname "$(readlink -f "$0")")"
 
 # Determine current user name
 user=$(logname)
@@ -28,10 +28,10 @@ if ! command -v nvim > /dev/null; then
     sudo -u "$user" brew install neovim
   elif command -v apt > /dev/null; then
     # Official repo version too old for some of my plugins
-    sudo add-apt-repository ppa:neovim-ppa/stable
+    sudo add-apt-repository ppa:neovim-ppa/stable -y
     sudo apt update && sudo apt install vim neovim -y
     # Need python support for some stuff
-    sudo apt install python3-dev python3-pip
+    sudo apt install python3-dev python3-pip -y
   else
     echo "Unrecognized platform, aborting vim install"
     exit 1
@@ -57,6 +57,7 @@ fi
 rm -f ~/.config/nvim/init.vim
 
 pushd $DOTFILES_DIR
+stow -D config
 stow config
 popd
 
