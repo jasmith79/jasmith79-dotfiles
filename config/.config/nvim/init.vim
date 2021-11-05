@@ -64,7 +64,7 @@ set completeopt=menuone,noinsert,noselect
 " Avoid showing extra messages when using completion
 set shortmess+=c
 
-" lua require('config')
+lua require('config')
 
 hi Normal guibg=NONE ctermbg=NONE
 
