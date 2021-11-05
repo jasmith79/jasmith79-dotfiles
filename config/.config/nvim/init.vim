@@ -19,36 +19,36 @@ autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
 call plug#begin('~/.vim/plugged')
 
 " copied mostly from ThePrimeagen, few alterations of my own
-Plug 'neovim/nvim-lspconfig' " lsp configs
-Plug 'hrsh7th/cmp-nvim-lsp'  " completion engine, lsp based
-Plug 'hrsh7th/cmp-buffer'    " completion engine, lsp based
-Plug 'hrsh7th/nvim-cmp'      " completion engine, lsp based
-Plug 'hrsh7th/cmp-path'      " path completion
-Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' } " moar completion
-Plug 'onsails/lspkind-nvim'  " adds cutesy images in autocompletions like vscode does
-Plug 'glepnir/lspsaga.nvim'  " brings up jump to def/jump to ref UI
-Plug 'simrat39/symbols-outline.nvim' " symbol tree ui
-Plug 'simrat39/rust-tools.nvim' " needed for rust analyzer plugin
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " better syntax highlighting
-Plug 'rafamadriz/friendly-snippets' " pretty much every language I use
-Plug 'rust-lang/rust.vim' " rust lang support
-Plug 'fatih/vim-go' " golang
-Plug 'tpope/vim-fugitive' " git integration
-Plug 'tpope/vim-rhubarb' " github integration
-Plug 'junegunn/gv.vim' " git commit browser
-Plug 'vim-utils/vim-man' " browse man pages in vim
-Plug 'mbbill/undotree' " what it says on the tin, view your undo list
-Plug 'tpope/vim-dispatch' " run async jobs e.g. compile, test in new window or whatever
-Plug 'nvim-lua/popup.nvim' " required for telescope fzf
-Plug 'nvim-lua/plenary.nvim' " required for telescope fzf
-Plug 'nvim-telescope/telescope.nvim' " fzf
-Plug 'nvim-telescope/telescope-fzy-native.nvim' " fzf
-Plug 'mhinz/vim-rfc' " required for harpoon
-Plug 'ThePrimeagen/harpoon' " requires nvim-lua/plenary.nvim, custom marks
-Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'} " statusline $bling$
-Plug 'kyazdani42/nvim-web-devicons' " lua icons
-Plug 'ryanoasis/vim-devicons' " vimscript icons
-Plug 'dracula/vim', { 'as': 'dracula' } " shiny!
+" Plug 'neovim/nvim-lspconfig' " lsp configs
+" Plug 'hrsh7th/cmp-nvim-lsp'  " completion engine, lsp based
+" Plug 'hrsh7th/cmp-buffer'    " completion engine, lsp based
+" Plug 'hrsh7th/nvim-cmp'      " completion engine, lsp based
+" Plug 'hrsh7th/cmp-path'      " path completion
+" Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' } " moar completion
+" Plug 'onsails/lspkind-nvim'  " adds cutesy images in autocompletions like vscode does
+" Plug 'glepnir/lspsaga.nvim'  " brings up jump to def/jump to ref UI
+" Plug 'simrat39/symbols-outline.nvim' " symbol tree ui
+" Plug 'simrat39/rust-tools.nvim' " needed for rust analyzer plugin
+" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " better syntax highlighting
+" Plug 'rafamadriz/friendly-snippets' " pretty much every language I use
+" Plug 'rust-lang/rust.vim' " rust lang support
+" Plug 'fatih/vim-go' " golang
+" Plug 'tpope/vim-fugitive' " git integration
+" Plug 'tpope/vim-rhubarb' " github integration
+" Plug 'junegunn/gv.vim' " git commit browser
+" Plug 'vim-utils/vim-man' " browse man pages in vim
+" Plug 'mbbill/undotree' " what it says on the tin, view your undo list
+" Plug 'tpope/vim-dispatch' " run async jobs e.g. compile, test in new window or whatever
+" Plug 'nvim-lua/popup.nvim' " required for telescope fzf
+" Plug 'nvim-lua/plenary.nvim' " required for telescope fzf
+" Plug 'nvim-telescope/telescope.nvim' " fzf
+" Plug 'nvim-telescope/telescope-fzy-native.nvim' " fzf
+" Plug 'mhinz/vim-rfc' " required for harpoon
+" Plug 'ThePrimeagen/harpoon' " requires nvim-lua/plenary.nvim, custom marks
+" Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'} " statusline $bling$
+" Plug 'kyazdani42/nvim-web-devicons' " lua icons
+" Plug 'ryanoasis/vim-devicons' " vimscript icons
+" Plug 'dracula/vim', { 'as': 'dracula' } " shiny!
 
 call plug#end()
 
@@ -65,7 +65,7 @@ set completeopt=menuone,noinsert,noselect
 " Avoid showing extra messages when using completion
 set shortmess+=c
 
-lua require('config')
+" lua require('config')
 
 hi Normal guibg=NONE ctermbg=NONE
 
