@@ -8,7 +8,7 @@
 # This will grab the path to the dotfiles dir, quoting to
 # guard against spaces in paths, e.g. I set my user name to
 # "Jared Smith" or something.
-DOTFILES_DIR = "$(dirname "$(dirname "$(readlink -f "$0")")")"
+DOTFILES_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
 
 # Determine current user
 user=$(logname)
