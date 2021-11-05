@@ -45,10 +45,9 @@ call plug#begin('~/.vim/plugged')
 " Plug 'nvim-telescope/telescope-fzy-native.nvim' " fzf
 " Plug 'mhinz/vim-rfc' " required for harpoon
 " Plug 'ThePrimeagen/harpoon' " requires nvim-lua/plenary.nvim, custom marks
-" Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'} " statusline $bling$
-" Plug 'kyazdani42/nvim-web-devicons' " lua icons
-" Plug 'ryanoasis/vim-devicons' " vimscript icons
-" Plug 'dracula/vim', { 'as': 'dracula' } " shiny!
+Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'} " statusline $bling$
+Plug 'kyazdani42/nvim-web-devicons' " lua icons
+Plug 'dracula/vim', { 'as': 'dracula' } " shiny!
 
 call plug#end()
 
