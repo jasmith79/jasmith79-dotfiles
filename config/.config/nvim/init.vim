@@ -29,7 +29,7 @@ call plug#begin('~/.vim/plugged')
 " Plug 'glepnir/lspsaga.nvim'  " brings up jump to def/jump to ref UI
 " Plug 'simrat39/symbols-outline.nvim' " symbol tree ui
 " Plug 'simrat39/rust-tools.nvim' " needed for rust analyzer plugin
-" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " better syntax highlighting
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " better syntax highlighting
 " Plug 'rafamadriz/friendly-snippets' " pretty much every language I use
 " Plug 'rust-lang/rust.vim' " rust lang support
 " Plug 'fatih/vim-go' " golang
@@ -65,6 +65,7 @@ set completeopt=menuone,noinsert,noselect
 set shortmess+=c
 
 lua require('config')
+lua require'treesitter.nvim.configs'.setup { ensure_installed = "maintained", highlight = { enable = true } }
 
 hi Normal guibg=NONE ctermbg=NONE
 
