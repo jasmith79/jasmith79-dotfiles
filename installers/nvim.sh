@@ -27,8 +27,11 @@ if ! command -v nvim > /dev/null; then
   if command -v brew > /dev/null; then
     sudo -u "$user" brew install neovim
   elif command -v apt > /dev/null; then
-    # Official repo version too old for some of my plugins
-    sudo add-apt-repository ppa:neovim-ppa/stable -y
+    # Official ubuntu repo version waaaay too old
+    # for some of my plugins.
+    # Can switch to stable once better treesitter/lsp
+    # support lands.
+    sudo add-apt-repository ppa:neovim-ppa/unstable -y
     sudo apt update && sudo apt install vim neovim -y
     # Need python support for some stuff
     sudo apt install python3-dev python3-pip -y
