@@ -19,15 +19,15 @@ autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
 call plug#begin('~/.vim/plugged')
 
 " copied mostly from ThePrimeagen, few alterations of my own
-" Plug 'neovim/nvim-lspconfig' " lsp configs
-" Plug 'hrsh7th/cmp-nvim-lsp'  " completion engine, lsp based
-" Plug 'hrsh7th/cmp-buffer'    " completion engine, lsp based
-" Plug 'hrsh7th/nvim-cmp'      " completion engine, lsp based
-" Plug 'hrsh7th/cmp-path'      " path completion
-" Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' } " moar completion
+Plug 'neovim/nvim-lspconfig' " lsp configs
+Plug 'hrsh7th/cmp-nvim-lsp'  " completion engine, lsp based
+Plug 'hrsh7th/cmp-buffer'    " completion engine, lsp based
+Plug 'hrsh7th/nvim-cmp'      " completion engine, lsp based
+Plug 'hrsh7th/cmp-path'      " path completion
+Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' } " moar completion
 " Plug 'onsails/lspkind-nvim'  " adds cutesy images in autocompletions like vscode does
-" Plug 'glepnir/lspsaga.nvim'  " brings up jump to def/jump to ref UI
-" Plug 'simrat39/symbols-outline.nvim' " symbol tree ui
+Plug 'glepnir/lspsaga.nvim'  " brings up jump to def/jump to ref UI
+Plug 'simrat39/symbols-outline.nvim' " symbol tree ui
 " Plug 'simrat39/rust-tools.nvim' " needed for rust analyzer plugin
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " better syntax highlighting
 Plug 'nvim-treesitter/playground' " AST visualizer
