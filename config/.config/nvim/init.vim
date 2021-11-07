@@ -30,6 +30,7 @@ call plug#begin('~/.vim/plugged')
 " Plug 'simrat39/symbols-outline.nvim' " symbol tree ui
 " Plug 'simrat39/rust-tools.nvim' " needed for rust analyzer plugin
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " better syntax highlighting
+Plug 'nvim-treesitter/playground' " AST visualizer
 " Plug 'rafamadriz/friendly-snippets' " pretty much every language I use
 " Plug 'rust-lang/rust.vim' " rust lang support
 " Plug 'fatih/vim-go' " golang
