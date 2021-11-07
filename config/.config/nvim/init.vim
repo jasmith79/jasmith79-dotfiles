@@ -46,8 +46,9 @@ Plug 'nvim-treesitter/playground' " AST visualizer
 " Plug 'nvim-telescope/telescope-fzy-native.nvim' " fzf
 " Plug 'mhinz/vim-rfc' " required for harpoon
 " Plug 'ThePrimeagen/harpoon' " requires nvim-lua/plenary.nvim, custom marks
-Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'} " statusline $bling$
-Plug 'kyazdani42/nvim-web-devicons' " lua icons
+Plug 'vim-airline/vim-airline' " statusline upgrade
+Plug 'vim-airline/vim-airline-themes'
+Plug 'gkeep/iceberg-dark' " dark iceberg theme for airline
 Plug 'dracula/vim', { 'as': 'dracula' } " shiny!
 
 call plug#end()
@@ -69,6 +70,8 @@ lua require('config')
 lua require'treesitter.nvim.configs'.setup { ensure_installed = "maintained", highlight = { enable = true } }
 
 hi Normal guibg=NONE ctermbg=NONE
+
+let g:airline_theme = 'icebergDark'
 
 " Vimr specifics
 " if has("gui_vimr")
