@@ -1,9 +1,7 @@
 # Jared Smith's bashrc.
-# Note that on OSX all shells by default are run as login shells. Be sure to add the following
-# if [ -f ~/.bashrc ]; then
-#   source ~/.bashrc
-# fi
-# To ensure that this file gets sourced.
+# Note that on OSX all shells by default are run as login shells.
+# Be sure to add a conditional check in .profile o ensure that
+# this file gets sourced.
 
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
@@ -170,7 +168,7 @@ if ! [[ "$os" == "Darwin" ]]; then
   fi
 fi
 
-if [ -d "$HOME/.cargo/env"]; then
+if [ -d "$HOME/.cargo/env" ]; then
   source "$HOME/.cargo/env"
 fi
 

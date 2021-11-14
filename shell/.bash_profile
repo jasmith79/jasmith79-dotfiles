@@ -9,6 +9,6 @@ fi
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
-if [ -d "$HOME/.cargo/env"]; then
+if [ -d "$HOME/.cargo/env" ]; then
   source "$HOME/.cargo/env"
 fi

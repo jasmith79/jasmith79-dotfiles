@@ -10,12 +10,12 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
-# if running bash
-if [ -n "$BASH_VERSION" ]; then
-    # include .bashrc if it exists
-    if [ -f "$HOME/.bashrc" ]; then
-	. "$HOME/.bashrc"
-    fi
+os=$(uname)
+
+# If running bash on macos and there's a .bashrc, source it.
+# Need the OS check because this errors on ubuntu et al.
+if [[ "$os" =~ [Dd]arwin && -n "$BASH_VERSION" && -f ~/.bashrc ]]; then
+    source ~/.bashrc
 fi
 
 # set PATH so it includes user's private bin if it exists
