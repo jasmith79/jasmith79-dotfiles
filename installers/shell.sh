@@ -16,19 +16,19 @@ if ! command -v stow > /dev/null; then
   fi
 fi
 
-if [ ! -L ~/.bashrc && -f ~/.bashrc ]; then
+if [[ ! -L ~/.bashrc && -f ~/.bashrc ]]; then
   mv ~/.bashrc ~/.old_configs
 fi
 
-if [ ! -L ~/.bash_profile && -f ~/.bash_profile ]; then
+if [[ ! -L ~/.bash_profile && -f ~/.bash_profile ]]; then
   mv ~/.bash_profile ~/.old_configs
 fi
 
-if [ ! -L ~/.aliases && -f ~/.aliases ]; then
+if [[ ! -L ~/.aliases && -f ~/.aliases ]]; then
   mv ~/.aliases ~/.old_configs
 fi
 
-if [ ! -L ~/.profile && -f ~/.profile ]; then
+if [[ ! -L ~/.profile && -f ~/.profile ]]; then
   mv ~/.profile ~/.old_configs
 fi
 
