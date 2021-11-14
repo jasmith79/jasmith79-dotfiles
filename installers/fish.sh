@@ -3,15 +3,11 @@ DOTFILES_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
 
 mkdir -p ~/.old_configs
 
+source "$DOTFILES_DIR/utils/install-pkg.sh"
+source "$DOTFILES_DIR/utils/ensure-stow.sh"
+
 if ! command -v fish > /dev/null; then
-  if command -v apt > /dev/null; then
-    sudo apt install fish -y
-  elif command -v brew > /dev/null; then
-    brew install fish
-  else
-    echo "Unable to install fish!"
-    exit 1
-  fi
+  install-pkg "fish"
 fi
 
 # Install omf plugin manager
@@ -19,16 +15,7 @@ if command -v fish > /dev/null; then
   curl -L https://get.oh-my.fish | fish
 fi
 
-if ! command -v stow > /dev/null; then
-  if command -v brew > /dev/null; then
-    sudo -u "$user" brew install stow
-  elif command -v apt > /dev/null; then
-    sudo apt-get update && sudo apt install stow -y
-  else
-    echo "Unrecognized platform, aborting vim install"
-    exit 1
-  fi
-fi
+ensure-stow
 
 if [[ ! -L ~/.config/fish/config.fish && -f ~/.config/fish/config.fish ]]; then
   cp ~/.config/fish/config.fish ~/.old_configs

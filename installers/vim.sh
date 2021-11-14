@@ -10,6 +10,8 @@
 # "Jared Smith" or something.
 DOTFILES_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
 
+source "$DOTFILES_DIR/utils/ensure-stow.sh"
+
 # Determine current user
 user=$(logname)
 who=$(whoami)
@@ -34,17 +36,7 @@ if ! command -v vim > /dev/null; then
   fi
 fi
 
-# Double-check we have stow.
-if ! command -v stow > /dev/null; then
-  if command -v brew > /dev/null; then
-    sudo -u "$user" brew install stow
-  elif command -v apt > /dev/null; then
-    sudo apt-get update && sudo apt install stow -y
-  else
-    echo "Unrecognized platform, aborting vim install"
-    exit 1
-  fi
-fi
+ensure-stow
 
 # If it's an actual file, save it
 if [[ ! -L "~/.vimrc" && -f "~/.vimrc" ]]; then
