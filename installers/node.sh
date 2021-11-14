@@ -15,9 +15,7 @@ if ! command -v fnm > /dev/null; then
   eval "$(fnm env)"
 fi
 
-if ! command -v node > /dev/null; then
-  install-pkg "nodejs"
-fi
+~/.cargo/bin/fnm use --install-if-missing 14 # current LTS
 
 npm install -g yarn
 npm install -g ts-node
