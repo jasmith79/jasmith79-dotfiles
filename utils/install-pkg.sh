@@ -4,6 +4,8 @@
 # platforms or I want to install slightly different
 # packages depending on the platform but this
 # works well enough.
+os=$(uname)
+
 # From https://stackoverflow.com/a/246128/3757232
 SOURCE="${BASH_SOURCE[0]}"
 while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
@@ -18,6 +20,13 @@ while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symli
   fi
 done
 UTILS_DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+
+# Ensure if on MacOS that we have homebrew
+if [[ "$os" =~ [Dd]arwin ]]; then
+  if ! command -v brew >/dev/null; then
+    sudo -u "$user" /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  fi
+fi
 
 install-pkg () {
   if command -v brew > /dev/null; then
