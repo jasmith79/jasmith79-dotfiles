@@ -1,46 +1,43 @@
-#!/bin/sh
+#!/bin/bash
+# NOTE: assumes bash already installed.
+DOTFILES_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
 
-if ! command -v bash > /dev/null; then
-  if command -v pkg > /dev/null; then
-    sudo pkg install bash
-  elif command -v apt > /dev/null
-  then
-    sudo apt install bash -y 
+mkdir -p ~/.old_configs
+
+# Double-check we have stow.
+if ! command -v stow > /dev/null; then
+  if command -v brew > /dev/null; then
+    sudo -u "$user" brew install stow
+  elif command -v apt > /dev/null; then
+    sudo apt-get update && sudo apt install stow -y
   else
-    echo "Cannot install bash on this system, exiting..."
+    echo "Unrecognized platform, aborting vim install"
     exit 1
   fi
 fi
 
-user=$(logname)
-who=$(whoami)
-if [ "$user" = "" ]; then
-	user="$SUDO_USER"
-fi
-
-if [ "$user" = "" ]; then
-	user="$who"
-fi
-
-SHDIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null && pwd )"
-a="/$0"; a=${a%/*}; a=${a#/}; a=${a:-.}; SHDIR=$(cd "$a"; pwd)
-
-mkdir -p ~/.old_configs
-if [ -f ~/.bashrc ]; then
+if [ ! -L ~/.bashrc && -f ~/.bashrc ]; then
   mv ~/.bashrc ~/.old_configs
 fi
 
-if [ -f ~/.bash_profile ]; then
+if [ ! -L ~/.bash_profile && -f ~/.bash_profile ]; then
   mv ~/.bash_profile ~/.old_configs
 fi
 
-if [ -f ~/.aliases ]; then
+if [ ! -L ~/.aliases && -f ~/.aliases ]; then
   mv ~/.aliases ~/.old_configs
+fi
+
+if [ ! -L ~/.profile && -f ~/.profile ]; then
+  mv ~/.profile ~/.old_configs
 fi
 
 rm -f ~/.aliases
 rm -f ~/.bashrc
 rm -f ~/.bash_profile
-ln -s $SHDIR/bashrc ~/.bashrc
-ln -s $SHDIR/bash_profile ~/.bash_profile
-ln -s $SHDIR/aliases ~/.aliases
+rm -f ~/.profile
+
+pushd $DOTFILES_DIR
+stow -D shell
+stow shell
+popd

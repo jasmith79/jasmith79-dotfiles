@@ -60,8 +60,8 @@ fi
 rm -f ~/.config/nvim/init.vim
 
 pushd $DOTFILES_DIR
-stow -D config
-stow config
+stow -D nvim
+stow nvim
 popd
 
 echo "done. Installing vim-plug..."

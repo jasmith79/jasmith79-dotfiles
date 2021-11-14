@@ -47,7 +47,7 @@ if ! command -v stow > /dev/null; then
 fi
 
 # If it's an actual file, save it
-if [[ ! -L "~/.vimrc" &&-f "~/.vimrc" ]]; then
+if [[ ! -L "~/.vimrc" && -f "~/.vimrc" ]]; then
   cp ~/.vimrc ~/.old_configs/.vimrc
 fi
 rm -f ~/.vimrc
