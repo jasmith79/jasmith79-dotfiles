@@ -1,11 +1,5 @@
 #!/bin/bash
-SOURCE="${BASH_SOURCE[0]}"
-while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
-  FISHDIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null && pwd )"
-  SOURCE="$(readlink "$SOURCE")"
-  [[ $SOURCE != /* ]] && SOURCE="$FISHDIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
-done
-FISHDIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null && pwd )"
+DOTFILES_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
 
 mkdir -p ~/.old_configs
 
