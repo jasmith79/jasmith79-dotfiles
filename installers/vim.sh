@@ -11,6 +11,7 @@
 DOTFILES_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
 
 source "$DOTFILES_DIR/utils/ensure-stow.sh"
+source "$DOTFILES_DIR/utils/update-apt.sh"
 
 # Determine current user
 user=$(logname)
@@ -29,7 +30,8 @@ if ! command -v vim > /dev/null; then
   if command -v brew > /dev/null; then
     sudo -u "$user" brew install vim
   elif command -v apt > /dev/null; then
-    sudo apt-get update && sudo apt install vim vim-doc vim-scripts ctags -y 
+    update-apt
+    sudo apt install vim vim-doc vim-scripts ctags -y 
   else
     echo "Unrecognized platform, aborting vim install"
     exit 1
