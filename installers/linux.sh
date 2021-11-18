@@ -19,6 +19,12 @@ if [ "$os" =~ "ubuntu" ]; then # includes mint
   sudo apt install -y curl
   sudo apt install -y apt-transport-https
 
+  # Dropbox
+  pushd ~ || exit 1
+  wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+  ~/.dropbox-dist
+  popd || exit 1
+
   # Google chrome
   wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
   echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
