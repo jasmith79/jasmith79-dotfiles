@@ -39,4 +39,5 @@ else
   exit 1
 fi
 
+# Add user to vboxsf group so if in VM can access shared folders.
 sudo usermod -aG vboxsf "$user"
