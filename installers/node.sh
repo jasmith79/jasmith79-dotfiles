@@ -19,3 +19,4 @@ fi
 
 npm install -g yarn
 npm install -g ts-node
+npm install -g serve
