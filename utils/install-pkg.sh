@@ -19,20 +19,19 @@ while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symli
     SOURCE="$DIR/$TARGET" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
   fi
 done
-UTILS_DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+utils_dir="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
 
 # Ensure if on MacOS that we have homebrew
 if [[ "$os" =~ [Dd]arwin ]]; then
-  if ! command -v brew >/dev/null; then
-    sudo -u "$user" /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  fi
+  source "$utils_dir/ensure-brew.sh"
+  ensure-brew
 fi
 
 install-pkg () {
   if command -v brew > /dev/null; then
     sudo -u "$user" brew install $1
   elif command -v apt > /dev/null; then
-    source "$UTILS_DIR/update_apt.sh"
+    source "$utils_dir/update_apt.sh"
     update_apt
     sudo apt install $1 -y
   else
