@@ -10,7 +10,7 @@ if ! [[ "$(uname)" =~ "[Ll]inux" ]]; then
   exit 1
 fi
 
-if [ "$os" =~ "ubuntu" ]; then # includes mint
+if [[ "$os" =~ "ubuntu" ]]; then # includes mint
   update-apt
   sudo apt install -y python3-pip
   sudo apt install -y openssh-server
@@ -42,7 +42,7 @@ if [ "$os" =~ "ubuntu" ]; then # includes mint
   sudo apt install -y google-chrome-stable
   sudo apt install -y brave-browser
 
-elif [ "$os" =~ "arch" ]; then
+elif [[ "$os" =~ "arch" ]]; then
   echo "Not yet implemented" >&2
   exit 1
 else
