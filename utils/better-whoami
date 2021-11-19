@@ -1,0 +1,14 @@
+#!/bin/bash
+
+user="$USER"
+who="$(whoami)"
+
+if [[ -z "$user" ]]; then
+  user="$who"
+fi
+
+if [ -z "$user" ] || [ "$user" = "root" ]; then
+  user="$SUDO_USER"
+fi
+
+echo "$user"
