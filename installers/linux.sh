@@ -5,6 +5,11 @@ os=$(bash "$DOTFILES_DIR/utils/get-platform")
 
 source "$DOTFILES_DIR/utils/update-apt.sh"
 
+if ! [[ "$(uname)" =~ "[Ll]inux" ]]; then
+  echo "Trying to install Linux components on another platform, aborting!" >&2
+  exit 1
+fi
+
 if [ "$os" =~ "ubuntu" ]; then # includes mint
   update-apt
   sudo apt install -y python3-pip
