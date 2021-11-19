@@ -1,18 +1,20 @@
 #!/bin/bash
 # Installs the MacOS-specific parts of my setup
 
+DOTFILES_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
+
 if "$(uname)" != "Darwin"; then
   echo "Trying to install MacOS components on another platform, aborting!" >&2
   exit 1
 fi
 
+source "$DOTFILES_DIR/utils/ensure-brew.sh"
+
 # Xcode CLI tools, e.g. git, clang
 xcode-select --install
 
 # Homebrew
-if ! command -v brew >/dev/null; then
-  sudo -u "$user" /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-fi
+ensure-brew
 
 # Current bash is 5.x but because of GPL licensing
 # issues Apple has MacOS bash pegged at *3.x* which
