@@ -9,6 +9,7 @@ if "$(uname)" != "Darwin"; then
 fi
 
 source "$dotfiles_dir/utils/ensure-brew.sh"
+source "$dotfiles_dir/utils/ensure-opt-programs.sh"
 
 # Xcode CLI tools, e.g. git, clang
 xcode-select --install
@@ -44,4 +45,12 @@ fi
 
 if [ -z "$has_iterm" ]; then
   brew install --cask iterm2
+  curl -L https://iterm2.com/misc/install_shell_integration.sh | bash
+fi
+
+if ! command -v imgcat > /dev/null; then
+  ensure-opt-programs
+  curl https://www.iterm2.com/utilities/imgcat > /opt/programs/imgcat
+  chmod +x /opt/programs/imgcat
+  sudo ln -s /opt/programs/imgcat /usr/local/bin/imgcat
 fi
