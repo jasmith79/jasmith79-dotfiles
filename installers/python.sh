@@ -12,6 +12,7 @@ install-pkg python3
 # on desktop at least
 if [ "$os" =~ "ubuntu" ]; then
   install-pkg python3-pip
+  install-pkg python3-dev
 fi
 
 python3 -m pip install --upgrade pip
