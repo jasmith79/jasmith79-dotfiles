@@ -35,7 +35,3 @@ fi
 if ! command -v neofetch; then
   install-pkg neofetch
 fi
-
-if ! command -v virtualbox; then
-  install-pkg virtualbox
-fi
