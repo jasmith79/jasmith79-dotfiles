@@ -29,11 +29,11 @@ fi
 
 install-pkg () {
   if command -v brew > /dev/null; then
-    sudo -u "$user" brew install $1
+    sudo -u "$user" brew install "$@"
   elif command -v apt > /dev/null; then
     source "$utils_dir/update_apt.sh"
     update_apt
-    sudo apt install $1 -y
+    sudo apt install "$@" -y
   else
     echo "Unable to install $1, unrecognized platform. Aborting..."
     exit 1
