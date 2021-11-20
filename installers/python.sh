@@ -19,3 +19,5 @@ python3 -m pip install --user setuptools
 python3 -m pip install --user virtualenv
 python3 -m pip install --user pipenv
 python3 -m pip install --user psycopg2-binary
+python3 -m pip install --user mypy
+python3 -m pip install --user pylint
