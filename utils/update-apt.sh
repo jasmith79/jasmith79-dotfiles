@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Modified from https://askubuntu.com/a/904259/868447
 # Updates the apt-cache if it hasn't been updated in the last 9 min.
 # Used here to ensure that apt-update gets run at least once

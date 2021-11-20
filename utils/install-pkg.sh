@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Installs a package in a cross-platform way.
 # I can't use this everywhere because sometimes
 # either the package name is different on different
@@ -6,24 +7,11 @@
 # works well enough.
 os=$(uname)
 
-# From https://stackoverflow.com/a/246128/3757232
-SOURCE="${BASH_SOURCE[0]}"
-while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
-  TARGET="$(readlink "$SOURCE")"
-  if [[ $TARGET == /* ]]; then
-    echo "SOURCE '$SOURCE' is an absolute symlink to '$TARGET'"
-    SOURCE="$TARGET"
-  else
-    DIR="$( dirname "$SOURCE" )"
-    echo "SOURCE '$SOURCE' is a relative symlink to '$TARGET' (relative to '$DIR')"
-    SOURCE="$DIR/$TARGET" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
-  fi
-done
-utils_dir="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+dotfiles_dir="$(dirname "$(dirname "$(readlink -f "$0")")")"
 
 # Ensure if on MacOS that we have homebrew
 if [[ "$os" =~ [Dd]arwin ]]; then
-  source "$utils_dir/ensure-brew.sh"
+  source "$dotfiles_dir/utils/ensure-brew.sh"
   ensure-brew
 fi
 
@@ -31,7 +19,7 @@ install-pkg () {
   if command -v brew > /dev/null; then
     sudo -u "$user" brew install "$@"
   elif command -v apt > /dev/null; then
-    source "$utils_dir/update_apt.sh"
+    source "$dotfiles_dir/utils/update-apt.sh"
     update_apt
     sudo apt install "$@" -y
   else
