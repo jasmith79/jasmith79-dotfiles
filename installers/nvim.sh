@@ -11,6 +11,7 @@
 dotfiles_dir="$(dirname "$(dirname "$(readlink -f "$0")")")"
 
 source "$dotfiles_dir/utils/ensure-stow.sh"
+source "$dotfiles_dir/installers/vim.sh"
 
 # Determine current user name
 user=$(logname)
