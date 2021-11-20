@@ -6,7 +6,10 @@ dotfiles_dir="$(dirname "$(dirname "$(readlink -f "$0")")")"
 os="$(bash $$dotfiles_dir/utils/get-platform)"
 source "$dotfiles_dir/utils/install-pkg.sh"
 source "$dotfiles_dir/utils/pushpop.sh"
-source "$dotfiles_dir/installers/java.sh"
+
+if ! command -v javac > /dev/null; then
+  source "$dotfiles_dir/installers/java.sh"
+fi
 
 install-pkg rlwrap
 
