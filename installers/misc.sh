@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Installs various packages I use.
 dotfiles_dir="$(dirname "$(dirname "$(readlink -f "$0")")")"
 
