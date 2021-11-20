@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-DOTFILES_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
+dotfiles_dir="$(dirname "$(dirname "$(readlink -f "$0")")")"
 
-user="$(bash "$DOTFILES_DIR/utils/better-whoami")"
+user="$(bash "$dotfiles_dir/utils/better-whoami")"
 
 ensure-opt-programs () {
   mkdir -p /opt/programs

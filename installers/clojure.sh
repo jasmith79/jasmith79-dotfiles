@@ -1,12 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Installs clojure, lein
 
-DOTFILES_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
+dotfiles_dir="$(dirname "$(dirname "$(readlink -f "$0")")")"
 
-os="$(bash $$DOTFILES_DIR/utils/get-platform)"
-source "$DOTFILES_DIR/utils/install-pkg.sh"
-source "$DOTFILES_DIR/utils/pushpop.sh"
-source "$DOTFILES_DIR/installers/java.sh"
+os="$(bash $$dotfiles_dir/utils/get-platform)"
+source "$dotfiles_dir/utils/install-pkg.sh"
+source "$dotfiles_dir/utils/pushpop.sh"
+source "$dotfiles_dir/installers/java.sh"
 
 install-pkg rlwrap
 

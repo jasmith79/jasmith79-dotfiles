@@ -1,10 +1,10 @@
-#!/bin/bash
-DOTFILES_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
+#!/usr/bin/env bash
+dotfiles_dir="$(dirname "$(dirname "$(readlink -f "$0")")")"
 
 mkdir -p ~/.old_configs
 
-source "$DOTFILES_DIR/utils/install-pkg.sh"
-source "$DOTFILES_DIR/utils/ensure-stow.sh"
+source "$dotfiles_dir/utils/install-pkg.sh"
+source "$dotfiles_dir/utils/ensure-stow.sh"
 
 if ! command -v fish > /dev/null; then
   install-pkg "fish"
@@ -27,7 +27,7 @@ fi
 
 rm -f ~/.config/fish/config.fish ~/.config/fish/functions/fish_user_key_bindings.fish
 
-pushd $DOTFILES_DIR
+pushd $dotfiles_dir
 stow -D fish
 stow fish
 popd

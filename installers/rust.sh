@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-DOTFILES_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
+dotfiles_dir="$(dirname "$(dirname "$(readlink -f "$0")")")"
 
-source "$DOTFILES_DIR/utils/install-pkg.sh"
+source "$dotfiles_dir/utils/install-pkg.sh"
 
 if ! command -v curl > /dev/null; then
   install-pkg "curl"

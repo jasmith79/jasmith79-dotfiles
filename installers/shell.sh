@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # NOTE: assumes bash already installed.
-DOTFILES_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
+dotfiles_dir="$(dirname "$(dirname "$(readlink -f "$0")")")"
 
-source "$DOTFILES_DIR/utils/ensure-stow.sh"
+source "$dotfiles_dir/utils/ensure-stow.sh"
 
 mkdir -p ~/.old_configs
 
@@ -29,7 +29,7 @@ rm -f ~/.bashrc
 rm -f ~/.bash_profile
 rm -f ~/.profile
 
-pushd $DOTFILES_DIR
+pushd $dotfiles_dir
 stow -D shell
 stow shell
 popd

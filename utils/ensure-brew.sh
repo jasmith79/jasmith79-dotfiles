@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Ensures homebrew and cask are installed
 ensure-brew () {
   if ! command -v brew >/dev/null; then

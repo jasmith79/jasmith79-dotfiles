@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # jasmith79's install script for vim.
 
 # This script is located inside a file named installers
@@ -8,10 +8,10 @@
 # This will grab the path to the dotfiles dir, quoting to
 # guard against spaces in paths, e.g. I set my user name to
 # "Jared Smith" or something.
-DOTFILES_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
+dotfiles_dir="$(dirname "$(dirname "$(readlink -f "$0")")")"
 
-source "$DOTFILES_DIR/utils/ensure-stow.sh"
-source "$DOTFILES_DIR/utils/update-apt.sh"
+source "$dotfiles_dir/utils/ensure-stow.sh"
+source "$dotfiles_dir/utils/update-apt.sh"
 
 # Determine current user
 user=$(logname)
@@ -46,7 +46,7 @@ if [[ ! -L "~/.vimrc" && -f "~/.vimrc" ]]; then
 fi
 rm -f ~/.vimrc
 
-pushd $DOTFILES_DIR
+pushd $dotfiles_dir
 stow -D vim
 stow vim
 popd

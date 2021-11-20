@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-DOTFILES_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
-os=$(bash "$DOTFILES_DIR/utils/get-platform")
+dotfiles_dir="$(dirname "$(dirname "$(readlink -f "$0")")")"
+os=$(bash "$dotfiles_dir/utils/get-platform")
 
-source "$DOTFILES_DIR/utils/update-apt.sh"
+source "$dotfiles_dir/utils/update-apt.sh"
 
 if ! [[ "$(uname)" =~ "[Ll]inux" ]]; then
   echo "Trying to install Linux components on another platform, aborting!" >&2

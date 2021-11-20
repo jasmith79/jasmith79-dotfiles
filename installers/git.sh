@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Ensures that git is installed and global configs set.
 # Obvs, if you're not me change this to your creds.
 
-DOTFILES_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
-source "$DOTFILES_DIR/utils/install-pkg.sh"
+dotfiles_dir="$(dirname "$(dirname "$(readlink -f "$0")")")"
+source "$dotfiles_dir/utils/install-pkg.sh"
 
 if ! command -v git > /dev/null; then
   install-pkg git

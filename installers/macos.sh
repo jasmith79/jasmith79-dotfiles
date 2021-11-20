@@ -1,14 +1,14 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Installs the MacOS-specific parts of my setup
 
-DOTFILES_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
+dotfiles_dir="$(dirname "$(dirname "$(readlink -f "$0")")")"
 
 if "$(uname)" != "Darwin"; then
   echo "Trying to install MacOS components on another platform, aborting!" >&2
   exit 1
 fi
 
-source "$DOTFILES_DIR/utils/ensure-brew.sh"
+source "$dotfiles_dir/utils/ensure-brew.sh"
 
 # Xcode CLI tools, e.g. git, clang
 xcode-select --install
@@ -21,7 +21,7 @@ ensure-brew
 # is now almost 15 years old. Installs if current
 # bash version < 5.0.0
 bash_version=$(bash --version | grep -oE '\d+\.\d+\.\d+')
-if [ "$bash_version" != "$(echo "$bash_version" "5.0.0" | sort -V | cut -f1 -d ' ')"]; then
+if [ "$bash_version" != "$(echo "$bash_version" "5.0.0" | sort -V | cut -f1 -d ' ')" ]; then
   brew install bash
 fi
 
@@ -39,7 +39,7 @@ esac
 
 has_iterm=$(ls /Applications | grep iTerm)
 if [ -z "$has_iterm" ]; then
-  has_iterm=$(ls $HOME/Applications | grep iTerm)
+  has_iterm=$(ls "$HOME/Applications" | grep iTerm)
 fi
 
 if [ -z "$has_iterm" ]; then

@@ -1,12 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-DOTFILES_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
+dotfiles_dir="$(dirname "$(dirname "$(readlink -f "$0")")")"
 
 # NOTE: sourcing this ensures homebrew on macos
-source "$DOTFILES_DIR/utils/install-pkg.sh"
-source "$DOTFILES_DIR/utils/update-apt.sh"
+source "$dotfiles_dir/utils/install-pkg.sh"
+source "$dotfiles_dir/utils/update-apt.sh"
 
-os=$(bash "$DOTFILES_DIR/utils/get-platform")
+os=$(bash "$dotfiles_dir/utils/get-platform")
 
 if [[ "$os" =~ "ubuntu" ]]; then
   update-apt

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Silences pushd and popd
 
 pushd () {

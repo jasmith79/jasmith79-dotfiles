@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Determines OS and in the case of Ubuntu variants version.
 
 os=$(uname)

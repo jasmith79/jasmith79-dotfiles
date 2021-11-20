@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Installs better shell utils:
 #
 # exa     replacement for ls
@@ -21,11 +21,11 @@
 # installs. Note that I don't use them, haven't checked
 # them, and they may well fail on some or even all
 # platforms.
-DOTFILES_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
+dotfiles_dir="$(dirname "$(dirname "$(readlink -f "$0")")")"
 
 # Need rustup to install fnm
 if ! command -v rustup > /dev/null; then
-  source "$DOTFILES_DIR/installers/rust.sh"
+  source "$dotfiles_dir/installers/rust.sh"
 fi
 
 # Specify actual path because it may not be on $PATH yet

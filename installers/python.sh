@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-DOTFILES_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
-os=$(bash "$DOTFILES_DIR/utils/get-platform")
+dotfiles_dir="$(dirname "$(dirname "$(readlink -f "$0")")")"
+os=$(bash "$dotfiles_dir/utils/get-platform")
 
-source "$DOTFILES_DIR/utils/install-pkg.sh"
+source "$dotfiles_dir/utils/install-pkg.sh"
 
 # MacOS is usually a version or two behind, Ubuntu LTS several
 install-pkg python3
