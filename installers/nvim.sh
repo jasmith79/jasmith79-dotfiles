@@ -12,7 +12,20 @@ dotfiles_dir="$(dirname "$(dirname "$(readlink -f "$0")")")"
 
 source "$dotfiles_dir/utils/ensure-stow.sh"
 source "$dotfiles_dir/installers/vim.sh"
-source "$dotfiles_dir/installers/python.sh"
+
+# Need python support for some stuff
+if ! command -v pip3 > /dev/null; then
+  source "$dotfiles_dir/installers/python.sh"
+fi
+
+# Need rust && c for tree-sitter
+if ! command -v cargo > /dev/null; then
+  source "$dotfiles_dir/installers/rust.sh"
+fi
+
+if ! command -v gcc > /dev/null; then
+  "$dotfiles_dir/installers/cplus.sh"
+fi
 
 # Determine current user name
 user=$(logname)
@@ -38,13 +51,13 @@ if ! command -v nvim > /dev/null; then
     # support lands.
     sudo add-apt-repository ppa:neovim-ppa/unstable -y
     sudo apt update && sudo apt install vim neovim -y
-    # Need python support for some stuff
-    sudo apt install python3-dev python3-pip -y
   else
     echo "Unrecognized platform, aborting vim install"
     exit 1
   fi
 fi
+
+cargo install tree-sitter-cli
 
 ensure-stow
 
