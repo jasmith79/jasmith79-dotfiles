@@ -14,6 +14,8 @@ if [ "$os" =~ "ubuntu" ]; then
   install-pkg python3-pip
 fi
 
+python3 -m pip install --upgrade pip
+python3 -m pip install --user setuptools
 python3 -m pip install --user virtualenv
 python3 -m pip install --user pipenv
 python3 -m pip install --user psycopg2-binary
