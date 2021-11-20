@@ -13,7 +13,7 @@ if ! command -v vagrant > /dev/null; then
     brew install --cask virtualbox
     brew install --cask vagrant
     brew install --cask vagrant-manager
-  elif [ "$os" =~ "ubuntu" ]; then
+  elif [[ "$os" =~ "ubuntu" ]]; then
     update-apt
     sudo apt install virtualbox
     pushd /tmp || exit 1
@@ -42,7 +42,7 @@ if ! command -v terraform > /dev/null; then
     ensure-brew
     brew tap hashicorp/tap
     brew install hashicorp/tap/terraform
-  elif [ "$os" =~ "ubuntu" ]; then
+  elif [[ "$os" =~ "ubuntu" ]]; then
     update-apt
     sudo apt install -y gnupg software-properties-common curl
     curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
@@ -63,7 +63,7 @@ if ! command -v aws > /dev/null; then
     curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
     sudo installer -pkg AWSCLIV2.pkg -target /
     popd || exit 1
-  elif [ "$os" =~ "ubuntu" ]; then
+  elif [[ "$os" =~ "ubuntu" ]]; then
     update-apt
     sudo apt install -y curl zip
     pushd /tmp || exit 1
@@ -84,7 +84,7 @@ fi
 if ! command -v az > /dev/null; then
   if [ "$os" = "Darwin" ]; then
     brew install azure-cli
-  elif [ "$os" =~ "ubuntu" ]; then
+  elif [[ "$os" =~ "ubuntu" ]]; then
     curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
   elif [ "$os" = "arch" ]; then
     echo "Not implemented yet!" >&2

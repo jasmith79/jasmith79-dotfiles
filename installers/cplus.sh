@@ -13,7 +13,7 @@ install-pkg g++
 install-pkg meson
 install-pkg valgrind
 
-if [ "$os" =~ "ubuntu" ]; then
+if [[ "$os" =~ "ubuntu" ]]; then
   # Only need to install clang on linux, xcode grabs it
   install-pkg build-essential
   install-pkg llvm

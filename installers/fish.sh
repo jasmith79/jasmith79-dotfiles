@@ -27,7 +27,7 @@ fi
 
 rm -f ~/.config/fish/config.fish ~/.config/fish/functions/fish_user_key_bindings.fish
 
-pushd $dotfiles_dir
+pushd "$dotfiles_dir" || exit 1
 stow -D fish
 stow fish
-popd
+popd || exit 1

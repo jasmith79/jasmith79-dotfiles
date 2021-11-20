@@ -62,19 +62,19 @@ cargo install tree-sitter-cli
 ensure-stow
 
 # If it's an actual file we don't want to lose it
-if [[ ! -L "~/.config/nvim/init.vim" && -f "~/.config/nvim/init.vim" ]]; then
+if [[ ! -L "$HOME/.config/nvim/init.vim" && -f "$HOME/.config/nvim/init.vim" ]]; then
   cp ~/.config/nvim/init.vim ~/.old_configs/init.vim
 fi
 rm -f ~/.config/nvim/init.vim
 
-pushd $dotfiles_dir
+pushd "$dotfiles_dir" || exit 1
 stow -D nvim
 stow nvim
-popd
+popd || exit 1
 
 echo "done. Installing vim-plug..."
 # install vim-plug for neovim and update neovim to use it
-if ! [ -f "~/.local/share/nvim/site/autoload/plug.vim" ]; then
+if ! [ -f "$HOME/.local/share/nvim/site/autoload/plug.vim" ]; then
   curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
   	  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 else

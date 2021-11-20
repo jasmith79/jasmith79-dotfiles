@@ -29,7 +29,7 @@ rm -f ~/.bashrc
 rm -f ~/.bash_profile
 rm -f ~/.profile
 
-pushd $dotfiles_dir
+pushd "$dotfiles_dir" || exit 1
 stow -D shell
 stow shell
-popd
+popd || exit 1
