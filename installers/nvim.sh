@@ -12,6 +12,7 @@ dotfiles_dir="$(dirname "$(dirname "$(readlink -f "$0")")")"
 
 source "$dotfiles_dir/utils/ensure-stow.sh"
 source "$dotfiles_dir/installers/vim.sh"
+source "$dotfiles_dir/installers/python.sh"
 
 # Determine current user name
 user=$(logname)
@@ -29,6 +30,7 @@ mkdir -p ~/.old_configs
 if ! command -v nvim > /dev/null; then
   if command -v brew > /dev/null; then
     sudo -u "$user" brew install neovim
+    sudo -u "$user" brew install tree-sitter
   elif command -v apt > /dev/null; then
     # Official ubuntu repo version waaaay too old
     # for some of my plugins.
