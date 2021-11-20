@@ -23,7 +23,7 @@
 # platforms.
 dotfiles_dir="$(dirname "$(dirname "$(readlink -f "$0")")")"
 
-# Need rustup to install fnm
+# Need rust and cargo for all these
 if ! command -v rustup > /dev/null; then
   source "$dotfiles_dir/installers/rust.sh"
 fi
