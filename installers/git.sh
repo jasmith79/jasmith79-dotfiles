@@ -3,6 +3,8 @@
 # Obvs, if you're not me change this to your creds.
 
 dotfiles_dir="$(dirname "$(dirname "$(readlink -f "$0")")")"
+os="$(bash "$dotfiles_dir/utils/get-platform")"
+
 source "$dotfiles_dir/utils/install-pkg.sh"
 
 if ! command -v git > /dev/null; then
@@ -20,3 +22,7 @@ if [ -z "$git_email" ]; then
 fi
 
 git config --global push.default simple
+
+if [ "$os" = "Darwin" ]; then
+  git config --global credential.helper osxkeychain
+fi
