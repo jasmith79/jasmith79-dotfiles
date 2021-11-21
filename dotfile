@@ -1,0 +1,379 @@
+#!/usr/bin/env bash
+###############################################################################
+######  #####  ####     #####        ##########################################
+######  # ###  ##  #####  ######  #############################################
+######  ## ##  ##  #####  ######  #############################################
+######  ### #  ##  #####  ######  #############################################
+######  ####   ##  #####  ######  #############################################
+######  #####  ####     ########  #############################################
+###############################################################################
+########## ######## ####     #####  #####  ###      ###########################
+############ #### ####  #####  ###  #####  ###  ####  #########################
+##############  ######  #####  ###  #####  ###  #####  ########################
+##############  ######  #####  ###  #####  ###       ##########################
+##############  ######  #####  ###  #####  ###  ### ###########################
+##############  ########     #######     #####  ####  #########################
+###############################################################################
+######    ##############      #########  #########   ######     ###############
+####  ####  ############  #####  ####  ##  ######### #####  ###################
+###  ###########     ###  #####  ###  ####  ####### #####  ####################
+###  ####    ###########       ####         ###############   #################
+#####  ####  ###########  ########  ########  #################  ##############
+#######    #############  #######  ##########  ############    ################
+###############################################################################
+#     #######     ####        ##       ##       ###  ######       ####     ####
+#  ### ####  #####  #####  #####  #########  ######  ######  ########  ########
+#  #### ###  #####  #####  #####  #########  ######  ######  #######  #########
+#  #### ###  #####  #####  #####     ######  ######  ######     ######   ######
+#  ### ####  #####  #####  #####  #########  ######  ######  #############  ###
+#     #######     #######  #####  #######       ###      ##       ####    #####
+###############################################################################
+# NOT YOUR GRANDFATHER'S DOTFILES                                             #
+# This is the personal dotfiles installer and manager for Jared Adam Smith,   #
+# aka jasmith79.                                                              #
+#                                                                             #
+# Copyright 2021 Jared Adam Smith                                             #
+# Permission is hereby granted, free of charge, to any person obtaining a     #
+# copy of this software and associated documentation files (the "Software"),  #
+# to deal in the Software without restriction, including without limitation   #
+# the rights to use, copy, modify, merge, publish, distribute, sublicense,    #
+# and/or sell copies of the Software, and to permit persons to whom the       #
+# Software is furnished to do so, subject to the following conditions:        #
+#                                                                             #
+# The above copyright notice and this permission notice shall be included in  #
+# all copies or substantial portions of the Software.                         #
+#                                                                             #
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR  #
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,    #
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE #
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER      #
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING     #
+# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER         #
+# DEALINGS IN THE SOFTWARE.                                                   #
+###############################################################################
+
+dotfiles_dir="$(dirname "$(readlink -f "$0")")"
+os=$(bash "$dotfiles_dir/utils/get-platform") || exit 1
+
+# Package interdependencies
+# Installing the package on the left side of the -> will also install the
+# packages to the right:
+# clojure -> java
+# node -> rust
+# better_utils -> rust
+# nvim -> python, vim, rust, cplus
+
+lang_packages=(
+  "java"
+  "node"
+  "clojure"
+  "python"
+  "rust"
+  "cplus"
+)
+
+shell_packages=(
+  "fish"
+  "shell"
+)
+
+dev_packages=(
+  "${shell_packages[@]}"
+  "git"
+  "better_utils"
+  "nvim"
+  "vim"
+  "${lang_packages[@]}"
+)
+
+all_packages=(
+  "linux"
+  "macos"
+  "misc"
+  "${dev_packages[@]}"
+)
+
+# Will eventually have non-dev
+all_inst_pkgs=(
+  "${dev_packages[@]}"
+)
+
+verbose=0
+
+print () {
+  level=$1
+  shift
+  if [ "$verbose" -ge "$level" ]; then
+    echo "$@"
+  fi
+}
+
+install-os () {
+  if [ "$os" = "macos" ]; then
+    print 1 "Now installing $dotfiles_dir/installers/macos.sh"
+    bash "$dotfiles_dir/installers/macos.sh"
+    # echo "Would be installing macos"
+  else
+    print 1 "Now installing $dotfiles_dir/installers/macos.sh"
+    bash "$dotfiles_dir/installers/linux.sh"
+    # echo "Would be installing linux"
+  fi
+}
+
+main-help-msg () {
+  echo "Usage: dotfile [OPTIONS]... [COMMAND] [OPTIONS]..."
+  echo "Not your grandfather's dotfiles. See -h/--help on individual"
+  echo "commands for details:"
+  echo ""
+  echo "install         Installs nygd packages."
+  echo "list            List nygd packages."
+  echo ""
+  echo "-h, --help      Display this message and exit."
+  echo "-v, --verbose   Verbose output"
+}
+
+install-help-msg () {
+  echo "Usage: dotfile install [OPTIONS]... [PACKAGES]..."
+  echo "Not your grandfather's dotfiles. NOTE: this will install a BUNCH of"
+  echo "stuff to your system, including compiling a bunch of stuff from"
+  echo "source. It can take a VERY long time, especially on under-powered"
+  echo "machines. If you're concerned about the time or the size then try"
+  echo "it out in a VM first. You can also install most of the bits and"
+  echo "pieces a la carte, see the flags below:"
+  echo ""
+  echo "-h, --help     Display this message and exit."
+  echo "-a, --all      Installs all packages. Takes a while."
+  echo "-d, --dev      Installs all programming language packages,"
+  echo "               [n]vim, shell configs, etc."
+  echo "-l, --lang     Installs all programming language packages."
+  echo "-s, --shell    Installs shell utilities and configs."
+  echo "-e, --exclude  Excludes a package or comma-delimited list of"
+  echo "packages."
+  echo ""
+  echo "Note that the general and os-specific packages are always"
+  echo "installed."
+}
+
+list-help-msg () {
+  echo "Usage: dotfile list [OPTIONS]..."
+  echo "-h, --help  Display this message and exit."
+  echo "-a, --all   List all packages. Takes a while."
+  echo "-d, --dev   List all programming language packages,"
+  echo "            and development-related packages."
+  echo "-l, --lang  List all programming language packages."
+  echo "-s, --shell List shell utilities and configs."
+}
+
+parse-list-args () {
+  while :; do
+    case $1 in
+      -a|--all)
+        IFS=$'\n' sorted="$(sort <<<"${all_packages[*]}")"; unset IFS
+        for pkg in "${sorted[@]}"; do
+          echo "$pkg"
+        done
+        exit 0
+      ;;
+      -d|--dev)
+        IFS=$'\n' sorted="$(sort <<<"${dev_packages[*]}")"; unset IFS
+        for pkg in "${sorted[@]}"; do
+          echo "$pkg"
+        done
+        exit 0
+      ;;
+      -l|--lang)
+        IFS=$'\n' sorted="$(sort <<<"${lang_packages[*]}")"; unset IFS
+        for pkg in "${sorted[@]}"; do
+          echo "$pkg"
+        done
+        exit 0
+      ;;
+      -s|--shell)
+        IFS=$'\n' sorted="$(sort <<<"${shell_packages[*]}")"; unset IFS
+        for pkg in "${sorted[@]}"; do
+          echo "$pkg"
+        done
+        exit 0
+      ;;
+      -h|--help|-\?)
+        list-help-msg
+        exit 0
+      ;;
+    *)
+      break
+    esac
+    shift
+  done
+  exit 0
+}
+
+parse-install-args () {
+  if [ -z "$1" ]; then
+    echo "No arguments to install!"
+    install-help-msg
+    exit 1
+  fi
+  while :; do
+    case $1 in
+      -a|--all)
+        to_be_installed="${to_be_installed[*]} ${all_inst_pkgs[*]}"
+      ;;
+      -d|--dev)
+        to_be_installed="${to_be_installed[*]} ${dev_packages[*]}"
+      ;;
+      -l|--lang)
+        to_be_installed="${to_be_installed[*]} ${lang_packages[*]}"
+      ;;
+      -s|--shell)
+        to_be_installed="${to_be_installed[*]} ${shell_packages[*]}"
+      ;;
+      -e|--exclude)
+        if [ -n "$2" ]; then
+          IFS=',' read -r -a excludes <<< "$2"; unset IFS
+          shift
+        else
+          echo "Must provide argument to --exclude!" >&2
+          install-help-msg
+          exit 1
+        fi
+      ;;
+      -h|--help|-\?)
+        install-help-msg
+        exit 0
+      ;;
+      --)
+        shift
+        break
+        ;;
+      -?*)
+        echo "Unknown option $1" >&2
+        main-help-msg >&2
+        exit 1
+        ;;
+      *)
+        break
+    esac
+    shift
+  done
+
+  # If we got the name of any individual packages
+  # install those
+  for pkg in "$@"; do
+    to_be_installed+=("$pkg")
+  done
+
+  # Remove dupes
+  IFS=" "
+  read -r -a to_be_installed <<< "$(echo "${to_be_installed[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' ')"
+  unset IFS
+
+  print 2 "Prepping to install ${to_be_installed[*]}"
+  print 2 "Excluding packages ${excludes[*]}"
+
+  # Remove excluded packages
+  for pkg in "${excludes[@]}"; do
+    for i in "${!to_be_installed[@]}"; do
+      if [[ ${to_be_installed[i]} = "$pkg" ]]; then
+        unset 'to_be_installed[i]'
+      fi
+    done
+  done
+
+  # Remove packages that are required by packages already being installed,
+  # so they aren't included twice. This would be much cleaner with an
+  # associative array, but we have to write to bash 3.x because Apple and
+  # GPL etc.
+  stringified="${to_be_installed[*]}"
+  if [[ " $stringified " =~ " node " ]] || \
+      [[ " $stringified " =~ " nvim " ]] || \
+      [[ " $stringified " =~ " better_utils " ]] && \
+      [[ " $stringified " =~ " rust " ]]; then
+    remove_downstream+=("rust")
+  fi
+
+  if [[ " $stringified " =~ " clojure " ]] && [[ " $stringified " =~ " java " ]]; then
+    remove_downstream+=("java")
+  fi
+
+  if [[ " $stringified " =~ " nvim " ]]; then 
+    if [[ " $stringified " =~ " vim " ]]; then
+      remove_downstream+=("vim")
+    fi
+
+    if [[ " $stringified " =~ " rust " ]]; then
+      remove_downstream+=("rust")
+    fi
+
+    if [[ " $stringified " =~ " cplus " ]]; then
+      remove_downstream+=("cplus")
+    fi
+
+    [[ " $stringified " =~ " python " ]]; then
+      remove_downstream+=("python")
+    fi
+  fi
+
+  for pkg in "${remove_downstream[@]}"; do
+    for i in "${!to_be_installed[@]}"; do
+      if [[ ${to_be_installed[i]} = "$pkg" ]]; then
+        unset 'to_be_installed[i]'
+      fi
+    done
+  done
+
+  install-os
+  print 1 "Now installing $dotfiles_dir/installers/misc.sh"
+  bash "$dotfiles_dir/installers/misc.sh"
+  # echo "Would be installing misc"
+  for pkg in "${to_be_installed[@]}"; do
+    print 1 "Now installing $dotfiles_dir/installers/$pkg.sh"
+    bash "$dotfiles_dir/installers/$pkg.sh" || exit 1
+    # echo "Would be installing $pkg"
+  done
+}
+
+parse-main-args () {
+  while :; do
+    case $1 in
+      -h|--help)
+        main-help-msg
+        exit 0
+      ;;
+      -v|--verbose)
+        verbose=$((verbose + 1))
+      ;;
+      -vv)
+        verbose=$((verbose + 2))
+      ;;
+      -vvv)
+        verbose=$((verbose + 3))
+      ;;
+      --)
+        shift
+        break
+        ;;
+      -?*)
+        echo "Unknown option $1" >&2
+        main-help-msg >&2
+        exit 1
+        ;;
+      *)
+        break
+    esac
+    shift
+  done
+
+  if [ "$1" = "install" ]; then
+    shift
+    parse-install-args "$@"
+  elif [ "$1" = "list" ]; then
+    shift
+    parse-list-args "$@"
+  else
+    echo "Unknown command $1" >&2
+    main-help-msg
+    exit 1
+  fi
+}
+
+parse-main-args "$@"
