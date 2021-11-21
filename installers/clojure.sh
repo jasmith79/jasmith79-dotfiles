@@ -16,7 +16,7 @@ install-pkg rlwrap
 pushd /tmp || exit 1
 
 if ! command -v clj >/dev/null; then
-  if [ "$os" = "Darwin" ]; then
+  if [ "$os" = "macos" ]; then
     install-pkg clojure/tools/clojure
   elif [[ "$os" =~ "ubuntu" ]]; then
     curl -O https://download.clojure.org/install/linux-install-1.10.3.1029.sh

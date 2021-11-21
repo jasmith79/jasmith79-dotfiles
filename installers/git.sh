@@ -23,6 +23,6 @@ fi
 
 git config --global push.default simple
 
-if [ "$os" = "Darwin" ]; then
+if [ "$os" = "macos" ]; then
   git config --global credential.helper osxkeychain
 fi

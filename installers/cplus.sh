@@ -47,7 +47,7 @@ if [[ "$os" =~ "ubuntu" ]]; then
   fi
 fi
 
-if [ "$os" = "Darwin" ]; then
+if [ "$os" = "macos" ]; then
   if ! command -v ninja > /dev/null; then
     install-pkg ninja
   fi
