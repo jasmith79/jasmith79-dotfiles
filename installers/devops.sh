@@ -37,6 +37,27 @@ if ! command -v ansible-playbook > /dev/null; then
   python3 -m pip install --user ansible
 fi
 
+if command -v docker > /dev/null; then
+  if [ "$os" = "Darwin" ]; then
+    ensure-brew
+    brew cask install docker
+  elif [[ "$os" =~ "ubuntu" ]]; then
+    update-apt
+    sudo apt install -y ca-certificates curl gnupg lsb-release
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+      $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    sudo apt-get update
+    sudo apt install -y docker-ce docker-ce-cli containerd.io
+  elif [ "$os" = "arch" ]; then
+    echo "Not implemented yet!" >&2
+    exit 1
+  else
+    echo "Unsupported platform $os!" >&2
+    exit 1
+  fi
+fi
+
 if ! command -v terraform > /dev/null; then
   if [ "$os" = "Darwin" ]; then
     ensure-brew
