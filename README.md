@@ -1,25 +1,31 @@
-# jasmith79-dotfiles
-My dotfiles repo. Has files for neovim, bash, etc. Clone to the user directory and run the `install.sh` script from inside the jasmith79-dotfiles directory to install (may need to add the +x flag). On linux to configure terminology using the mouse-driven menus, I can't for the life of me figure out what encoding their config file uses (it certainly isn't ASCII or UTF-8).
+# dotfile, a.k.a. Not Your Grandfather's Dotfiles
 
-* Open neovim and type :UpdateRemotePlugins register deoplete
-* If on linux change the terminal launcher to use terminology: terminology --font='NotoMono-Regular'
-* Also to make terminology more fun turn off auditory bell, set keybindings
-  1. ctrl-alt-s       hozizontal split
-  2. ctrl-alt-v       vertical split
-  3. alt-shift-t      change window title
-  4. ctrl-backspace   kill focused pane/tab/window
+**NOTE**: using this can potentially add a lot of stuff to your computer. Use at your own risk. It's also still at least right at this moment very much a WIP.
+
+## Usage
+
+Clone the repo to your home directory:
+
+```shell
+cd ~ && git clone https://github.com/jasmith79/jasmith79-dotfiles.git dotfiles
+cd dotfiles
+```
+
+At this point you can run `dotfile -h` for help or if you just want everything:
+
+```shell
+dotfile install -a --exclude git
+```
+
+You can leave the git install script in if you really want, but it may set your git username and email to mine.
+
 * RTFO 🤘
 
-## Fresh install checklist
+### NOTE TO SELF on Linux
 
-### Linux
-
-* Change terminal launcher icon to use terminology
 * Run dropbox setup
 * Sign in to google account
 * Open google calendar to allow notifications
-* Run hangups setup
 * Set up ssh keys
 * Verify install with testcheck.sh
-* Add music to cmus
 * Add nitrogen --restore to start up applications in de/wm if using e.g. cinnamon
