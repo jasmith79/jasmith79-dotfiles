@@ -11,8 +11,8 @@ os=$(bash "$dotfiles_dir/utils/get-platform")
 if ! command -v javac > /dev/null; then
   if [[ "$os" =~ "ubuntu" ]]; then
     update-apt
-    sudo apt install openjdk-8-jdk
-    sudo apt install openjdk-11-jdk
+    sudo apt install -y openjdk-8-jdk
+    sudo apt install -y openjdk-11-jdk
   elif [ "$os" = "macos" ]; then
     brew tap adoptopenjdk/openjdk
     brew cask install adoptopenjdk8

@@ -15,7 +15,7 @@ if ! command -v vagrant > /dev/null; then
     brew install --cask vagrant-manager
   elif [[ "$os" =~ "ubuntu" ]]; then
     update-apt
-    sudo apt install virtualbox
+    sudo apt install -y virtualbox
     pushd /tmp || exit 1
     curl -O https://releases.hashicorp.com/vagrant/2.2.19/vagrant_2.2.19_x86_64.deb
     sudo apt install ./vagrant_2.2.19_x86_64.deb
