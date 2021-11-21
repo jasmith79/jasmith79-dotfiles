@@ -29,7 +29,7 @@ if ! command -v meson > /dev/null; then
   install-pkg meson
 fi
 
-if ! command -v valgrind > /dev/null; then
+if [[ "$os" =~ "ubuntu" ]] && ! command -v valgrind > /dev/null; then
   install-pkg valgrind
 fi
 
