@@ -42,13 +42,13 @@ if [[ "$os" =~ "ubuntu" ]]; then
   fi
 
   # package name a lil different
-  if command -v ninja > /dev/null; then
+  if ! command -v ninja > /dev/null; then
     install-pkg ninja-build
   fi
 fi
 
 if [ "$os" = "Darwin" ]; then
-  if command -v ninja > /dev/null; then
+  if ! command -v ninja > /dev/null; then
     install-pkg ninja
   fi
 fi

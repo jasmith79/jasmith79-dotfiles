@@ -37,7 +37,7 @@ if ! command -v ansible-playbook > /dev/null; then
   python3 -m pip install --user ansible
 fi
 
-if command -v docker > /dev/null; then
+if ! command -v docker > /dev/null; then
   if [ "$os" = "Darwin" ]; then
     ensure-brew
     brew cask install docker
