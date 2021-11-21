@@ -5,24 +5,50 @@ dotfiles_dir="$(dirname "$(dirname "$(readlink -f "$0")")")"
 os=$(bash "$dotfiles_dir/utils/get-platform") || exit 1
 source "$dotfiles_dir/utils/install-pkg.sh"
 
-install-pkg make
-install-pkg cmake
-install-pkg autoconf
-install-pkg gcc
-install-pkg g++
-install-pkg meson
-install-pkg valgrind
+if ! command -v make > /dev/null; then
+  install-pkg make
+fi
+
+if ! command -v cmake > /dev/null; then
+  install-pkg cmake
+fi
+
+if ! command -v autoconf > /dev/null; then
+  install-pkg autoconf
+fi
+
+if ! command -v gcc > /dev/null; then
+  install-pkg gcc
+fi
+
+if ! command -v g++ > /dev/null; then
+  install-pkg g++
+fi
+
+if ! command -v meson > /dev/null; then
+  install-pkg meson
+fi
+
+if ! command -v valgrind > /dev/null; then
+  install-pkg valgrind
+fi
 
 if [[ "$os" =~ "ubuntu" ]]; then
-  # Only need to install clang on linux, xcode grabs it
-  install-pkg build-essential
-  install-pkg llvm
-  install-pkg clang-12 --install-suggests
+  # Only need to install clang on linux, xcode grabs it on mac
+  if ! command -v clang > /dev/null; then
+    install-pkg build-essential
+    install-pkg llvm
+    install-pkg clang-12 --install-suggests
+  fi
 
   # package name a lil different
-  install-pkg ninja-build
+  if command -v ninja > /dev/null; then
+    install-pkg ninja-build
+  fi
 fi
 
 if [ "$os" = "Darwin" ]; then
-  install-pkg ninja
+  if command -v ninja > /dev/null; then
+    install-pkg ninja
+  fi
 fi
