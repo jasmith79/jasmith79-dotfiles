@@ -5,6 +5,7 @@ mkdir -p ~/.old_configs
 
 source "$dotfiles_dir/utils/install-pkg.sh"
 source "$dotfiles_dir/utils/ensure-stow.sh"
+source "$dotfiles_dir/utils/pushpop.sh"
 
 if ! command -v fish > /dev/null; then
   install-pkg "fish"

@@ -4,6 +4,7 @@ dotfiles_dir="$(dirname "$(dirname "$(readlink -f "$0")")")"
 os=$(bash "$dotfiles_dir/utils/get-platform")
 user=$(bash "$dotfiles_dir/utils/better-whoami")
 source "$dotfiles_dir/utils/update-apt.sh"
+source "$dotfiles_dir/utils/pushpop.sh"
 
 if ! [[ "$(uname)" =~ [Ll]inux ]]; then
   echo "Trying to install Linux components on another platform, aborting!" >&2
