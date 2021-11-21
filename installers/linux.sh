@@ -26,7 +26,7 @@ if [[ "$os" =~ "ubuntu" ]]; then # includes mint
   sudo apt install -y apt-transport-https
 
   # Dropbox
-  if ! [ -d "$HOME/Dropbox"]; then
+  if [ ! -d "$HOME/Dropbox" ]; then
     pushd ~ || exit 1
     wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
     ~/.dropbox-dist
