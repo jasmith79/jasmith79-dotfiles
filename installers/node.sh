@@ -17,6 +17,14 @@ fi
 
 ~/.cargo/bin/fnm use --install-if-missing 14 # current LTS
 
-npm install -g yarn
-npm install -g ts-node
-npm install -g serve
+if ! command -v yarn > /dev/null; then
+  npm install -g yarn
+fi
+
+if ! command -v ts-node > /dev/null; then
+  npm install -g ts-node
+fi
+
+if ! command -v serve > /dev/null; then
+  npm install -g serve
+fi
