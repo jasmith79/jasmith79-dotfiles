@@ -62,9 +62,9 @@ if ! command -v dust > /dev/null; then
   ~/.cargo/bin/cargo install du-dust # bin name is dust
 fi
 
-if ! command -v br > /dev/null; then
-  ~/.cargo/bin/cargo install broot # bin name is br
-fi
+# if ! command -v br > /dev/null; then
+#   ~/.cargo/bin/cargo install broot # bin name is br
+# fi
 
 if ! command -v nomino > /dev/null; then
   ~/.cargo/bin/cargo install nomino
