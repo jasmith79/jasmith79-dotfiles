@@ -13,9 +13,8 @@ if ! command -v fnm > /dev/null; then
   # if it just got installed
   ~/.cargo/bin/cargo install fnm
   eval "$(fnm env)"
+  ~/.cargo/bin/fnm use --install-if-missing 14 # current LTS
 fi
-
-~/.cargo/bin/fnm use --install-if-missing 14 # current LTS
 
 if ! command -v yarn > /dev/null; then
   npm install -g yarn
