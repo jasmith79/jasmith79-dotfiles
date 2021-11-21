@@ -3,7 +3,7 @@
 
 dotfiles_dir="$(dirname "$(dirname "$(readlink -f "$0")")")"
 
-if "$(uname)" != "Darwin"; then
+if [ "$(uname)" != "Darwin" ]; then
   echo "Trying to install MacOS components on another platform, aborting!" >&2
   exit 1
 fi
@@ -12,7 +12,9 @@ source "$dotfiles_dir/utils/ensure-brew.sh"
 source "$dotfiles_dir/utils/ensure-opt-programs.sh"
 
 # Xcode CLI tools, e.g. git, clang
-xcode-select --install
+if ! command -v clang > /dev/null; then
+  xcode-select --install
+fi
 
 # Homebrew
 ensure-brew
