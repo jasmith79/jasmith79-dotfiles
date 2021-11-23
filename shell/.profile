@@ -54,12 +54,13 @@ fi
 
 # Needed for cli-visualizer, all my terminal emulators should support
 # at least 256 if not 24bit.
-if [[ "$TERM" == "xterm" ]]; then
+if [[ "$TERM" = "xterm" ]]; then
   export TERM=xterm-256color
 fi
 
 # PYTHON
 if [ -d /Users/$USER/Library/Python ]; then
+  # Yes, yes, I know, don't parse ls
   PYVERS=$(ls /Users/$USER/Library/Python | grep "^3" | tail -n 1)
 fi
 

@@ -120,10 +120,10 @@ fi
 
 # If using terminology, create an appropriate alias and set transparency to 80
 # NOTE: the basename check isn't portable, won't work on FreeBSD or OSX
-# if [[ "$os" == "Linux" ]]; then
+# if [[ "$os" = "Linux" ]]; then
 #   basename="/"$(ps -f -p $(cat /proc/$(echo $$)/stat | cut -d \  -f 4) | tail -1 | sed 's/^.* //')
 #   if [[ "$basename" =~ "terminology" ]]; then
-#     function newt () {
+#     newt () {
 #       terminology "$@" &>/dev/null &
 #     }
 #     alias newt='newt'
@@ -155,7 +155,7 @@ vimd () {
 alias vimd='vimd'
 
 # Set fish as my shell if available unless on OSX
-if ! [[ "$os" == "Darwin" ]]; then
+if ! [[ "$os" = "Darwin" ]]; then
   FISH_PATH=$(command -v fish)
   if ! [ -z "$FISH_PATH" ] && ! [[ "$SHELL" =~ "fish" ]]; then
     IS_VALID_SHELL=$(cat /etc/shells | grep "fish")

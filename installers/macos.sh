@@ -40,12 +40,7 @@ case :$PATH:
       ;;
 esac
 
-has_iterm=$(ls /Applications | grep iTerm)
-if [ -z "$has_iterm" ]; then
-  has_iterm=$(ls "$HOME/Applications" | grep iTerm)
-fi
-
-if [ -z "$has_iterm" ]; then
+if ! [ -f /Applications/iTerm.app ] && ! [ -f "$HOME/Applications/iTerm.app" ]; then
   brew install --cask iterm2
   curl -L https://iterm2.com/misc/install_shell_integration.sh | bash
 fi
