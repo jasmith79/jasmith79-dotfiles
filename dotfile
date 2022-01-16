@@ -308,7 +308,7 @@ parse-install-args () {
       remove_downstream+=("cplus")
     fi
 
-    [[ " $stringified " =~ " python " ]]; then
+    if [[ " $stringified " =~ " python " ]]; then
       remove_downstream+=("python")
     fi
   fi
