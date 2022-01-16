@@ -4,6 +4,12 @@ dotfiles_dir="$(dirname "$(dirname "$(readlink -f "$0")")")"
 
 source "$dotfiles_dir/utils/install-pkg.sh"
 
+# Need e.g. build-essential on Linux, easier to
+# just grab all my C/C++ setup.
+if ! command -v clang > /dev/null; then
+  source "$dotfiles_dir/installers/cplus.sh"
+fi
+
 if ! command -v curl > /dev/null; then
   install-pkg "curl"
 fi
