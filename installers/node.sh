@@ -5,7 +5,7 @@ source "$dotfiles_dir/utils/install-pkg.sh"
 
 # Need rustup to install fnm
 if ! command -v rustup > /dev/null; then
-  source "$dotfiles_dir/installers/rust.sh"
+  source "$dotfiles_dir/installers/rust.sh" && source "$HOME/.cargo/env"
 fi
 
 if ! command -v fnm > /dev/null; then

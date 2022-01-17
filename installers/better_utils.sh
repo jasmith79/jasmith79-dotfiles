@@ -25,7 +25,7 @@ dotfiles_dir="$(dirname "$(dirname "$(readlink -f "$0")")")"
 
 # Need rust and cargo for all these
 if ! command -v rustup > /dev/null; then
-  source "$dotfiles_dir/installers/rust.sh"
+  source "$dotfiles_dir/installers/rust.sh" && source "$HOME/.cargo/env"
 fi
 
 # Specify actual path because it may not be on $PATH yet
