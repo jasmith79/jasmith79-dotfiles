@@ -66,7 +66,8 @@ fi
 # Add user to vboxsf group so if in VM can access shared folders.
 
 if [ $(getent group vboxsf) ]; then
-  
+  sudo usermod -aG vboxsf "$user"
 else
   sudo groupadd vboxsf
+  sudo usermod -aG vboxsf "$user"
 fi
