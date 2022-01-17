@@ -10,7 +10,7 @@ install-pkg python3
 
 # Never understood why Ubuntu doesn't bundle this
 # on desktop at least
-if [[ "$os" =~ "ubuntu" ]]; then
+if ! command -v pip3 >/dev/null; then
   install-pkg python3-pip
   install-pkg python3-dev
 fi
