@@ -36,14 +36,14 @@ if [[ "$os" =~ "ubuntu" ]]; then # includes mint
 
   needs_update=false
   # Google chrome
-  if ! command -v chrome > /dev/null; then
+  if ! command -v google-chrome-stable > /dev/null; then
     needs_update=true
     wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
     echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
   fi
 
   # Brave browser
-  if ! command -v brave > /dev/null; then
+  if ! command -v brave-browser > /dev/null; then
     needs_update=true
     sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
     echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
@@ -64,4 +64,9 @@ else
 fi
 
 # Add user to vboxsf group so if in VM can access shared folders.
-sudo usermod -aG vboxsf "$user"
+
+if [ $(getent group vboxsf) ]; then
+  
+else
+  sudo groupadd vboxsf
+fi
