@@ -9,11 +9,13 @@ source "$dotfiles_dir/utils/pushpop.sh"
 
 if ! command -v fish > /dev/null; then
   install-pkg "fish"
-fi
+  pushd /tmp
+  curl -L https://get.oh-my.fish > omfish
 
-# Install omf plugin manager
-if command -v fish > /dev/null; then
-  curl -L https://get.oh-my.fish | fish
+  # Not sure if this creates a race condition
+  # for writing the omf conf...
+  fish omfish &>/dev/null &
+  popd
 fi
 
 ensure-stow
@@ -28,7 +30,7 @@ fi
 
 rm -f ~/.config/fish/config.fish ~/.config/fish/functions/fish_user_key_bindings.fish
 
-pushd "$dotfiles_dir" || exit 1
+pushd "$dotfiles_dir"
 stow -D fish
 stow fish
-popd || exit 1
+popd
