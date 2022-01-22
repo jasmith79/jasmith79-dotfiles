@@ -28,12 +28,15 @@ if [[ "$os" =~ "ubuntu" ]]; then # includes mint
 
   # Dropbox
   if [ ! -d "$HOME/Dropbox" ]; then
-    pushd ~ || exit 1
-    wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
-    # This will open the default browser to sign in and run dropbox. We
-    # need to redirect and run as daemon...
-    nohup ~/.dropbox-dist/dropboxd &>/dev/null &
-    popd || exit 1
+    if [ ! -f "$HOME/.dropbox-dist/dropboxd" ]; then
+      pushd ~ || exit 1
+      wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+      # This will open the default browser to sign in and run dropbox. We
+      # need to redirect and run as daemon...
+      popd || exit 1
+    fi
+
+    nohup "$HOME/.dropbox-dist/dropboxd" &>/dev/null &
   fi
 
   needs_update=false
