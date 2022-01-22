@@ -23,6 +23,13 @@ fi
 
 git config --global push.default simple
 
+# Because I don't feel like stirring the big
+# kettle of crazy.
+git_default_branch=$(git config init.defaultbranch)
+if [ -z "$git_default_branch" ]; then
+  git config --global init.defaultBranch main
+fi
+
 if [ "$os" = "macos" ]; then
   git config --global credential.helper osxkeychain
 fi
