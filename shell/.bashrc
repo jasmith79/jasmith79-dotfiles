@@ -1,3 +1,4 @@
+#!/bin/bash
 # Jared Smith's bashrc.
 # Note that on OSX all shells by default are run as login shells.
 # Be sure to add a conditional check in .profile o ensure that
@@ -109,7 +110,7 @@ fi
 # Set vi keybinding for default shell
 set -o vi
 
-if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+if [ "$TILIX_ID" ] || [ "$VTE_VERSION" ]; then
   source /etc/profile.d/vte-2.91.sh
 fi
 
@@ -140,25 +141,65 @@ fi
 randompass () {
   n=${1-15}
   export LC_ALL=C
-  tr -dc 'A-Za-z0-9!"#$%&'\''()*+,-./:;<=>?@[\]^_{|}~' </dev/urandom | head -c $n; echo
+  tr -dc 'A-Za-z0-9!"#$%&'\''()*+,-./:;<=>?@[\]^_{|}~' </dev/urandom | head -c "$n"; echo
 }
 
 # Kills the docker image that matches the argument
 dkill () {
-  docker ps | grep $1 | egrep -o "^[a-f0-9]+" | xargs docker rm -f
+  docker ps | grep "$1" | grep -oE "^[a-f0-9]+" | xargs docker rm -f
 }
 
 vimd () {
-  vim -c 'colorscheme dracula' -c 'set background=dark' $@
+  vim -c 'colorscheme dracula' -c 'set background=dark' "$@"
 }
+
+git-default-branch () {
+  # Returns the name of the default branch in git. First
+  # checks if we're in a repo, checks the output of
+  # git branch, then git config init.defaultbranch, defaults
+  # to main. 
+  local default_branch
+  if [ -d .git ]; then
+    # If you have a main *and* a master, stop that
+    default_branch=$(git branch | grep -oE "master|main")
+  else
+    default_branch=$(git config init.defaultbranch)
+  fi
+
+  if [ -z "$default_branch" ]; then
+    default_branch="main"
+  fi
+
+  echo "$default_branch"
+}
+
+git-reset () {
+  local default_branch
+  default_branch=$(git-default-branch)
+  git fetch origin && git reset --hard origin/"$default_branch"
+}
+
+gmm () {
+  local default_branch
+  default_branch=$(git-default-branch)
+  git merge "$default_branch"
+}
+
+gckm () {
+  local default_branch
+  default_branch=$(git-default-branch)
+  git checkout "$default_branch"
+}
+
+# Rest of my git shortcuts are in ~/.aliases
 
 alias vimd='vimd'
 
 # Set fish as my shell if available unless on OSX
 if ! [[ "$os" = "Darwin" ]]; then
   FISH_PATH=$(command -v fish)
-  if ! [ -z "$FISH_PATH" ] && ! [[ "$SHELL" =~ "fish" ]]; then
-    IS_VALID_SHELL=$(cat /etc/shells | grep "fish")
+  if [ -n "$FISH_PATH" ] && ! [[ "$SHELL" =~ "fish" ]]; then
+    IS_VALID_SHELL=$(grep "fish" /etc/shells)
     if [ -z "$IS_VALID_SHELL" ]; then
       echo "$FISH_PATH" | sudo tee -a /etc/shells
     fi
@@ -168,7 +209,7 @@ if ! [[ "$os" = "Darwin" ]]; then
   fi
 fi
 
-if [ -d "$HOME/.cargo/env" ]; then
+if [ -f "$HOME/.cargo/env" ]; then
   source "$HOME/.cargo/env"
 fi
 
