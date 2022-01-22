@@ -81,3 +81,8 @@ function randompass
   end
   tr -dc 'A-Za-z0-9!"#$%&'\''()*+,-./:;<=>?@[\]^_{|}~' </dev/urandom | head -c $n; echo
 end
+
+# Add local rust install to PATH
+if test -d $HOME/.cargo
+  set PATH "$HOME/.cargo/bin:$PATH"
+end
