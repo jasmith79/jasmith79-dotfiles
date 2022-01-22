@@ -3,7 +3,7 @@
 
 dotfiles_dir="$(dirname "$(dirname "$(readlink -f "$0")")")"
 
-os="$(bash $$dotfiles_dir/utils/get-platform)"
+os="$(bash $dotfiles_dir/utils/get-platform)"
 source "$dotfiles_dir/utils/install-pkg.sh"
 source "$dotfiles_dir/utils/pushpop.sh"
 
