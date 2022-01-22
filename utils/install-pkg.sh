@@ -5,12 +5,12 @@
 # platforms or I want to install slightly different
 # packages depending on the platform but this
 # works well enough.
-os=$(uname)
+install_pkg_os=$(uname)
 
 dotfiles_dir="$(dirname "$(dirname "$(readlink -f "$0")")")"
 
 # Ensure if on MacOS that we have homebrew
-if [[ "$os" =~ [Dd]arwin ]]; then
+if [[ "$install_pkg_os" =~ [Dd]arwin ]]; then
   source "$dotfiles_dir/utils/ensure-brew.sh"
   ensure-brew
 fi
