@@ -209,8 +209,9 @@ if ! [[ "$os" = "Darwin" ]]; then
   fi
 fi
 
-if [ -f "$HOME/.cargo/env" ]; then
-  source "$HOME/.cargo/env"
+# Add local rust install to PATH
+if [ -d $HOME/.cargo ]; then
+  export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
 # added by travis gem
