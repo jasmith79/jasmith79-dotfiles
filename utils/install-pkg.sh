@@ -20,7 +20,7 @@ install-pkg () {
     sudo -u "$user" brew install "$@"
   elif command -v apt > /dev/null; then
     source "$dotfiles_dir/utils/update-apt.sh"
-    update_apt
+    update-apt
     sudo apt install "$@" -y
   else
     echo "Unable to install $1, unrecognized platform. Aborting..."
