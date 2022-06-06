@@ -34,10 +34,9 @@ if ! command -v rust-analyzer > /dev/null; then
   if [ -z "$RUST_ANALYZER_LINK" ]; then
     exit 1
   else
-    curl -O "$RUST_ANALYZER_LINK"
-    gzip -d rust-analyzer-x86_64-apple-darwin.gz
-    chmod +x rust-analyzer-x86_64-apple-darwin
-    mv ./rust-analyzer-x86_64-apple-darwin /usr/local/bin/rust-analyzer
+    curl -L "$RUST_ANALYZER_LINK" | gunzip -c - > ./rust-analyzer
+    chmod +x rust-analyzer
+    mv ./rust-analyzer /usr/local/bin/rust-analyzer
   fi
   popd
 fi
