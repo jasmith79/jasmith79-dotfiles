@@ -17,13 +17,14 @@ At this point you can run `dotfile -h` for help or if you just want everything:
 dotfile install -a --exclude git
 ```
 
-You can leave the git install script in if you really want, but it may set your git username and email to mine.
+You can leave the git install script in if you really want, but it may set your git username and email to mine ;-)
 
+* Go out for coffee. Or something stronger, hell, I'm not judging. But it's going to take awhile.
 * RTFO 🤘
 
 ### NOTE TO SELF on Linux
 
-* Run dropbox setup
+* Finish dropbox setup in the open browser window.
 * Sign in to google account
 * Open google calendar to allow notifications
 * Set up ssh keys
