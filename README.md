@@ -2,6 +2,10 @@
 
 **NOTE**: using this can potentially add a lot of stuff to your computer. Use at your own risk. It's also still at least right at this moment very much a WIP.
 
+## **EXTRA NOTE FOR MAC USERS**
+
+All of the macos-specific stuff assumes intel mac. For that matter, all the general stuff assumes intel (Linux on ARM is at least for now a little esoteric). I will be updating for the ARM-based machines soon (planning to buy one this summer) but for right now it will almost certainly fail hard on e.g. an M1.
+
 ## Usage
 
 Clone the repo to your home directory:
