@@ -3,3 +3,6 @@ ubuntu-bionic-18.04-cloudimg-console.log
 *.retry
 diff.txt
 temp.*
+
+# vim undo dir
+vim/.vim/undodir/
