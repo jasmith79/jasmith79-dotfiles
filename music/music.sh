@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Installs cmus, cli-visualizer, play-list script, and related configs.
 
 user=$(logname)

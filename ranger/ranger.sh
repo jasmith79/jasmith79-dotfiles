@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Installs ranger file manager and configs.
 
 # Determine current user

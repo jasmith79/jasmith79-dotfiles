@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Installs terminology terminal emulator and dependencies from source.
 
 # Determine current user
