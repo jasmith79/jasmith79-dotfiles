@@ -41,6 +41,9 @@ fi
 # Use the gnu version of cli utils on Mac if installed
 if [ -d /usr/local/opt/coreutils/libexec/gnubin ]; then
   export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+# TODO: make it version agnostic rather than hardcoding 9.1
+elif [ -d /opt/homebrew/Cellar/coreutils/9.1/libexec/gnubin ]; then
+  export PATH="/opt/homebrew/Cellar/coreutils/9.1/libexec/gnubin:$PATH"
 fi
 
 if [ -d /usr/local/bin ]; then
