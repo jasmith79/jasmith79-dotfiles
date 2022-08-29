@@ -88,6 +88,10 @@ fi
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
+if [ -d /opt/homebrew/bin ]; then
+    export PATH="/opt/homebrew/bin:$PATH"
+fi
+
 if [ -f ~/.aliases ]; then
   . ~/.aliases
 fi
@@ -214,5 +218,13 @@ if [ -d $HOME/.cargo ]; then
   export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
+# Add TS language server et. al.
+
+
 # added by travis gem
 [ ! -s /Users/jsmith/.travis/travis.sh ] || source /Users/jsmith/.travis/travis.sh
+
+rusty () {
+  RUST_BACKTRACE=1 && cargo run "$@"
+}
+
