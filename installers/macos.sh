@@ -40,7 +40,7 @@ case :$PATH:
       ;;
 esac
 
-if ! [ -f /Applications/iTerm.app ] && ! [ -f "$HOME/Applications/iTerm.app" ]; then
+if ! [ -n /Applications/iTerm.app ] || ! [ -n "$HOME/Applications/iTerm.app" ]; then
   brew install --cask iterm2
   curl -L https://iterm2.com/misc/install_shell_integration.sh | bash
 fi
