@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 dotfiles_dir="$(dirname "$(dirname "$(readlink -f "$0")")")"
+os=$(bash "$dotfiles_dir/utils/get-platform")
 
 mkdir -p ~/.old_configs
 
@@ -34,3 +35,8 @@ pushd "$dotfiles_dir"
 stow -D fish
 stow fish
 popd
+
+if [ "$os" = "macos" ] && [ ! -f /usr/local/bin/mac_fish ]; then
+    sudo ln -s "$dotfiles_dir/mac_fish" /usr/local/bin/mac_fish
+fi
+
