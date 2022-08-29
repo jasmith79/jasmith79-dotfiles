@@ -24,7 +24,7 @@ if [[ ! -L ~/.config/fish/config.fish && -f ~/.config/fish/config.fish ]]; then
   cp ~/.config/fish/config.fish ~/.old_configs
 fi
 
-if [[ ! -L ~/.config/fish/functions/fish_user_key_bindings.fish && -f ~/.config/fish/functions/fish_user_key_bindings.fish ]]; then
+if [[ ! -L ~/.config/fish/functions/fish_user_key_bindings.fish && -n ~/.config/fish/functions/fish_user_key_bindings.fish ]]; then
   cp ~/.config/fish/functions/fish_user_key_bindings.fish ~/.old_configs
 fi
 
