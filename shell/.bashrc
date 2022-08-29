@@ -89,7 +89,7 @@ fi
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 if [ -f ~/.aliases ]; then
-  . ~/.aliases
+  source ~/.aliases
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -179,17 +179,17 @@ git-reset () {
   git fetch origin && git reset --hard origin/"$default_branch"
 }
 
-gmm () {
-  local default_branch
-  default_branch=$(git-default-branch)
-  git merge "$default_branch"
-}
+# gmm () {
+#   local default_branch
+#   default_branch=$(git-default-branch)
+#   git merge "$default_branch"
+# }
 
-gckm () {
-  local default_branch
-  default_branch=$(git-default-branch)
-  git checkout "$default_branch"
-}
+# gckm () {
+#   local default_branch
+#   default_branch=$(git-default-branch)
+#   git checkout "$default_branch"
+# }
 
 # Rest of my git shortcuts are in ~/.aliases
 
