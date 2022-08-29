@@ -3,6 +3,10 @@
 dotfiles_dir="$(dirname "$(dirname "$(readlink -f "$0")")")"
 source "$dotfiles_dir/utils/install-pkg.sh"
 
+if ! command -v npm > /dev/null; then
+    install-pkg node
+fi
+
 # Need rustup to install fnm
 if ! command -v rustup > /dev/null; then
   source "$dotfiles_dir/installers/rust.sh" && source "$HOME/.cargo/env"
@@ -27,3 +31,4 @@ fi
 if ! command -v serve > /dev/null; then
   npm install -g serve
 fi
+
