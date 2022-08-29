@@ -1,3 +1,12 @@
 #!/usr/bin/env bash
 source ~/.bash_profile
-/usr/local/bin/fish
+if [ -f /usr/local/bin/fish ]; then
+    /usr/local/bin/fish
+# Homebrew changed the location for Monterey, because
+# of course it did.
+elif [ -f /opt/homebrew/bin/fish ]; then
+    /opt/homebrew/bin/fish
+else
+    echo "Fish executable not found"
+fi
+
