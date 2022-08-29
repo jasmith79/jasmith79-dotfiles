@@ -50,7 +50,7 @@ function gtag
 end
 
 function vimd
-  vim -c 'colorscheme dracula' -c 'set background=dark' $argv
+  vim -c 'set background=dark' $argv
 end
 
 # Scans a block of IP addresses for boxes that have ssh available.
