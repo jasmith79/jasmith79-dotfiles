@@ -11,6 +11,8 @@ cmp.setup({
       -- documentation = cmp.config.window.bordered(),
     },
     mapping = cmp.mapping.preset.insert({
+      ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+      ['<Tab>'] = cmp.mapping.select_next_item(),
       ['<C-b>'] = cmp.mapping.scroll_docs(-4),
       ['<C-f>'] = cmp.mapping.scroll_docs(4),
       ['<C-Space>'] = cmp.mapping.complete(),
@@ -52,9 +54,46 @@ cmp.setup.cmdline(':', {
     })
 })
 
--- Setup lspconfig.
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
--- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-require('lspconfig').tsserver.setup {
-    capabilities = capabilities
-}
+-- Thanks prime!
+local function config(_config)
+	return vim.tbl_deep_extend("force", {
+		capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+		on_attach = function()
+			nnoremap("gd", function() vim.lsp.buf.definition() end)
+			nnoremap("K", function() vim.lsp.buf.hover() end)
+			nnoremap("<leader>vws", function() vim.lsp.buf.workspace_symbol() end)
+			nnoremap("<leader>vd", function() vim.diagnostic.open_float() end)
+			nnoremap("[d", function() vim.diagnostic.goto_next() end)
+			nnoremap("]d", function() vim.diagnostic.goto_prev() end)
+			nnoremap("<leader>vca", function() vim.lsp.buf.code_action() end)
+			nnoremap("<leader>vrr", function() vim.lsp.buf.references() end)
+			nnoremap("<leader>vrn", function() vim.lsp.buf.rename() end)
+			inoremap("<C-h>", function() vim.lsp.buf.signature_help() end)
+		end,
+	}, _config or {})
+end
+
+local lspconfig = require("lspconfig")
+lspconfig.tsserver.setup(config()) 
+lspconfig.jedi_language_server.setup(config())
+lspconfig.rust_analyzer.setup(config({
+    on_attach=on_attach,
+    settings = {
+        ["rust-analyzer"] = {
+            imports = {
+                granularity = {
+                    group = "module",
+                },
+                prefix = "self",
+            },
+            cargo = {
+                buildScripts = {
+                    enable = true,
+                },
+            },
+            procMacro = {
+                enable = true
+            },
+        }
+    }
+}))

@@ -1,6 +1,12 @@
 local Remaps = require("jsmith.keymap")
+
+-- Open netrw
 Remaps.nnoremap("<leader>fp", "<cmd>Ex<CR>")
 
+-- Open buffer list with spaceb, type name to jump
+Remaps.nnoremap("<Leader>b", ":buffers<CR>:buffer<Space>")
+
+>>>>>>> c2bdd79 (Add updated neovim lua config)
 -- Make Y work like D, C
 Remaps.nnoremap("Y", "yg$")
 
