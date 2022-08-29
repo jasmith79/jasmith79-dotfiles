@@ -49,5 +49,5 @@ if ! command -v imgcat > /dev/null; then
   ensure-opt-programs
   curl https://www.iterm2.com/utilities/imgcat > /opt/programs/imgcat
   chmod +x /opt/programs/imgcat
-  sudo ln -s /opt/programs/imgcat /usr/local/bin/imgcat
+  sudo mv /opt/programs/imgcat /usr/local/bin
 fi
