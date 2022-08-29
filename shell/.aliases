@@ -52,3 +52,9 @@ alias gclean='git clean -df'
 alias p3='python3'
 alias pipin='python3 -m pip install --user'
 alias pserve='python3 -m http.server'
+
+# This is too friggin hard to type
+alias ftf='fzf'
+
+alias nv=nvim
+
