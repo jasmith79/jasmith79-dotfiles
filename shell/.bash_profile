@@ -12,3 +12,8 @@ test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shel
 if [ -d "$HOME/.cargo/env" ]; then
   source "$HOME/.cargo/env"
 fi
+
+if [ -f "$HOME/.kroger" ]; then
+	source "$HOME/.kroger"
+fi
+
