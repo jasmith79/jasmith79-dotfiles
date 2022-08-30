@@ -1,4 +1,6 @@
 vim.opt.nu = true
+vim.opt.splitright = true
+vim.opt.splitbelow = true
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
@@ -33,3 +35,4 @@ vim.opt.showmatch = true
 
 -- keep minimun of 4 lines visible on either side of cursor
 vim.opt.scrolloff = 4
+

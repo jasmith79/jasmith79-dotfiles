@@ -9,6 +9,7 @@ end
 
 return packer.startup(function(use)
   use("wbthomason/packer.nvim")
+  use("jiangmiao/auto-pairs")
   use("folke/tokyonight.nvim")
   use("tomtom/tcomment_vim")
   use("nvim-lua/plenary.nvim")
@@ -31,3 +32,4 @@ return packer.startup(function(use)
     packer.sync()
   end
 end)
+
