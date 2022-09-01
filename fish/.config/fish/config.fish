@@ -117,3 +117,13 @@ function gckm
 end
 # Rest of the git commands are in ~/.aliases
 
+function nv
+  if count $argv > /dev/null
+    set path $argv
+  else
+    set path .
+  end
+
+  nvim "$path"
+end  
+

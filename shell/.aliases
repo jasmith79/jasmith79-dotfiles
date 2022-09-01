@@ -56,5 +56,3 @@ alias pserve='python3 -m http.server'
 # This is too friggin hard to type
 alias ftf='fzf'
 
-alias nv=nvim
-
