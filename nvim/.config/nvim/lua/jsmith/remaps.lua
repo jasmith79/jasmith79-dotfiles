@@ -45,6 +45,6 @@ Remaps.inoremap("<C-c>", "<Esc>")
 
 -- This is for JS/TS unit tests, it will toggle on/off the test(s) on the
 -- line/visual selection.
-Remaps.vnoremap("<Leader>tt", ":s/ it(/ zzit(/g<CR>gv:s/ xit(/ yyit(/g<CR>gv:s/ zzit/ xit/g<CR>gv:s/ yyit/ it/g<CR>i<Esc>")
+Remaps.vnoremap("<Leader>tt", ":s/ it(/ zzit(/ge<CR>gv:s/ xit(/ yyit(/ge<CR>gv:s/ zzit/ xit/ge<CR>gv:s/ yyit/ it/ge<CR>i<Esc>")
 Remaps.nnoremap("<Leader>tt", ":s/ it(/ zzit(/e<CR>:s/ xit(/ yyit(/e<CR>:s/ zzit/ xit/e<CR>:s/ yyit/ it/e<CR>i<Esc>")
 
