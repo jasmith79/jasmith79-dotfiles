@@ -3,6 +3,14 @@ local Remaps = require("jsmith.keymap")
 -- Open netrw
 Remaps.nnoremap("<leader>fp", "<cmd>Ex<CR>")
 
+-- Format buffer
+Remaps.nnoremap("<leader>ff", "<cmd>Neoformat<CR>")
+
+-- When pasting over highlighted text, this will maintain
+-- the paste buffer instead of overwriting its contents with
+-- the copied-over text.
+Remaps.xnoremap("<leader>p", "\"_dP")
+
 -- Open buffer list with spaceb, type name to jump
 Remaps.nnoremap("<Leader>b", ":buffers<CR>:buffer<Space>")
 

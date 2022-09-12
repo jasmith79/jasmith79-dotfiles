@@ -8,6 +8,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 return packer.startup(function(use)
+  use("sbdchd/neoformat")
   use("wbthomason/packer.nvim")
   use("jiangmiao/auto-pairs")
   use("folke/tokyonight.nvim")
