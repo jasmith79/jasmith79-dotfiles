@@ -27,7 +27,11 @@ return packer.startup(function(use)
     run = ":TSUpdate"
   })
   use("nvim-treesitter/playground")
-
+  use("kyazdani42/nvim-web-devicons")
+  use {
+    "nvim-lualine/lualine.nvim",
+    requires = { "kyazdani42/nvim-web-devicons", opt = true }
+  }
   -- Autoload plugins on fresh install
   if packer_bootstrap then
     packer.sync()
