@@ -60,10 +60,13 @@ if ! command -v nvim > /dev/null; then
   if command -v brew > /dev/null; then
     sudo -u "$user" brew install neovim
     sudo -u "$user" brew install tree-sitter
+	sudo -u "$user" python3 -m pip install -U jedi-language-server
 
     # NOTE if using fnm or nvm need to do this
     # after installing and switching to new versions
     sudo -u "$user" npm install -g typescript-language-server
+	sudo -u "$user" npm install -g bash-language-server
+	sudo -u "$user" brew install lua-languague-server
   elif command -v apt > /dev/null; then
     # Official ubuntu repo version waaaay too old
     # for some of my plugins.
