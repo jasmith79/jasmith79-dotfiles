@@ -122,7 +122,8 @@ lspconfig.sumneko_lua.setup {
   },
 }
 
-lspconfig.bashls.setup {}
+lspconfig.bashls.setup{}
+lspconfig.marksman.setup{}
 
 vim.g.neoformat_try_node_exe = 1
 

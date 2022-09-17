@@ -67,6 +67,13 @@ if ! command -v nvim > /dev/null; then
     sudo -u "$user" npm install -g typescript-language-server
 	sudo -u "$user" npm install -g bash-language-server
 	sudo -u "$user" brew install lua-languague-server
+	# The curl isn't working, just grabbing 0 bytes. TODO: fix. For now,
+	# doin' it by hand.
+	# pushd /tmp
+	# curl -O https://github.com/artempyanykh/marksman/releases/download/2022-09-13/marksman-macos
+	# chmod +x marksman-macos
+	# mv marksman-macos /usr/local/bin/marksman
+	# popd
   elif command -v apt > /dev/null; then
     # Official ubuntu repo version waaaay too old
     # for some of my plugins.
