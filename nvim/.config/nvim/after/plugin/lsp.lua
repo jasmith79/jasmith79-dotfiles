@@ -78,7 +78,6 @@ local lspconfig = require("lspconfig")
 lspconfig.tsserver.setup(config())
 lspconfig.jedi_language_server.setup(config())
 lspconfig.rust_analyzer.setup(config({
-    on_attach=on_attach,
     settings = {
         ["rust-analyzer"] = {
             imports = {
@@ -86,7 +85,7 @@ lspconfig.rust_analyzer.setup(config({
                     group = "module",
                 },
                 prefix = "self",
-            },
+           },
             cargo = {
                 buildScripts = {
                     enable = true,
@@ -99,7 +98,7 @@ lspconfig.rust_analyzer.setup(config({
     }
 }))
 
-lspconfig.sumneko_lua.setup {
+lspconfig.sumneko_lua.setup(config({
   settings = {
     Lua = {
       runtime = {
@@ -120,10 +119,10 @@ lspconfig.sumneko_lua.setup {
       },
     },
   },
-}
+}))
 
-lspconfig.bashls.setup{}
-lspconfig.marksman.setup{}
+lspconfig.bashls.setup(config())
+lspconfig.marksman.setup(config())
 
 vim.g.neoformat_try_node_exe = 1
 
