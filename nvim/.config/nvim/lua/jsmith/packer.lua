@@ -32,6 +32,12 @@ return packer.startup(function(use)
     "nvim-lualine/lualine.nvim",
     requires = { "kyazdani42/nvim-web-devicons", opt = true }
   }
+  use {
+	  "lewis6991/gitsigns.nvim",
+	  config = function()
+		  require("gitsigns").setup()
+	  end
+  }
   -- Autoload plugins on fresh install
   if packer_bootstrap then
     packer.sync()
