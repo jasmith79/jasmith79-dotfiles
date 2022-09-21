@@ -32,12 +32,12 @@ return packer.startup(function(use)
     "nvim-lualine/lualine.nvim",
     requires = { "kyazdani42/nvim-web-devicons", opt = true }
   }
-  -- use {
-	--   "lewis6991/gitsigns.nvim",
-	--   config = function()
-	-- 	  require("gitsigns").setup()
-	--   end
-  -- }
+  use {
+	  "lewis6991/gitsigns.nvim",
+	  config = function()
+		  require("gitsigns").setup()
+	  end
+  }
   use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
   use {
 	  'TimUntersberger/neogit',
