@@ -38,7 +38,14 @@ return packer.startup(function(use)
 	-- 	  require("gitsigns").setup()
 	--   end
   -- }
-  use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
+  use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
+  use {
+	  'TimUntersberger/neogit',
+	  requires = {
+		  'nvim-lua/plenary.nvim',
+		  'sindrets/diffview.nvim'
+	  }
+  }
 
   -- Autoload plugins on fresh install
   if packer_bootstrap then
