@@ -74,7 +74,7 @@ set number
 " show matches while typing search pattern
 set incsearch
 
-set cmdheight=3
+" set cmdheight=3
 
 " soft wrap at 120 chars
 set textwidth=120
@@ -136,25 +136,25 @@ endif
 
 " Taken from https://stackoverflow.com/a/5636941/3757232
 " Toggle Vexplore with Ctrl-E
-function! ToggleVExplorer()
-  if exists("t:expl_buf_num")
-      let expl_win_num = bufwinnr(t:expl_buf_num)
-      if expl_win_num != -1
-          let cur_win_nr = winnr()
-          exec expl_win_num . 'wincmd w'
-          close
-          exec cur_win_nr . 'wincmd w'
-          unlet t:expl_buf_num
-      else
-          unlet t:expl_buf_num
-      endif
-  else
-      exec '1wincmd w'
-      Vexplore
-      vertical resize 50
-      let t:expl_buf_num = bufnr("%")
-  endif
-endfunction
+" function! ToggleVExplorer()
+"   if exists("t:expl_buf_num")
+"       let expl_win_num = bufwinnr(t:expl_buf_num)
+"       if expl_win_num != -1
+"           let cur_win_nr = winnr()
+"           exec expl_win_num . 'wincmd w'
+"           close
+"           exec cur_win_nr . 'wincmd w'
+"           unlet t:expl_buf_num
+"       else
+"           unlet t:expl_buf_num
+"       endif
+"   else
+"       exec '1wincmd w'
+"       Vexplore
+"       vertical resize 50
+"       let t:expl_buf_num = bufnr("%")
+"   endif
+" endfunction
 
 " " KEYBINDINGS
 
