@@ -66,6 +66,8 @@ if ! command -v nvim > /dev/null; then
     # after installing and switching to new versions
     sudo -u "$user" npm install -g typescript-language-server
 	sudo -u "$user" npm install -g bash-language-server
+	# This is for (s)css, JSON, HTML, eslint
+	sudo -u "$user" npm i -g vscode-langservers-extracted
 	sudo -u "$user" brew install lua-languague-server
 	# The curl isn't working, just grabbing 0 bytes. TODO: fix. For now,
 	# doin' it by hand.
