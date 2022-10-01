@@ -11,7 +11,6 @@ return packer.startup(function(use)
   use("sbdchd/neoformat")
   use("wbthomason/packer.nvim")
   use("jiangmiao/auto-pairs")
-  use("folke/tokyonight.nvim")
   use("tomtom/tcomment_vim")
   use("nvim-lua/plenary.nvim")
   use("nvim-lua/popup.nvim")
@@ -23,29 +22,47 @@ return packer.startup(function(use)
   use("nvim-lua/lsp_extensions.nvim")
   use("L3MON4D3/LuaSnip")
   use("saadparwaiz1/cmp_luasnip")
-  use("nvim-treesitter/nvim-treesitter", {
-    run = ":TSUpdate"
-  })
+  use(
+	"nvim-treesitter/nvim-treesitter",
+	{
+      run = ":TSUpdate"
+    }
+  )
   use("nvim-treesitter/playground")
   use("kyazdani42/nvim-web-devicons")
-  use {
+  use({
     "nvim-lualine/lualine.nvim",
     requires = { "kyazdani42/nvim-web-devicons", opt = true }
-  }
-  use {
+  })
+  use({
 	  "lewis6991/gitsigns.nvim",
 	  config = function()
 		  require("gitsigns").setup()
 	  end
-  }
-  use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
-  use {
-	  'TimUntersberger/neogit',
+  })
+  use({
+	  "sindrets/diffview.nvim",
+	  requires = "nvim-lua/plenary.nvim"
+  })
+  use({
+	  "TimUntersberger/neogit",
 	  requires = {
-		  'nvim-lua/plenary.nvim',
-		  'sindrets/diffview.nvim'
+		  "nvim-lua/plenary.nvim",
+		  "sindrets/diffview.nvim"
 	  }
-  }
+  })
+
+  -- colorschemes
+  use("folke/tokyonight.nvim")
+  use("marko-cerovac/material.nvim")
+  use("cocopon/iceberg.vim")
+  use("EdenEast/nightfox.nvim")
+  use({ "catppuccin/nvim", as = "catppuccin" })
+  use({ "embark-theme/vim", as = "embark" })
+  use({
+	  "rose-pine/neovim",
+	  as = "rose-pine",
+  })
 
   -- Autoload plugins on fresh install
   if packer_bootstrap then
