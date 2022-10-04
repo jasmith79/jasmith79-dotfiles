@@ -54,14 +54,13 @@ return packer.startup(function(use)
 
   -- colorschemes
   use("folke/tokyonight.nvim")
-  use("marko-cerovac/material.nvim")
   use("cocopon/iceberg.vim")
   use("EdenEast/nightfox.nvim")
   use({ "catppuccin/nvim", as = "catppuccin" })
   use({ "embark-theme/vim", as = "embark" })
   use({
-	  "rose-pine/neovim",
-	  as = "rose-pine",
+      "rose-pine/neovim",
+      as = "rose-pine",
   })
 
   -- Autoload plugins on fresh install

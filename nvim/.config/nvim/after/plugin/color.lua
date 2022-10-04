@@ -1,8 +1,5 @@
 vim.opt.background = "dark"
 
-vim.g.material_style = "deep ocean"
-require('material').setup()
-
 vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
 require("catppuccin").setup()
 
