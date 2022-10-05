@@ -214,8 +214,13 @@ if ! [[ "$os" = "Darwin" ]]; then
 fi
 
 # Add local rust install to PATH
-if [ -d $HOME/.cargo ]; then
+if [ -d "$HOME/.cargo" ]; then
   export PATH="$HOME/.cargo/bin:$PATH"
+fi
+
+# Add haskell toolchain if present
+if [ -f "$HOME/.ghcup/env" ]; then
+	source "$HOME/.ghcup/env"
 fi
 
 # Add TS language server et. al.

@@ -126,10 +126,18 @@ lspconfig.marksman.setup(config())
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-lspconfig.cssls.setup {
+lspconfig.cssls.setup(config({
   capabilities = capabilities,
-}
-lspconfig.cssls.setup {}
+}))
+
+lspconfig.hls.setup(config({
+  settings = {
+ 	haskell = {
+      hlintOn = true,
+	  formattingProvider = "fourmolu"
+	}
+  }
+}))
 
 vim.g.neoformat_try_node_exe = 1
 
