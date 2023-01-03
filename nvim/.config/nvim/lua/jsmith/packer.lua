@@ -10,7 +10,10 @@ end
 return packer.startup(function(use)
   use("sbdchd/neoformat")
   use("wbthomason/packer.nvim")
-  use("jiangmiao/auto-pairs")
+  use({
+	  "windwp/nvim-autopairs",
+	  config = function() require("nvim-autopairs").setup {} end
+  })
   use("tomtom/tcomment_vim")
   use("nvim-lua/plenary.nvim")
   use("nvim-lua/popup.nvim")
