@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+REQ="$1"
+ACTUAL="$2"
+if [ "$(printf '%s\n' "$REQ" "$ACTUAL" | sort -V | head -n1)" = "$REQ" ]; then 
+	echo "passed"
+else
+	echo "failed"
+fi
+
