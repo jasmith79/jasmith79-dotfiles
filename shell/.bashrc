@@ -159,46 +159,6 @@ vimd () {
   vim -c 'colorscheme dracula' -c 'set background=dark' "$@"
 }
 
-git-default-branch () {
-  # Returns the name of the default branch in git. First
-  # checks if we're in a repo, checks the output of
-  # git branch, then git config init.defaultbranch, defaults
-  # to main. 
-  local default_branch
-  if [ -d .git ]; then
-    # If you have a main *and* a master, stop that
-    default_branch=$(git branch | grep -oE "master|main")
-  else
-    default_branch=$(git config init.defaultbranch)
-  fi
-
-  if [ -z "$default_branch" ]; then
-    default_branch="main"
-  fi
-
-  echo "$default_branch"
-}
-
-git-reset () {
-  local default_branch
-  default_branch=$(git-default-branch)
-  git fetch origin && git reset --hard origin/"$default_branch"
-}
-
-# gmm () {
-#   local default_branch
-#   default_branch=$(git-default-branch)
-#   git merge "$default_branch"
-# }
-
-# gckm () {
-#   local default_branch
-#   default_branch=$(git-default-branch)
-#   git checkout "$default_branch"
-# }
-
-# Rest of my git shortcuts are in ~/.aliases
-
 alias vimd='vimd'
 
 # Set fish as my shell if available unless on OSX

@@ -45,7 +45,9 @@ alias gckb='git checkout -b'
 alias gckd='git checkout dev'
 alias gprev='git checkout -'
 alias gclean='git clean -df'
-# rest of my git commands are in ~/.bashrc and config.fish
+alias gckm='git checkout $(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')'
+alias gmm='git merge $(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')'
+alias git-reset='git fetch origin && git reset --hard origin/$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')'
 
 # python
 

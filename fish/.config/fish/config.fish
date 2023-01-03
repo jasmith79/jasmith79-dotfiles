@@ -87,36 +87,6 @@ if test -d $HOME/.cargo
   set PATH "$HOME/.cargo/bin:$PATH"
 end
 
-function git-default-branch
-  if test -d .git
-    set default_branch (git branch | grep -oE "master|main")
-  else
-    set default_branch (git config init.defaultbranch)
-  end
-
-  if test -z default_branch
-    set default_branch "main"
-  end
-
-  echo "$default_branch"
-end
-
-function git-reset
-  set --local default_branch (git-default-branch)
-  git fetch origin && git reset --hard origin/"$default_branch"
-end
-
-function gmm
-  set default_branch (git-default-branch)
-  git merge "$default_branch"
-end
-
-function gckm
-  set default_branch (git-default-branch)
-  git checkout "$default_branch"
-end
-# Rest of the git commands are in ~/.aliases
-
 function nv
   if count $argv > /dev/null
     set path $argv
