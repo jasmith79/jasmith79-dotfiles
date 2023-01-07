@@ -9,7 +9,7 @@
 # for examples
 os=$(uname)
 
-dotfiles_dir="$(dirname "$(dirname "$(readlink -f "$0")")")"
+dotfiles_dir="$(dirname "$(readlink -f "$0")")"
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -199,6 +199,7 @@ if command -v node >/dev/null; then
 	CURRENT_NODE_VERS="$(node --version)"
 	MEETS_REQ="$(bash $dotfiles_dir/utils/check-version "v16.14.0" "$CURRENT_NODE_VERS")"
 	if [ "$MEETS_REQ" != "passed" ] && [ -x "$(command -v fnm)" ]; then
+		eval "$(fnm env)"
 		yes | fnm use 16.14
 	fi
 fi
