@@ -1,4 +1,6 @@
 #!/usr/bin/fish
+set dotfiles_dir "$(dirname $(dirname $(dirname $(dirname (readlink -m (status --current-filename))))))"
+
 # import aliases
 . ~/.aliases
 
@@ -96,4 +98,14 @@ function nv
 
   nvim "$path"
 end  
+
+if command -v node >/dev/null
+    eval "$(fnm env)"
+	set CURRENT_NODE_VERS "$(node --version)"
+	set MEETS_REQ "$(bash $dotfiles_dir/utils/check-version "v16.14.0" "$CURRENT_NODE_VERS")"
+	if [ "$MEETS_REQ" != "passed" ]
+        and [ -x "$(command -v fnm)" ]
+		fnm use --install-if-missing 16.14
+	end
+end
 
