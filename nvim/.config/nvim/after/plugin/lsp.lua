@@ -58,7 +58,7 @@ cmp.setup.cmdline(':', {
 -- Thanks prime!
 local function config(_config)
 	return vim.tbl_deep_extend("force", {
-		capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+		capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
 		on_attach = function()
 			Remap.nnoremap("gd", function() vim.lsp.buf.definition() end)
 			Remap.nnoremap("K", function() vim.lsp.buf.hover() end)
