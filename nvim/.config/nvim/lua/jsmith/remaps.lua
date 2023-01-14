@@ -39,8 +39,8 @@ Remaps.vnoremap("h", "k")
 Remaps.vnoremap("k", "j")
 
 -- Move Blocks of highlighted text, autoindenting
-Remaps.vnoremap("H :m", "'>+1<CR>gv=gv ")
-Remaps.vnoremap("J :m", "'<-2<CR>gv=gv")
+Remaps.vnoremap("H", ":m '>+1<CR>gv=gv")
+Remaps.vnoremap("J", ":m '<-2<CR>gv=gv")
 
 -- Make jumps more natural. n/N next/prev result, zz center cursor, zv open folds
 Remaps.nnoremap("n", "nzzzv")
