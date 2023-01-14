@@ -56,3 +56,7 @@ Remaps.inoremap("<C-c>", "<Esc>")
 Remaps.vnoremap("<Leader>tt", ":s/ it(/ zzit(/ge<CR>gv:s/ xit(/ yyit(/ge<CR>gv:s/ zzit/ xit/ge<CR>gv:s/ yyit/ it/ge<CR>i<Esc>")
 Remaps.nnoremap("<Leader>tt", ":s/ it(/ zzit(/e<CR>:s/ xit(/ yyit(/e<CR>:s/ zzit/ xit/e<CR>:s/ yyit/ it/e<CR>i<Esc>")
 
+-- Stay in visual mode when moving text blocks
+Remaps.vnoremap("<", "<<CR>gv")
+Remaps.vnoremap(">", "><CR>gv")
+
