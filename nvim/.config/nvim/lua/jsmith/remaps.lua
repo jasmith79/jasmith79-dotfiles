@@ -62,3 +62,7 @@ Remaps.vnoremap(">", "><CR>gv")
 
 -- Select entire file
 Remaps.nnoremap("<Leader>aa", "ggVG")
+
+-- ESC input mode in terminal
+Remaps.tnoremap("<Esc>", "<C-\\><C-n>")
+
