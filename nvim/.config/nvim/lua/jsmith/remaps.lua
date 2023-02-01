@@ -60,3 +60,5 @@ Remaps.nnoremap("<Leader>tt", ":s/ it(/ zzit(/e<CR>:s/ xit(/ yyit(/e<CR>:s/ zzit
 Remaps.vnoremap("<", "<<CR>gv")
 Remaps.vnoremap(">", "><CR>gv")
 
+-- Select entire file
+Remaps.nnoremap("<Leader>aa", "ggVG")
