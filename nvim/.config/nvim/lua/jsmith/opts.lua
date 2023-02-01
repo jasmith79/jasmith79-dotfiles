@@ -18,7 +18,6 @@ vim.opt.updatetime = 50
 vim.opt.colorcolumn = "80"
 vim.opt.textwidth = 120
 vim.opt.shortmess:append("c") -- Needed for nvim-cmp completion
-vim.opt.shell = "/bin/bash" -- My fish shell effs up the command output
 vim.g.mapleader = " "
 
 -- don't need these in neovim?
