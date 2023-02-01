@@ -66,3 +66,7 @@ Remaps.nnoremap("<Leader>aa", "ggVG")
 -- ESC input mode in terminal
 Remaps.tnoremap("<Esc>", "<C-\\><C-n>")
 
+-- easier word substitution
+Remaps.nnoremap("<Leader>ss", ":%s/")
+Remaps.vnoremap("<Leader>ss", ":s/")
+
