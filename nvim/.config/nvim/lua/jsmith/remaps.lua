@@ -61,7 +61,7 @@ Remaps.vnoremap("<", "<<CR>gv")
 Remaps.vnoremap(">", "><CR>gv")
 
 -- Select entire file
-Remaps.nnoremap("<Leader>aa", "ggVG")
+Remaps.nnoremap("<Leader>sa", "ggVG")
 
 -- ESC input mode in terminal
 Remaps.tnoremap("<Esc>", "<C-\\><C-n>")
@@ -69,4 +69,10 @@ Remaps.tnoremap("<Esc>", "<C-\\><C-n>")
 -- easier word substitution
 Remaps.nnoremap("<Leader>ss", ":%s/")
 Remaps.vnoremap("<Leader>ss", ":s/")
+
+-- open term in vspl
+Remaps.nnoremap("<Leader>te", "<cmd>vsp<CR><cmd>term<CR>i")
+
+-- keep split switch in term 
+Remaps.tnoremap("<C-w><C-w>", "<C-\\><C-n><C-w><C-w>")
 
