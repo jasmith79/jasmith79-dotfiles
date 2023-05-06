@@ -71,15 +71,47 @@ function randompass
   tr -dc 'A-Za-z0-9!"#$%&'\''()*+,-./:;<=>?@[\]^_{|}~' </dev/urandom | head -c $n; echo
 end
 
+# Update the PATH
+fish_add_path "/opt/homebrew/bin"
+fish_add_path "/opt/programs/android-studio/bin"
+fish_add_path "/usr/local/bin"
+fish_add_path "/usr/local/go/bin"
 fish_add_path "$HOME/bin"
 fish_add_path "$HOME/.local/bin"
 fish_add_path "$HOME/.cargo/bin"
-fish_add_path "/opt/homebrew/bin"
-fish_add_path "/opt/programs/android-studio/bin"
+
+# At some point MacOS brew util moved the location
+# so we check for both, these next two use GNU utils
+# over the POSIX ones so I have consistent behavior
+# between Linux and MacOS
 fish_add_path "/usr/local/opt/coreutils/libexec/gnubin"
 fish_add_path "/opt/homebrew/Cellar/coreutils/9.1/libexec/gnubin"
-fish_add_path "/usr/local/bin"
-fish_add_path "/usr/local/go/bin"
+
+# envars
+if test "$TERM" = "xterm"
+  set TERM "xterm-256color"
+end
+
+if type -q nvim
+  set EDITOR "nvim"
+  set MANPAGER "nvim -c 'set ft=man' -"
+else if type -q vim
+  set EDITOR "vim"
+else
+  set EDITOR "vi"
+end
+
+if test -d "/Users/$User/Library/Python"
+  # Yes, yes, I know, don't parse ls
+  set PYVERS "$(ls /Users/$USER/Library/Python | grep "^3" | tail -n 1)"
+end
+
+if set -q PYVERS
+  fish_add_path "/Users/$USER/Library/Python/$PYVERS/bin"
+end
+
+# colored GCC warnings and errors
+set GCC_COLORS "error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01"
 
 function nv
   if count $argv > /dev/null
