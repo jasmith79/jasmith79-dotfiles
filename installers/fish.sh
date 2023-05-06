@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 dotfiles_dir="$(dirname "$(dirname "$(readlink -f "$0")")")"
-os=$(bash "$dotfiles_dir/utils/get-platform")
 
 mkdir -p ~/.old_configs
 
@@ -25,7 +24,7 @@ if [[ ! -L ~/.config/fish/config.fish && -f ~/.config/fish/config.fish ]]; then
   cp ~/.config/fish/config.fish ~/.old_configs
 fi
 
-if [[ ! -L ~/.config/fish/functions/fish_user_key_bindings.fish && -n ~/.config/fish/functions/fish_user_key_bindings.fish ]]; then
+if [[ ! -L ~/.config/fish/functions/fish_user_key_bindings.fish && -f ~/.config/fish/functions/fish_user_key_bindings.fish ]]; then
   cp ~/.config/fish/functions/fish_user_key_bindings.fish ~/.old_configs
 fi
 
@@ -35,8 +34,4 @@ pushd "$dotfiles_dir"
 stow -D fish
 stow fish
 popd
-
-if [ "$os" = "macos" ] && [ ! -f /usr/local/bin/mac_fish ]; then
-    sudo ln -s "$dotfiles_dir/mac_fish" /usr/local/bin/mac_fish
-fi
 
