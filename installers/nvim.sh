@@ -65,17 +65,19 @@ if ! command -v nvim > /dev/null; then
     # NOTE if using fnm or nvm need to do this
     # after installing and switching to new versions
     sudo -u "$user" npm install -g typescript-language-server
-	sudo -u "$user" npm install -g bash-language-server
-	# This is for (s)css, JSON, HTML, eslint
-	sudo -u "$user" npm i -g vscode-langservers-extracted
-	sudo -u "$user" brew install lua-languague-server
-	# The curl isn't working, just grabbing 0 bytes. TODO: fix. For now,
-	# doin' it by hand.
-	# pushd /tmp
-	# curl -O https://github.com/artempyanykh/marksman/releases/download/2022-09-13/marksman-macos
-	# chmod +x marksman-macos
-	# mv marksman-macos /usr/local/bin/marksman
-	# popd
+    # need this for autosave formatting
+    sudo -u "$user" npm install -g @fsouza/prettierd
+    sudo -u "$user" npm install -g bash-language-server
+    # This is for (s)css, JSON, HTML, eslint
+    sudo -u "$user" npm i -g vscode-langservers-extracted
+    sudo -u "$user" brew install lua-languague-server
+    # The curl isn't working, just grabbing 0 bytes. TODO: fix. For now,
+    # doin' it by hand.
+    # pushd /tmp
+    # curl -O https://github.com/artempyanykh/marksman/releases/download/2022-09-13/marksman-macos
+    # chmod +x marksman-macos
+    # mv marksman-macos /usr/local/bin/marksman
+    # popd
   elif command -v apt > /dev/null; then
     # Official ubuntu repo version waaaay too old
     # for some of my plugins.

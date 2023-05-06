@@ -20,6 +20,9 @@ vim.opt.textwidth = 120
 vim.opt.shortmess:append("c") -- Needed for nvim-cmp completion
 vim.g.mapleader = " "
 
+-- Format files on save if the lsp knows what to do with them
+vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
+
 -- don't need these in neovim?
 -- vim.opt.splitbelow = true
 -- vim.opt.splitright = true
@@ -35,4 +38,3 @@ vim.opt.showmatch = true
 
 -- keep minimun of 4 lines visible on either side of cursor
 vim.opt.scrolloff = 4
-
