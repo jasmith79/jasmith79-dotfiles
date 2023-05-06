@@ -84,10 +84,15 @@ function randompass
   tr -dc 'A-Za-z0-9!"#$%&'\''()*+,-./:;<=>?@[\]^_{|}~' </dev/urandom | head -c $n; echo
 end
 
-# Add local rust install to PATH
-if test -d $HOME/.cargo
-  set PATH "$HOME/.cargo/bin:$PATH"
-end
+fish_add_path "$HOME/bin"
+fish_add_path "$HOME/.local/bin"
+fish_add_path "$HOME/.cargo/bin"
+fish_add_path "/opt/homebrew/bin"
+fish_add_path "/opt/programs/android-studio/bin"
+fish_add_path "/usr/local/opt/coreutils/libexec/gnubin"
+fish_add_path "/opt/homebrew/Cellar/coreutils/9.1/libexec/gnubin"
+fish_add_path "/usr/local/bin"
+fish_add_path "/usr/local/go/bin"
 
 function nv
   if count $argv > /dev/null
