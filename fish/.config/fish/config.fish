@@ -110,7 +110,7 @@ if command -v node >/dev/null
 	set MEETS_REQ "$(bash $dotfiles_dir/utils/check-version "v16.14.0" "$CURRENT_NODE_VERS")"
 	if [ "$MEETS_REQ" != "passed" ]
         and [ -x "$(command -v fnm)" ]
-		fnm use --install-if-missing 16.14
+		fnm use --install-if-missing 16.14 2>&1 >/dev/null
 	end
 end
 
