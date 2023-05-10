@@ -51,3 +51,8 @@ if ! command -v imgcat > /dev/null; then
   chmod +x /opt/programs/imgcat
   sudo mv /opt/programs/imgcat /usr/local/bin
 fi
+
+if ! [ -n /Applications/WezTerm.app ] || ! [ -n "$HOME/Applications/WezTerm.app" ]; then
+  brew tap homebrew/cask-versions
+  brew install --cask wezterm-nightly
+fi

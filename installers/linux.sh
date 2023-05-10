@@ -12,6 +12,19 @@ if ! [[ "$(uname)" =~ [Ll]inux ]]; then
 fi
 
 if [[ "$os" =~ "ubuntu" ]]; then # includes mint
+  ubuntu_version=false
+  distro=$(cat /etc/lsb-release | head -n 1 | grep -o "=[a-zA-Z]\+" | cut -c2-)
+  if [ "$distro" == "LinuxMint" ]; then
+    ubuntu_version=$(cat /etc/upstream-release/lsb-release | grep -o "[0-9]\{2\}" | head -n 1)
+  elif [ "$distro" == "Ubuntu" ]
+  then
+    ubuntu_version=$(cat /etc/lsb-release | grep -o "[0-9]\{2\}" | head -n 1)
+  else
+    echo "Unknown Ubuntu Variant:"
+    echo "$distro"
+    echo "Aborting..."
+    exit 1
+  fi
   update-apt
 
   # I'm not going to bother writing conditionals for all of these.
@@ -58,6 +71,14 @@ if [[ "$os" =~ "ubuntu" ]]; then # includes mint
     sudo apt-get update
     sudo apt install -y google-chrome-stable
     sudo apt install -y brave-browser
+  fi
+
+  # wezterm
+  if ! command -v wezterm > /dev/null; then
+    pushd /tmp
+    curl -LO "https://github.com/wez/wezterm/releases/download/nightly/wezterm-nightly.Ubuntu$ubuntu_version.deb"
+    sudo apt install -y "./wezterm-nightly.Ubuntu$ubuntu_version.deb"
+    popd
   fi
 
 elif [[ "$os" =~ "arch" ]]; then
