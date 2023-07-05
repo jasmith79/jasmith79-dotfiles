@@ -19,6 +19,16 @@ config.font = wezterm.font_with_fallback {
     { family = 'Oxygen Mono', style = 'Normal' },
 }
 
+config.keys = {
+    -- Turn off the default CTRL-V paste, allowing for visual block
+    -- mode in neovim. TODO: figure out Linux solution here.
+    {
+        key = 'v',
+        mods = 'CTRL|SHIFT',
+        action = wezterm.action.DisableDefaultAssignment,
+    },
+}
+
 config.hide_tab_bar_if_only_one_tab = true
 
 return config
