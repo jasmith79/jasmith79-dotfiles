@@ -46,6 +46,7 @@ return packer.startup(function(use)
 	})
 	use('jose-elias-alvarez/null-ls.nvim')
 	use('MunifTanjim/prettier.nvim')
+	use { 'tzachar/cmp-tabnine', run = './install.sh', requires = 'hrsh7th/nvim-cmp' }
 
 	-- colorschemes
 	use("folke/tokyonight.nvim")

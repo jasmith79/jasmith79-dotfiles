@@ -23,6 +23,7 @@ cmp.setup({
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
         { name = 'luasnip' }, -- For luasnip users.
+        { name = 'cmp_tabnine' },
     }, {
         { name = 'buffer' },
     })
@@ -76,7 +77,7 @@ end
 
 local lspconfig = require("lspconfig")
 lspconfig.tsserver.setup(config())
-lspconfig.jedi_language_server.setup(config())
+lspconfig.pyright.setup(config())
 lspconfig.rust_analyzer.setup(config({
     settings = {
         ["rust-analyzer"] = {
