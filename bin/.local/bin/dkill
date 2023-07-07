@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Kills the docker image that matches the argument
+docker ps | grep "$1" | grep -oE "^[a-f0-9]+" | xargs docker rm -f
+

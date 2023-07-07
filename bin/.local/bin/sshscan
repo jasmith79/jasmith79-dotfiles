@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# Scans the given range of IP addresses for devices
+# with the standard ssh port open.
+INPUT_IP=${1:-"192.168.1.0"}
+sudo nmap -sS -p 22 "$INPUT_IP/24"
+

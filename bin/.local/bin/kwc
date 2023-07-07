@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# Attach or create kap-web-client tmux session. NOTE: other than
+# the first shell invocation after a reboot there should always be
+# a session running already.
+if [ -n "$TMUX" ]; then
+    tmux detach
+    tmux attach -t kwc
+else
+    tmux new-session -A -s kwc
+fi
+

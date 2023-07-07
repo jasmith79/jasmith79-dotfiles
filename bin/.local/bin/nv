@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# Shorthand for neovim, if no file/directory supplied
+# open netrw in CWD
+INPUT_PATH=${1:-"$PWD"}
+nvim "$INPUT_PATH"
+

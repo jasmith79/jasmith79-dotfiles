@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# Generates a cryptographically strong random password
+# of length n, defaults to 15
+n=${1-15}
+export LC_ALL=C
+tr -dc 'A-Za-z0-9!"#$%&'\''()*+,-./:;<=>?@[\]^_{|}~' </dev/urandom | head -c "$n"; echo
+
