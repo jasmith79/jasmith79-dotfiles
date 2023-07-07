@@ -85,6 +85,7 @@ dev_packages=(
   "vim"
   "${lang_packages[@]}"
   "scripts"
+  "tmux"
 )
 
 all_packages=(
