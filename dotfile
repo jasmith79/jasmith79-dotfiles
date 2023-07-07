@@ -84,6 +84,7 @@ dev_packages=(
   "nvim"
   "vim"
   "${lang_packages[@]}"
+  "scripts"
 )
 
 all_packages=(
