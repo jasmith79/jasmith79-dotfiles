@@ -124,12 +124,20 @@ function nv
 end  
 
 if command -v node >/dev/null
-    eval "$(fnm env)"
-	set CURRENT_NODE_VERS "$(node --version)"
-	set MEETS_REQ "$(bash $dotfiles_dir/utils/check-version "v16.14.0" "$CURRENT_NODE_VERS")"
-	if [ "$MEETS_REQ" != "passed" ]
-        and [ -x "$(command -v fnm)" ]
-		fnm use --install-if-missing 16.14 2>&1 >/dev/null
-	end
+  eval "$(fnm env)"
+  set CURRENT_NODE_VERS "$(node --version)"
+  set MEETS_REQ "$(bash $dotfiles_dir/utils/check-version "v16.14.0" "$CURRENT_NODE_VERS")"
+  if [ "$MEETS_REQ" != "passed" ]
+    and [ -x "$(command -v fnm)" ]
+    fnm use --install-if-missing 16.14 2>&1 >/dev/null
+  end
+end
+
+if test -z "$VIM"; and test -z "$TMUX"
+  if test -n "$KROGER"
+    kwc
+  else
+    tmux new-session
+  end
 end
 
