@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# This script installs any missing global node.js packages,
+# mostly language servers and utilities. Needs to be re-run
+# after updating to a new/different node.js version, e.g.
+# with fnm or nvm
+if ! command -v yarn > /dev/null; then
+  npm install -g yarn
+fi
+
+if ! command -v ts-node > /dev/null; then
+  npm install -g ts-node
+fi
+
+if ! command -v serve > /dev/null; then
+  npm install -g serve
+fi
+
+if ! command -v typescript-language-server > /dev/null; then
+  npm install -g typescript-language-server
+fi
+
+if ! command -v prettierd > /dev/null; then
+  npm install -g prettierd
+fi
+
+if ! command -v bash-language-server > /dev/null; then
+  npm install -g bash-language-server
+fi
+
+# This is for (s)css, JSON, HTML, eslint
+if ! command -v vscode-langservers-extracted > /dev/null; then
+  npm i -g vscode-langservers-extracted
+fi

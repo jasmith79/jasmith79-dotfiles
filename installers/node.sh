@@ -17,18 +17,10 @@ if ! command -v fnm > /dev/null; then
   # if it just got installed
   ~/.cargo/bin/cargo install fnm
   eval "$(fnm env)"
-  ~/.cargo/bin/fnm use --install-if-missing 14 # current LTS
+  ~/.cargo/bin/fnm use --install-if-missing 18 # current LTS
 fi
 
-if ! command -v yarn > /dev/null; then
-  npm install -g yarn
-fi
-
-if ! command -v ts-node > /dev/null; then
-  npm install -g ts-node
-fi
-
-if ! command -v serve > /dev/null; then
-  npm install -g serve
+if command -v update-node-global-pkgs > /dev/null; then
+  update-node-global-pkgs
 fi
 

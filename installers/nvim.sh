@@ -62,14 +62,6 @@ if ! command -v nvim > /dev/null; then
     sudo -u "$user" brew install tree-sitter
 	sudo -u "$user" python3 -m pip install -U jedi-language-server
 
-    # NOTE if using fnm or nvm need to do this
-    # after installing and switching to new versions
-    sudo -u "$user" npm install -g typescript-language-server
-    # need this for autosave formatting
-    sudo -u "$user" npm install -g @fsouza/prettierd
-    sudo -u "$user" npm install -g bash-language-server
-    # This is for (s)css, JSON, HTML, eslint
-    sudo -u "$user" npm i -g vscode-langservers-extracted
     sudo -u "$user" brew install lua-languague-server
     # The curl isn't working, just grabbing 0 bytes. TODO: fix. For now,
     # doin' it by hand.
