@@ -8,6 +8,6 @@ if [ -n "$TMUX" ]; then
     tmux attach -t kwc
 else
     # this shouldn't be needed but for some reason MacOS doesn't source this
-    tmux new-session -A -s kwc -f "$HOME/.config/tmux/tmux.conf"
+    tmux new-session -A -s kwc
 fi
 
