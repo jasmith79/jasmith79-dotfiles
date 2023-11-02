@@ -141,7 +141,8 @@ if test -z "$VIM"; and test -z "$TMUX"
   if test -n "$KROGER"
     kwc
   else
-    tmux new-session
+    # this shouldn't be needed but for some reason MacOS doesn't source this
+    tmux -f "$HOME/.config/tmux/tmux.conf" new-session
   end
 end
 
