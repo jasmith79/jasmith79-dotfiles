@@ -60,8 +60,9 @@ if ! command -v nvim > /dev/null; then
   if command -v brew > /dev/null; then
     sudo -u "$user" brew install neovim
     sudo -u "$user" brew install tree-sitter
-	sudo -u "$user" python3 -m pip install -U jedi-language-server
+    sudo -u "$user" python3 -m pip install -U jedi-language-server
 
+    sudo -u "$user" brew install ccls # c, c++ lang server
     sudo -u "$user" brew install lua-languague-server
     # The curl isn't working, just grabbing 0 bytes. TODO: fix. For now,
     # doin' it by hand.
