@@ -61,7 +61,6 @@ return packer.startup(function(use)
 		"rose-pine/neovim",
 		as = "rose-pine",
 	})
-	use({ "ranjithshegde/ccls.nvim" })
 
 	-- Autoload plugins on fresh install
 	if packer_bootstrap then
