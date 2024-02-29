@@ -24,7 +24,6 @@ try:
     with open('/usr/share/dict/words') as f_handle:
         words = [w.rstrip() for w in f_handle if w and filterer(w)]
         length = len(words)
-        print(length)
         output = ''
         for _ in range(arg_words):
             i = rng.randrange(0, length)
