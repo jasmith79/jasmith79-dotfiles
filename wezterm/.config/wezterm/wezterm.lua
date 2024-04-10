@@ -33,4 +33,6 @@ config.hide_tab_bar_if_only_one_tab = true
 
 config.disable_default_mouse_bindings = true
 config.default_cwd = wezterm.home_dir
+config.enable_scroll_bar = true
+config.scrollback_lines = 2000
 return config
