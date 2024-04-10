@@ -110,6 +110,13 @@ if set -q PYVERS
   fish_add_path "/Users/$USER/Library/Python/$PYVERS/bin"
 end
 
+if test -d "/opt/homebrew/opt/openssl@3"
+  fish_add_path "/opt/homebrew/opt/openssl@3/bin"
+  export LDFLAGS="-L /opt/homebrew/opt/openssl@3/lib"
+  export CPPFLAGS="-I /opt/homebrew/opt/openssl@3/include"
+  export PKG_CONFIG_PATH="/opt/homebrew/opt/openssl@3/lib/pkgconfig"
+end
+
 # colored GCC warnings and errors
 set GCC_COLORS "error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01"
 
@@ -145,3 +152,6 @@ if test -z "$VIM"; and test -z "$TMUX"
   end
 end
 
+if test -f "$HOME/.kroger"
+  source "$HOME/.kroger"
+end
