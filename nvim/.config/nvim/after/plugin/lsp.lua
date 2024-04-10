@@ -142,5 +142,6 @@ lspconfig.hls.setup(config({
 }))
 
 require("lspconfig").clangd.setup(config({}))
+require("lspconfig").swift_mesonls.setup(config({}))
 
 vim.g.neoformat_try_node_exe = 1
