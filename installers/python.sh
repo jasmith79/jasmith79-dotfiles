@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
-
 dotfiles_dir="$(dirname "$(dirname "$(readlink -f "$0")")")"
-os=$(bash "$dotfiles_dir/utils/get-platform")
-
 source "$dotfiles_dir/utils/install-pkg.sh"
 
 # MacOS is usually a version or two behind, Ubuntu LTS several
