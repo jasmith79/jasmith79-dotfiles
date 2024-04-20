@@ -17,6 +17,7 @@ pushd /tmp || exit 1
 
 if ! command -v clj >/dev/null; then
   if [ "$os" = "macos" ]; then
+    # TODO, add tooling to linux install
     install-pkg clojure/tools/clojure
     install-pkg planck # nodejs cljs repl
     install-pkg nbb    # babashka, but for node cljs scripts
