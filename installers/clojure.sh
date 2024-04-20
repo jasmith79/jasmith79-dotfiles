@@ -18,6 +18,9 @@ pushd /tmp || exit 1
 if ! command -v clj >/dev/null; then
   if [ "$os" = "macos" ]; then
     install-pkg clojure/tools/clojure
+    install-pkg planck # nodejs cljs repl
+    install-pkg nbb    # babashka, but for node cljs scripts
+    install-pkg borkdude/brew/babashka
   elif [[ "$os" =~ "ubuntu" ]]; then
     curl -O https://download.clojure.org/install/linux-install-1.10.3.1029.sh
     chmod +x linux-install-1.10.3.1029.sh
