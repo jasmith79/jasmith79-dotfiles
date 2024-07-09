@@ -20,7 +20,7 @@ if ! command -v typescript-language-server > /dev/null; then
 fi
 
 if ! command -v prettierd > /dev/null; then
-  npm install -g prettierd
+  npm install -g @fsouza/prettierd
 fi
 
 if ! command -v bash-language-server > /dev/null; then
