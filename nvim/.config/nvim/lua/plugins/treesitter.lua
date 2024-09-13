@@ -36,6 +36,7 @@ require'nvim-treesitter.configs'.setup {
 	  "bash",
 	  "markdown",
 	  "clojure",
+	  "fennel",
 	  "haskell",
 	  "rust",
 	  "dot",
