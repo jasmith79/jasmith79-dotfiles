@@ -1,40 +1,35 @@
-vim.opt.nu = true
-vim.opt.splitright = true
-vim.opt.splitbelow = true
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
-vim.opt.hlsearch = false
-vim.opt.smartindent = true
-vim.opt.swapfile = false
-vim.opt.backup = false
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
-vim.opt.undofile = true
-vim.opt.termguicolors = true
-vim.opt.signcolumn = "yes"
-vim.opt.cmdheight = 1
-vim.opt.updatetime = 50
-vim.opt.colorcolumn = "80"
-vim.opt.textwidth = 120
-vim.opt.shortmess:append("c") -- Needed for nvim-cmp completion
-vim.g.mapleader = " "
-
--- Format files on save if the lsp knows what to do with them
-vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
-
--- don't need these in neovim?
--- vim.opt.splitbelow = true
--- vim.opt.splitright = true
+vim.opt.number = true
+vim.opt.mouse = "a"
+vim.opt.showmode = false
 -- use system clipboard. On windows should be unnamed instead of unnamedplus
 vim.opt.clipboard = "unnamedplus"
+vim.opt.breakindent = true
+vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.undofile = true
+vim.opt.swapfile = false
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.signcolumn = "yes"
+vim.opt.updatetime = 250
+vim.opt.timeoutlen = 300
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+-- don't need this in neovim?
+-- vim.opt.termguicolors = true
 
--- show matches while typing search pattern
--- think this is on by default in neovim?
--- vim.opt.incsearch = true
+vim.opt.colorcolumn = "80"
+vim.opt.textwidth = 120
 
--- highlights matching [({
-vim.opt.showmatch = true
+-- Preview substitutions live, as you type!
+vim.opt.inccommand = "split"
+-- vim.opt.cursorline = true
 
--- keep minimun of 4 lines visible on either side of cursor
-vim.opt.scrolloff = 4
+-- Minimal number of screen lines to keep above and below the cursor.
+vim.opt.scrolloff = 10
+
+-- Set highlight on search, but clear on pressing <Esc> in normal mode
+vim.opt.hlsearch = true
+
+-- default is too low, breaks comment.nvim among other things
+vim.timeoutlen = 1000
+vim.opt.background = "dark"

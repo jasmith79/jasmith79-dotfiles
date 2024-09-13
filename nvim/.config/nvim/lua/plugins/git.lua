@@ -1,85 +1,76 @@
-local neogit = require('neogit')
-local nnoremap = require('jsmith.keymap').nnoremap
+return {
+	{
+		"lewis6991/gitsigns.nvim",
+		opts = {
+			signs = {
+				add = { text = "+" },
+				change = { text = "~" },
+				delete = { text = "_" },
+				topdelete = { text = "‾" },
+				changedelete = { text = "~" },
+			},
+			on_attach = function(bufnr)
+				local gitsigns = require("gitsigns")
 
-neogit.setup {
-  -- disable_signs = false,
-  -- disable_hint = false,
-  -- disable_context_highlighting = false,
-  -- disable_commit_confirmation = false,
-  -- -- Neogit refreshes its internal state after specific events, which can be expensive depending on the repository size. 
-  -- -- Disabling `auto_refresh` will make it so you have to manually refresh the status after you open it.
-  -- auto_refresh = true,
-  -- disable_builtin_notifications = false,
-  -- use_magit_keybindings = false,
-  -- -- Change the default way of opening neogit
-  -- kind = "tab",
-  -- -- Change the default way of opening the commit popup
-  -- commit_popup = {
-  --   kind = "split",
-  -- },
-  -- -- Change the default way of opening popups
-  -- popup = {
-  --   kind = "split",
-  -- },
-  -- -- customize displayed signs
-  -- signs = {
-  --   -- { CLOSED, OPENED }
-  --   section = { ">", "v" },
-  --   item = { ">", "v" },
-  --   hunk = { "", "" },
-  -- },
-  integrations = {
-    -- Neogit only provides inline diffs. If you want a more traditional way to look at diffs, you can use `sindrets/diffview.nvim`.
-    -- The diffview integration enables the diff popup, which is a wrapper around `sindrets/diffview.nvim`.
-    --
-    -- Requires you to have `sindrets/diffview.nvim` installed.
-    -- use { 
-    --   'TimUntersberger/neogit', 
-    --   requires = { 
-    --     'nvim-lua/plenary.nvim',
-    --     'sindrets/diffview.nvim' 
-    --   }
-    -- }
-    --
-    diffview = true
-  },
-  -- Setting any section to `false` will make the section not render at all
-  -- sections = {
-  --   untracked = {
-  --     folded = false
-  --   },
-  --   unstaged = {
-  --     folded = false
-  --   },
-  --   staged = {
-  --     folded = false
-  --   },
-  --   stashes = {
-  --     folded = true
-  --   },
-  --   unpulled = {
-  --     folded = true
-  --   },
-  --   unmerged = {
-  --     folded = false
-  --   },
-  --   recent = {
-  --     folded = true
-  --   },
-  -- },
-  -- override/add mappings
---   mappings = {
---     -- modify status buffer mappings
---     status = {
---       -- Adds a mapping with "B" as key that does the "BranchPopup" command
---       ["B"] = "BranchPopup",
---       -- Removes the default mapping of "s"
---       ["s"] = "",
---     }
---   }
+				local function map(mode, l, r, opts)
+					opts = opts or {}
+					opts.buffer = bufnr
+					vim.keymap.set(mode, l, r, opts)
+				end
+
+				-- Navigation
+				map("n", "]c", function()
+					if vim.wo.diff then
+						vim.cmd.normal({ "]c", bang = true })
+					else
+						gitsigns.nav_hunk("next")
+					end
+				end, { desc = "Jump to next git [c]hange" })
+
+				map("n", "[c", function()
+					if vim.wo.diff then
+						vim.cmd.normal({ "[c", bang = true })
+					else
+						gitsigns.nav_hunk("prev")
+					end
+				end, { desc = "Jump to previous git [c]hange" })
+
+				-- I tend to use neogit to visually do this, but leaving
+				-- in case I change my mind to integrate more tightly
+				-- Actions
+				-- visual mode
+				-- map("v", "<leader>hs", function()
+				-- 	gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+				-- end, { desc = "stage git hunk" })
+				-- map("v", "<leader>hr", function()
+				-- 	gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+				-- end, { desc = "reset git hunk" })
+				-- -- normal mode
+				-- map("n", "<leader>hs", gitsigns.stage_hunk, { desc = "git [s]tage hunk" })
+				-- map("n", "<leader>hr", gitsigns.reset_hunk, { desc = "git [r]eset hunk" })
+				-- map("n", "<leader>hS", gitsigns.stage_buffer, { desc = "git [S]tage buffer" })
+				-- map("n", "<leader>hu", gitsigns.undo_stage_hunk, { desc = "git [u]ndo stage hunk" })
+				-- map("n", "<leader>hR", gitsigns.reset_buffer, { desc = "git [R]eset buffer" })
+				-- map("n", "<leader>hp", gitsigns.preview_hunk, { desc = "git [p]review hunk" })
+				-- map("n", "<leader>hb", gitsigns.blame_line, { desc = "git [b]lame line" })
+				-- map("n", "<leader>hd", gitsigns.diffthis, { desc = "git [d]iff against index" })
+				-- map("n", "<leader>hD", function()
+				-- 	gitsigns.diffthis("@")
+				-- end, { desc = "git [D]iff against last commit" })
+				-- -- Toggles
+				map("n", "<leader>tb", gitsigns.toggle_current_line_blame, { desc = "[T]oggle git show [b]lame line" })
+				map("n", "<leader>tD", gitsigns.toggle_deleted, { desc = "[T]oggle git show [D]eleted" })
+			end,
+		},
+	},
+	{
+		"NeogitOrg/neogit",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"sindrets/diffview.nvim",
+			"nvim-telescope/telescope.nvim",
+		},
+		config = true,
+		keys = { { "<leader>gs", "<cmd>Neogit<cr>", desc = "Open Neogit" } },
+	},
 }
-
-nnoremap("<leader>gs", function()
-    neogit.open({ })
-end)
-
