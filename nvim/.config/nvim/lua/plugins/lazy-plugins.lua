@@ -1,69 +1,78 @@
--- Install packer if not present
---
---
-local fn = vim.fn
-local packer = require("packer")
-local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-if fn.empty(fn.glob(install_path)) > 0 then
-	packer_bootstrap = fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
-	vim.cmd [[packadd packer.nvim]]
-end
+return {
+	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
+	{
+		"mrcjkb/rustaceanvim",
+		version = "^5", -- Recommended
+		lazy = false, -- This plugin is already lazy
+	},
+	-- "gc" to comment visual regions/lines
+	{ "numToStr/Comment.nvim", opts = {} },
+	{ -- Useful plugin to show you pending keybinds.
+		"folke/which-key.nvim",
+		event = "VimEnter", -- Sets the loading event to 'VimEnter'
+		config = function() -- This is the function that runs, AFTER loading
+			require("which-key").setup()
+			-- Document existing key chains
+			require("which-key").add({
+				{ "<leader>c", group = "[C]ode" },
+				{ "<leader>c_", hidden = true },
+				{ "<leader>d", group = "[D]ocument" },
+				{ "<leader>d_", hidden = true },
+				{ "<leader>h", group = "Git [H]unk" },
+				{ "<leader>h_", hidden = true },
+				{ "<leader>r", group = "[R]ename" },
+				{ "<leader>r_", hidden = true },
+				{ "<leader>s", group = "[S]earch" },
+				{ "<leader>s_", hidden = true },
+				{ "<leader>t", group = "[T]oggle" },
+				{ "<leader>t_", hidden = true },
+				{ "<leader>w", group = "[W]orkspace" },
+				{ "<leader>w_", hidden = true },
+			})
+			-- visual mode
+			require("which-key").add({
+				{ "<leader>h", desc = "Git [H]unk", mode = "v" },
+			})
+		end,
+	},
+	{
+		"folke/todo-comments.nvim",
+		event = "VimEnter",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		opts = { signs = false },
+	},
+	{ -- Collection of various small independent plugins/modules
+		"echasnovski/mini.nvim",
+		config = function()
+			-- Better Around/Inside textobjects
+			--
+			-- Examples:
+			--  - va)  - [V]isually select [A]round [)]paren
+			--  - yinq - [Y]ank [I]nside [N]ext [']quote
+			--  - ci'  - [C]hange [I]nside [']quote
+			require("mini.ai").setup({ n_lines = 500 })
 
-return packer.startup(function(use)
-	use("github/copilot.vim")
-	use("sbdchd/neoformat")
-	use("wbthomason/packer.nvim")
-	use({
-		"windwp/nvim-autopairs",
-		config = function() require("nvim-autopairs").setup {} end
-	})
-	use("tomtom/tcomment_vim")
-	use("nvim-lua/plenary.nvim")
-	use("nvim-lua/popup.nvim")
-	use("nvim-telescope/telescope.nvim")
-	use("neovim/nvim-lspconfig")
-	use("hrsh7th/cmp-nvim-lsp")
-	use("hrsh7th/cmp-buffer")
-	use("hrsh7th/nvim-cmp")
-	use("nvim-lua/lsp_extensions.nvim")
-	use("L3MON4D3/LuaSnip")
-	use("saadparwaiz1/cmp_luasnip")
-	use 'tpope/vim-sleuth'
-	use(
-		"nvim-treesitter/nvim-treesitter",
-		{
-			run = ":TSUpdate"
-		}
-	)
-	use("nvim-treesitter/playground")
-	use("kyazdani42/nvim-web-devicons")
-	use({
-		"nvim-lualine/lualine.nvim",
-		requires = { "kyazdani42/nvim-web-devicons", opt = true }
-	})
-	use({
-		"TimUntersberger/neogit",
-		requires = {
-			"nvim-lua/plenary.nvim",
-		}
-	})
-	use('jose-elias-alvarez/null-ls.nvim')
-	use('MunifTanjim/prettier.nvim')
-	use { 'tzachar/cmp-tabnine', run = './install.sh', requires = 'hrsh7th/nvim-cmp' }
+			-- Add/delete/replace surroundings (brackets, quotes, etc.)
+			--
+			-- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
+			-- - sd'   - [S]urround [D]elete [']quotes
+			-- - sr)'  - [S]urround [R]eplace [)] [']
+			require("mini.surround").setup()
 
-	-- colorschemes
-	use("folke/tokyonight.nvim")
-	use("cocopon/iceberg.vim")
-	use("EdenEast/nightfox.nvim")
-	use({ "catppuccin/nvim", as = "catppuccin" })
-	use({ "embark-theme/vim", as = "embark" })
-	use({
-		"rose-pine/neovim",
-		as = "rose-pine",
-	})
-
-	-- Autoload plugins on fresh install
-	if packer_bootstrap then
-		packer.sync()
-	end
-end)
+			-- Simple and easy statusline.
+			--  You could remove this setup call if you don't like it,
+			--  and try some other statusline plugin
+			-- local statusline = require("mini.statusline")
+			-- -- set use_icons to true if you have a Nerd Font
+			-- statusline.setup({ use_icons = vim.g.have_nerd_font })
+			--
+			-- -- You can configure sections in the statusline by overriding their
+			-- -- default behavior. For example, here we set the section for
+			-- -- cursor location to LINE:COLUMN
+			-- ---@diagnostic disable-next-line: duplicate-set-field
+			-- statusline.section_location = function()
+			-- 	return "%2l:%-2v"
+			-- end
+		end,
+	},
+}
