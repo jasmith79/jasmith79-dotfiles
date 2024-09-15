@@ -144,15 +144,15 @@ end
 
 # We want to start tmux but only if we're not in an integrated
 # terminal and it isn't already running.
-if test -z "$VIM"; and test -z "$TMUX"
-  # If at work start/attach to main project, otherwise just run
-  # a new session.
-  if test -n "$KROGER"
-    kwc
-  else
-    tmux new-session
-  end
-end
+# if test -z "$VIM"; and test -z "$TMUX"
+#   # If at work start/attach to main project, otherwise just run
+#   # a new session.
+#   if test -n "$KROGER"
+#     kwc
+#   else
+#     tmux new-session
+#   end
+# end
 
 if test -f "$HOME/.kroger"
   source "$HOME/.kroger"
