@@ -33,3 +33,7 @@ vim.opt.hlsearch = true
 -- default is too low, breaks comment.nvim among other things
 vim.timeoutlen = 1000
 vim.opt.background = "dark"
+
+-- stylua enforces tabs, so fine I guess I'll set tabstop
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
