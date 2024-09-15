@@ -1,6 +1,8 @@
 #!/usr/bin/fish
 set dotfiles_dir "$(dirname $(dirname $(dirname $(dirname (readlink -m (status --current-filename))))))"
 
+set MOST_RECENT_COREUTILS "$(bash $dotfiles_dir/utils/latest-coreutils)"
+
 # import aliases
 . ~/.aliases
 
@@ -85,7 +87,7 @@ fish_add_path "$HOME/.cargo/bin"
 # over the POSIX ones so I have consistent behavior
 # between Linux and MacOS
 fish_add_path "/usr/local/opt/coreutils/libexec/gnubin"
-fish_add_path "/opt/homebrew/Cellar/coreutils/9.1/libexec/gnubin"
+fish_add_path "/opt/homebrew/Cellar/coreutils/$MOST_RECENT_COREUTILS/libexec/gnubin"
 
 # envars
 if test "$TERM" = "xterm"
