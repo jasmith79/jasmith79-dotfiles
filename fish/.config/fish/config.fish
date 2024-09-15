@@ -1,4 +1,4 @@
-#!/usr/bin/fish
+!/usr/bin/fish
 set dotfiles_dir "$(dirname $(dirname $(dirname $(dirname (readlink -m (status --current-filename))))))"
 
 set MOST_RECENT_COREUTILS "$(bash $dotfiles_dir/utils/latest-coreutils)"
@@ -135,10 +135,10 @@ end
 if command -v node >/dev/null
   eval "$(fnm env)"
   set CURRENT_NODE_VERS "$(node --version)"
-  set MEETS_REQ "$(bash $dotfiles_dir/utils/check-version "v18.17.0" "$CURRENT_NODE_VERS")"
+  set MEETS_REQ "$(bash $dotfiles_dir/utils/check-version "v20.13.1" "$CURRENT_NODE_VERS")"
   if [ "$MEETS_REQ" != "passed" ]
     and [ -x "$(command -v fnm)" ]
-    fnm use --install-if-missing 18.17 2>&1 >/dev/null
+    fnm use --install-if-missing 20 2>&1 >/dev/null
   end
 end
 
