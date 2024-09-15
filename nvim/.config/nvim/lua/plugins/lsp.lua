@@ -239,5 +239,13 @@ return {
 				end,
 			},
 		})
+
+		-- Mason doesn't like this being in the regular list of servers
+		-- because it isn't in the registry.
+		require("lspconfig").fish_lsp.setup({
+			cmd = { "fish-lsp", "start" },
+			filetypes = { "fish" },
+			settings = {},
+		})
 	end,
 }

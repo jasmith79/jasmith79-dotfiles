@@ -8,14 +8,22 @@ source "$dotfiles_dir/utils/install-pkg.sh"
 source "$dotfiles_dir/utils/ensure-stow.sh"
 source "$dotfiles_dir/utils/pushpop.sh"
 
-if ! command -v fish > /dev/null; then
+if ! command -v fish >/dev/null; then
   install-pkg "fish"
   pushd /tmp
-  curl -L https://get.oh-my.fish > omfish
+  curl -L https://get.oh-my.fish >omfish
 
   # Not sure if this creates a race condition
   # for writing the omf conf...
   fish omfish &>/dev/null &
+  popd
+fi
+
+if ! command -v fish-lsp >/dev/null; then
+  mkdir -p /opt/programs
+  pushd /opt/programs
+  git clone https://github.com/ndonfris/fish-lsp.git && cd fish-lsp
+  yarn
   popd
 fi
 
@@ -35,4 +43,3 @@ pushd "$dotfiles_dir"
 stow -D fish
 stow fish
 popd
-
