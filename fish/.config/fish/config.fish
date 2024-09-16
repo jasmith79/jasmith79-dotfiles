@@ -1,5 +1,7 @@
-#!/usr/bin/fish
+!/usr/bin/fish
 set dotfiles_dir "$(dirname $(dirname $(dirname $(dirname (readlink -m (status --current-filename))))))"
+
+set MOST_RECENT_COREUTILS "$(bash $dotfiles_dir/utils/latest-coreutils)"
 
 # import aliases
 . ~/.aliases
@@ -85,7 +87,7 @@ fish_add_path "$HOME/.cargo/bin"
 # over the POSIX ones so I have consistent behavior
 # between Linux and MacOS
 fish_add_path "/usr/local/opt/coreutils/libexec/gnubin"
-fish_add_path "/opt/homebrew/Cellar/coreutils/9.1/libexec/gnubin"
+fish_add_path "/opt/homebrew/Cellar/coreutils/$MOST_RECENT_COREUTILS/libexec/gnubin"
 
 # envars
 if test "$TERM" = "xterm"
@@ -133,24 +135,24 @@ end
 if command -v node >/dev/null
   eval "$(fnm env)"
   set CURRENT_NODE_VERS "$(node --version)"
-  set MEETS_REQ "$(bash $dotfiles_dir/utils/check-version "v18.17.0" "$CURRENT_NODE_VERS")"
+  set MEETS_REQ "$(bash $dotfiles_dir/utils/check-version "v20.13.1" "$CURRENT_NODE_VERS")"
   if [ "$MEETS_REQ" != "passed" ]
     and [ -x "$(command -v fnm)" ]
-    fnm use --install-if-missing 18.17 2>&1 >/dev/null
+    fnm use --install-if-missing 20 2>&1 >/dev/null
   end
 end
 
 # We want to start tmux but only if we're not in an integrated
 # terminal and it isn't already running.
-if test -z "$VIM"; and test -z "$TMUX"
-  # If at work start/attach to main project, otherwise just run
-  # a new session.
-  if test -n "$KROGER"
-    kwc
-  else
-    tmux new-session
-  end
-end
+# if test -z "$VIM"; and test -z "$TMUX"
+#   # If at work start/attach to main project, otherwise just run
+#   # a new session.
+#   if test -n "$KROGER"
+#     kwc
+#   else
+#     tmux new-session
+#   end
+# end
 
 if test -f "$HOME/.kroger"
   source "$HOME/.kroger"

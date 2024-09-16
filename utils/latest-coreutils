@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# Grab all available versions of coreutils
+CORE_UTIL_VERS=()
+while IFS= read -r -d $'\0'; do
+	CORE_UTIL_VERS+=("$REPLY")
+done < <(find "/opt/homebrew/Cellar/coreutils" -mindepth 1 -maxdepth 1 -type d -print0)
+
+MOST_RECENT="0"
+for item in "${CORE_UTIL_VERS[@]}"; do
+	CURRENT=$(basename "$item")
+	if (($(echo "$CURRENT > $MOST_RECENT" | bc -l))); then
+		MOST_RECENT=$CURRENT
+	fi
+done
+
+echo "$MOST_RECENT"
+# vi: ft=bash

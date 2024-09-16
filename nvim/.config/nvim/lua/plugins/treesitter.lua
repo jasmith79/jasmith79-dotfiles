@@ -22,7 +22,6 @@ return {
 			"graphql",
 			"ruby",
 			"http",
-			"fish",
 			"prisma",
 			"php",
 			"java",
