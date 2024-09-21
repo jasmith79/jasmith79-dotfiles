@@ -2,7 +2,7 @@
 dotfiles_dir="$(dirname "$(dirname "$(readlink -f "$0")")")"
 os=$(bash "$dotfiles_dir/utils/get-platform")
 arch=$(arch)
-url="https://github.com/JCWasmx86/mesonlsp/releases/download/v4.1.8"
+url="https://github.com/JCWasmx86/mesonlsp/releases/download/v4.1.2"
 pkg=""
 
 if ! command -v mesonlsp >/dev/null; then
