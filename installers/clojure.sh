@@ -7,7 +7,7 @@ os="$(bash $dotfiles_dir/utils/get-platform)"
 source "$dotfiles_dir/utils/install-pkg.sh"
 source "$dotfiles_dir/utils/pushpop.sh"
 
-if ! command -v javac > /dev/null; then
+if ! command -v javac >/dev/null; then
   source "$dotfiles_dir/installers/java.sh"
 fi
 
@@ -22,6 +22,7 @@ if ! command -v clj >/dev/null; then
     install-pkg planck # nodejs cljs repl
     install-pkg nbb    # babashka, but for node cljs scripts
     install-pkg borkdude/brew/babashka
+    install-pkg borkdude/brew/clj-kondo
   elif [[ "$os" =~ "ubuntu" ]]; then
     curl -O https://download.clojure.org/install/linux-install-1.10.3.1029.sh
     chmod +x linux-install-1.10.3.1029.sh
