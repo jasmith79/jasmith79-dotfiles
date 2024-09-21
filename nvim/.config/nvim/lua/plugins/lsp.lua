@@ -213,12 +213,13 @@ return {
 			"marksman",
 			"mdx-analyzer",
 			"gopls",
+			-- replaced with rustacean.nvim
 			-- "rust-analyzer",
 			"dockerfile-language-server",
+			-- FIXME: haskell server not working?
 			-- "haskell-language-server",
 			"html-lsp",
 			"css-lsp",
-			"tailwindcss-language-server",
 			"typescript-language-server",
 			"yaml-language-server",
 			"yamlfix",
