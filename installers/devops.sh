@@ -7,7 +7,7 @@ source "$dotfiles_dir/utils/ensure-brew.sh"
 source "$dotfiles_dir/utils/update-apt.sh"
 source "$dotfiles_dir/utils/pushpop.sh"
 
-if ! command -v vagrant > /dev/null; then
+if ! command -v vagrant >/dev/null; then
   if [ "$os" = "Darwin" ]; then
     ensure-brew
     brew install --cask virtualbox
@@ -29,24 +29,25 @@ if ! command -v vagrant > /dev/null; then
   fi
 fi
 
-if ! command -v ansible-playbook > /dev/null; then
-  if ! command -v pip3 > /dev/null; then
+if ! command -v ansible-playbook >/dev/null; then
+  if ! command -v pip3 >/dev/null; then
     bash "$dotfiles_dir/installers/python.sh"
   fi
 
   python3 -m pip install --user ansible
 fi
 
-if ! command -v docker > /dev/null; then
+if ! command -v docker >/dev/null; then
   if [ "$os" = "Darwin" ]; then
     ensure-brew
     brew cask install docker
+    brew install hadolint # linting for Dockerfiles
   elif [[ "$os" =~ "ubuntu" ]]; then
     update-apt
     sudo apt install -y ca-certificates curl gnupg lsb-release
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-      $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+      $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
     sudo apt-get update
     sudo apt install -y docker-ce docker-ce-cli containerd.io
   elif [ "$os" = "arch" ]; then
@@ -58,7 +59,7 @@ if ! command -v docker > /dev/null; then
   fi
 fi
 
-if ! command -v terraform > /dev/null; then
+if ! command -v terraform >/dev/null; then
   if [ "$os" = "Darwin" ]; then
     ensure-brew
     brew tap hashicorp/tap
@@ -78,7 +79,7 @@ if ! command -v terraform > /dev/null; then
   fi
 fi
 
-if ! command -v aws > /dev/null; then
+if ! command -v aws >/dev/null; then
   if [ "$os" = "Darwin" ]; then
     pushd /tmp || exit 1
     curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
@@ -102,7 +103,7 @@ if ! command -v aws > /dev/null; then
 fi
 
 # Azure
-if ! command -v az > /dev/null; then
+if ! command -v az >/dev/null; then
   if [ "$os" = "Darwin" ]; then
     brew install azure-cli
   elif [[ "$os" =~ "ubuntu" ]]; then
