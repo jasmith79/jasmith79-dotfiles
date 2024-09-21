@@ -213,6 +213,7 @@ return {
 			"marksman",
 			"mdx-analyzer",
 			"gopls",
+			"clojure-lsp",
 			-- replaced with rustacean.nvim
 			-- "rust-analyzer",
 			"dockerfile-language-server",
