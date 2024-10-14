@@ -37,3 +37,7 @@ vim.opt.background = "dark"
 -- stylua enforces tabs, so fine I guess I'll set tabstop
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
+
+-- prevents the insertion of newlines in freeform text like markdown files
+-- see :help fo-table for all the options
+vim.opt.formatoptions:remove("t")
