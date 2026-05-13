@@ -3,4 +3,5 @@ if test -e $HOME/.cargo/env.fish
     source $HOME/.cargo/env.fish
 end
 
-hsif v
+# This causes problems on Tahoe?
+# hsif v
