@@ -1,7 +1,7 @@
 return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
-		{ "williamboman/mason.nvim", config = true }, -- NOTE: Must be loaded before dependants
+		{ "williamboman/mason.nvim", config = true }, -- NOTE: Must be loaded before dependents
 		"williamboman/mason-lspconfig.nvim",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		{ "j-hui/fidget.nvim", opts = {} },
@@ -237,14 +237,14 @@ return {
 					-- by the server configuration above. Useful when disabling
 					-- certain features of an LSP (for example, turning off formatting for tsserver)
 					server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-					require("lspconfig")[server_name].setup(server)
+					vim.lsp.config(server_name, server)
 				end,
 			},
 		})
 
 		-- Mason doesn't like this being in the regular list of servers
 		-- because it isn't in the registry.
-		require("lspconfig").fish_lsp.setup({
+		vim.lsp.config("fish_lsp", {
 			cmd = { "fish-lsp", "start" },
 			filetypes = { "fish" },
 			settings = {},
